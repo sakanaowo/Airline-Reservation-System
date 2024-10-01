@@ -48,18 +48,18 @@ src
 │   ├── Login.java          # Handles user login operations
 │   └── NewUser.java        # Handles new user registration functionality
 │
-├── models
+├── Models
 │   ├── Flight.java         # Represents a flight entity with attributes like flight number, origin, destination, etc.
 │   ├── Passenger.java      # Represents a passenger entity with relevant attributes
 │   ├── Ticket.java         # Represents the ticket entity associated with a passenger and flight
 │   ├── Reservation.java    # Manages reservation logic connecting passengers to flights
 │   └── User.java           # Represents a user in the system (either a customer or an admin)
 │
-└── system
+└── System
 │   ├── AirlineSystem.java  # Core system operations, initialization, and high-level management
 │   ├── FlightManager.java  # Manages all flight-related operations (e.g., adding, updating, removing flights)
 │   └── ReservationManager.java # Manages reservation operations including booking and cancellations
-│---README.md
+└──README.md
 ```
 
 ### Explanation of Key Components:
