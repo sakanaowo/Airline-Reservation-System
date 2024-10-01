@@ -78,7 +78,7 @@ src
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/sakanaowo/Airtline-reservation-system.git
+   git clone https://github.com/sakanaowo/Airline-Reservation-System
    cd airline-reservation-system
    ```
 
@@ -125,5 +125,5 @@ src
 - **Hoàng Ngọc Đăng Khoa**
 - **Nguyễn Thiên Thịnh**
 - **Trần Minh Tân**
-- **Trần Tiến Dũng**
+- [Trần Tiến Dũng](https://github.com/DungHieu2319)
 ---
