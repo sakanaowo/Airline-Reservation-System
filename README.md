@@ -79,7 +79,7 @@ src
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/sakanaowo/Airline-Reservation-System
-   cd airline-reservation-system
+   cd Airline-Reservation-System
    ```
 
 2. **Compile the Source Code**:
