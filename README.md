@@ -121,8 +121,8 @@ src
 
 ## Contributors
 
-- **Nguyễn Thái Anh**
-- **Hoàng Ngọc Đăng Khoa**
+- [Nguyễn Thái Anh](https://github.com/sakanaowo)
+- [Hoàng Ngọc Đăng Khoa](https://github.com/Solozyyy)
 - **Nguyễn Thiên Thịnh**
 - **Trần Minh Tân**
 - [Trần Tiến Dũng](https://github.com/DungHieu2319)
