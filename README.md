@@ -59,7 +59,7 @@ src
 │   ├── AirlineSystem.java  # Core system operations, initialization, and high-level management
 │   ├── FlightManager.java  # Manages all flight-related operations (e.g., adding, updating, removing flights)
 │   └── ReservationManager.java # Manages reservation operations including booking and cancellations
-└──README.md
+└── README.md
 ```
 
 ### Explanation of Key Components:
