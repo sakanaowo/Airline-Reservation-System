@@ -55,7 +55,7 @@ src
 │   ├── Reservation.java    # Manages reservation logic connecting passengers to flights
 │   └── User.java           # Represents a user in the system (either a customer or an admin)
 │
-└── System
+├── System
 │   ├── AirlineSystem.java  # Core system operations, initialization, and high-level management
 │   ├── FlightManager.java  # Manages all flight-related operations (e.g., adding, updating, removing flights)
 │   └── ReservationManager.java # Manages reservation operations including booking and cancellations
