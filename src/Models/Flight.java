@@ -19,7 +19,8 @@ public class Flight {
     private double price = 103.58;//default price (dollar unit)
     private int rows = 6;
     private int columns = 30;
-
+    private String status;
+ 
     // Constructor để khởi tạo chuyến bay
     public Flight(String flightID, String origin, String destination, String departureTime, String arrivalTime) {
         this.flightID = flightID;
@@ -112,7 +113,8 @@ public class Flight {
         }
     }
 
-    public void setStatus(String status) {
-
+    public void setStatus(boolean status) {
+         if(status) this.status = "May bay da cat canh";
+         else this.status = "May bay dang o duong bang";
     }
 }
