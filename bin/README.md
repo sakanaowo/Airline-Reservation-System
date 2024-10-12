@@ -37,10 +37,8 @@ src
 │
 ├── Data
 │   ├── DBManager.java      # Manages database connections (optional if using database)
-│   └── FileManager.java    # Handles file operations for storing flight, user, and reservation data
 │
 ├── Service
-│   ├── PaymentService.java # Handles payment-related operations
 │   └── UserManager.java    # Manages user-related operations such as login, registration, etc.
 │
 ├── UI
