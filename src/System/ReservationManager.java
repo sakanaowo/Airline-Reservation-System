@@ -11,7 +11,7 @@ public class ReservationManager {
 
     // Constructor
     public ReservationManager() {
-        reservations = new ArrayList<Reservation>();// sẽ có chỉnh sửa
+        reservations = new ArrayList<>();// sẽ có chỉnh sửa
     }
 
     // tạo chỗ mới
