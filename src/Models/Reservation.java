@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 public class Reservation {
     private static int reservationCounter = 0; // Đếm số lượng đặt chỗ
-    private int reservationID;
+    private int reservationID;// cần sửa thành String
     private Passenger passenger;
     private Flight flight;
     private Ticket ticket;
