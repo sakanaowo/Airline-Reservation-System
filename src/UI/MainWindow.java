@@ -12,7 +12,9 @@ public class MainWindow extends JFrame {
 
     public MainWindow() {
         setTitle("Main Window");
-        setSize(640, 426);
+        setSize(1000, 700);
+        setResizable(false);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setupMainWindow();
