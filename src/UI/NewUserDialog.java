@@ -2,6 +2,7 @@ package UI;
 
 import javax.swing.*;
 import java.awt.*;
+import System.UserManager;
 
 public class NewUserDialog extends JDialog {
     private JTextField nameField;

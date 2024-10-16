@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
+import System.UserManager;
 
 public class LoginWindow extends JFrame {
     private JTextField usernameField;
