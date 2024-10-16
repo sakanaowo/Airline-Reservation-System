@@ -23,9 +23,9 @@ public class UserManager {
     private void connectToDatabase() {
         try {
             // Kết nối tới MySQL, cần sửa lại URL, username, password theo cấu hình của bạn
-            String url = "jdbc:mysql://localhost:3306/airline_system";
+            String url = "jdbc:mysql://127.0.0.1:3306/airlinereservationoop";
             String user = "root";
-            String password = "password";  // Nên cấu hình mật khẩu hợp lý hơn
+            String password = "khongbiet";
             connection = DriverManager.getConnection(url, user, password);
             System.out.println("Connected to database.");
         } catch (SQLException e) {
@@ -35,8 +35,9 @@ public class UserManager {
 
     // Kiểm tra người dùng hợp lệ
     public boolean isValidUser(String username, String password) {
-        String hashedPassword = hashPassword(password);
-        return users.containsKey(username) && users.get(username).equals(hashedPassword);
+//        String hashedPassword = hashPassword(password);
+        String hashedPassword = password;
+        return users.containsKey(username.trim()) && users.get(username.trim()).equals(hashedPassword);
     }
 
     // Thêm người dùng mới vào cơ sở dữ liệu và bản đồ (map) nội bộ
@@ -45,7 +46,8 @@ public class UserManager {
             System.out.println("Invalid username or password.");
             return;
         }
-        String hashedPassword = hashPassword(password);
+//        String hashedPassword = hashPassword(password);
+        String hashedPassword = password;
 
         // Thêm vào cơ sở dữ liệu MySQL
         try (PreparedStatement stmt = connection.prepareStatement(
@@ -93,7 +95,7 @@ public class UserManager {
         }
     }
 
-    // Đóng kết nối với cơ sở dữ liệu khi không cần sử dụng nữa
+    // Đóng kết nối với cơ sở dữ liệu khi không sử dụng nữa
     public void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {
