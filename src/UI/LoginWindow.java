@@ -90,14 +90,17 @@ public class LoginWindow extends JFrame {
     }
 
     private void openNewUserDialog() {
-        setVisible(false);
+        setVisible(false);  // Ẩn cửa sổ login khi mở dialog
         NewUserDialog newUserDialog = new NewUserDialog(this, userManager);
+
         newUserDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                 setVisible(true);
             }
         });
+
         newUserDialog.setVisible(true);
     }
+
 }
