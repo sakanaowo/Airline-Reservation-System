@@ -2,19 +2,17 @@ package UI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import javax.imageio.ImageIO;
 
 public class MainWindow extends JFrame {
-    private JLabel mainLabel;
-    private ImageIcon imageIcon;
-    private Image originalImage; // Keep the original image
-
     public MainWindow() {
         setTitle("Main Window");
-        setSize(1000, 700);
-        setResizable(false);
-        setLocationRelativeTo(null);
+        setSize(1120, 700);
+        setResizable(false); // Fixed size
+        setLocationRelativeTo(null); // Center window on screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setupMainWindow();
@@ -22,41 +20,67 @@ public class MainWindow extends JFrame {
     }
 
     private void setupMainWindow() {
-        // Load the image
-        imageIcon = new ImageIcon("images/background.png");
-        originalImage = imageIcon.getImage(); // Save original image for resizing
+        // Background panel
+        String imageURL = "https://i.imgur.com/6ShCP5E.png";
+        BackgroundPanel backgroundPanel = new BackgroundPanel(imageURL);
+        backgroundPanel.setLayout(null); // Use null layout to set fixed positions
 
-        // Create label with the image
-        mainLabel = new JLabel(imageIcon);
-        mainLabel.setHorizontalAlignment(JLabel.CENTER);
-        mainLabel.setVerticalAlignment(JLabel.CENTER);
+        // Main panel
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(null); // Use null layout for positioning
+        mainPanel.setBounds(100, 300, 900, 260); // Set position and size of the tabbed pane panel
 
-        // Add the label to the frame
-        add(mainLabel);
+        // JTabbedPane setup
+        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.setBounds(0, 0, 900, 260); // Set size and position for the tabbed pane
 
-        // Add listener for window resize
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                resizeImage();
-            }
-        });
-    }
+        // Flight panel
+        JPanel FlightPanel = new JPanel();
+        FlightPanel.add(new JLabel("Flight panel"));
+        FlightPanel.add(new JButton("Flight"));
 
-    private void resizeImage() {
-        // lấy kích thước
-        int newWidth = getWidth();
-        int newHeight = getHeight();
+        // Test panel
+        JPanel testPanel = new JPanel();
+        testPanel.add(new JLabel("Test panel"));
+        testPanel.add(new JButton("Test"));
 
-        // căn chỉnh ảnh theo size cửa sổ
-        Image scaledImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-        imageIcon.setImage(scaledImage);
+        // Add tabs to JTabbedPane
+        tabbedPane.add("Flight", FlightPanel);
+        tabbedPane.add("Test", testPanel);
 
-        // Refresh
-        mainLabel.repaint();
+        // Add JTabbedPane directly to mainPanel
+        mainPanel.add(tabbedPane);
+
+        // Add mainPanel to backgroundPanel
+        backgroundPanel.add(mainPanel);
+
+        // Add backgroundPanel to JFrame
+        add(backgroundPanel);
     }
 
     public static void main(String[] args) {
         new MainWindow();
+    }
+
+    // Class to paint background image from URL
+    private class BackgroundPanel extends JPanel {
+        private BufferedImage image;
+
+        public BackgroundPanel(String imageURL) {
+            try {
+                URL url = new URL(imageURL);
+                image = ImageIO.read(url);
+            } catch (IOException e) {
+                System.out.println("Error loading image: " + e.getMessage());
+            }
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            if (image != null) {
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+            }
+        }
     }
 }
