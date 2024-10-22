@@ -1,1 +1,82 @@
 
+import java.sql.*;
+
+public class APIForPassenger {
+    private static final String url = "jdbc:mysql://localhost:3306/AirLineReservation";
+    private static final String user = "root";
+    private static final String pass = "Khoaptit123.";
+    private static Connection con;
+
+    static {
+        try {
+            con = DriverManager.getConnection(url, user, pass);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+     // Thêm hành khách
+    public static void addPassenger(String passengerID, String name, String birthDate, String ethnicity) throws SQLException {
+        String query = "INSERT INTO Passenger (passengerID, name, birthDate, ethnicity) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, passengerID);
+            stmt.setString(2, name);
+            stmt.setString(3, birthDate);
+            stmt.setString(4, ethnicity);
+            stmt.executeUpdate();
+            System.out.println("Passenger added successfully!");
+        }
+    }
+
+    // Sửa thông tin hành khách thônng qua cccd
+    public static void updatePassenger(String passengerID, String name, String birthDate, String ethnicity) throws SQLException {
+        String query = "UPDATE Passenger SET name = ?, birthDate = ?, ethnicity = ? WHERE passengerID = ?";
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, name);
+            stmt.setString(2, birthDate);
+            stmt.setString(3, ethnicity);
+            stmt.setString(4, passengerID);
+            stmt.executeUpdate();
+            System.out.println("Passenger updated successfully!");
+        }
+    }
+
+    // Xóa thông tin hành khách thông qua cccd
+    public static void deletePassenger(String passengerID) throws SQLException {
+        String query = "DELETE FROM Passenger WHERE passengerID = ?";
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, passengerID);
+            stmt.executeUpdate();
+            System.out.println("Passenger deleted successfully!");
+        }
+    }
+
+    // Lấy thôngg tin khách thông qua cccd
+    public static void getPassenger(String passengerID) throws SQLException {
+        String query = "SELECT * FROM Passenger WHERE passengerID = ?";
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, passengerID);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    System.out.println("PassengerID: " + rs.getString("passengerID"));
+                    System.out.println("Name: " + rs.getString("name"));
+                    System.out.println("BirthDate: " + rs.getString("birthDate"));
+                    System.out.println("Ethnicity: " + rs.getString("ethnicity"));
+                } else {
+                    System.out.println("Passenger not found.");
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            addPassenger("P123", "dcminh", "1990-01-01", "meobinh");
+            getPassenger("P123");
+            updatePassenger("P123", "dcmuoi", "1990-01-01", "ocean");
+            deletePassenger("P123");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
