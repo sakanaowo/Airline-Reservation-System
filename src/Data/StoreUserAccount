@@ -1,0 +1,83 @@
+
+package connecttomysql;
+
+import java.sql.*;
+
+public class APIForFlight {
+    private static final String url = "jdbc:mysql://localhost:3306/AirLineReservation";
+    private static final String user = "root";
+    private static final String pass = "Khoaptit123.";
+    private static Connection con;
+
+    static {
+        try {
+            con = DriverManager.getConnection(url, user, pass);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Thêm người dùng
+    public static void addUser(String account, String password, String passenger_id) throws SQLException {
+        String query = "INSERT INTO User (account, password, passenger_id) VALUES (?, ?, ?)";
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, account);
+            stmt.setString(2, password);
+            stmt.setString(3, passenger_id);
+            stmt.executeUpdate();
+            System.out.println("User added successfully!");
+        }
+    }
+
+    // Chỉnh sửa
+    public static void updateUser(String account, String password, String passenger_id, String ticket) throws SQLException {
+        String query = "UPDATE User SET password = ?, passenger_id = ?, ticket = ? WHERE account = ?";
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, password);
+            stmt.setString(2, passenger_id);
+            stmt.setString(3, ticket);
+            stmt.setString(4, account);
+            stmt.executeUpdate();
+            System.out.println("User updated successfully!");
+        }
+    }
+
+    // Xóa
+    public static void deleteUser(String account) throws SQLException {
+        String query = "DELETE FROM User WHERE account = ?";
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, account);
+            stmt.executeUpdate();
+            System.out.println("User deleted successfully!");
+        }
+    }
+
+    // Lấy
+    public static void getUser(String account) throws SQLException {
+        String query = "SELECT * FROM User WHERE account = ?";
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, account);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    System.out.println("Account: " + rs.getString("account"));
+                    System.out.println("Password: " + rs.getString("password"));
+                    System.out.println("Passenger ID: " + rs.getString("passenger_id"));
+                    //System.out.println("Ticket: " + rs.getString("ticket"));
+                } else {
+                    System.out.println("User not found.");
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            addUser("dcminh", "111", "P1");
+            getUser("111");
+            updateUser("dcminh", "123", "P1", "{\"flight\": \"FL123\", \"seat\": \"12A\"}");
+            deleteUser("dcminh");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
