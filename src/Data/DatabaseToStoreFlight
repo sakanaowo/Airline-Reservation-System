@@ -83,7 +83,6 @@ public class APIForFlight {
 
     public static void main(String[] args) {
         try {
-            // Example usage
             addFlight("FL123", "Scheduled", "Hanoi", "Ho Chi Minh City", "2024-10-22 08:00", "2024-10-22 10:00", 100.0f);
             getFlight("FL123");
             updateFlight("FL123", "Delayed", "Hanoi", "Ho Chi Minh City", "2024-10-22 09:00", "2024-10-22 11:00", 105.0f);
