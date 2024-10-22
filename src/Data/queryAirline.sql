@@ -22,8 +22,8 @@ create table Passenger(
 	passengerID varchar(30),
     name varchar(30),
     bithDate varchar(30),
-    ehnicity varchar(30),
-    primary key(ID)
+    ethnicity varchar(30),
+    primary key(passengerID)
 );
 
 create table Reservation(
