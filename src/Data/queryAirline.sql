@@ -1,54 +1,51 @@
-create database AirLineReservationSystem;
+create database AirlineReservation
 
-create table Flight(
-	flightID varchar(30),
-    status varchar(30),
-	origin varchar(30),
-    destination varchar(30),
-    departureTime varchar(30),
-    arrivalTime varchar(30),
-	price float,
-    seatMap json,
-	primary key(flightID)
+CREATE TABLE Flight (
+                        flight_id VARCHAR(30) PRIMARY KEY,
+                        origin VARCHAR(30) NOT NULL,
+                        destination VARCHAR(30) NOT NULL,
+                        departure_time DATETIME,
+                        arrival_time DATETIME,
+                        seat_map JSON,
+                        price DECIMAL(10, 2),
+                        seat_row INT,
+                        seat_column INT
 );
 
-insert into Flight 
-values
-('F001', 'Da cat canh', 'Ha Noi', 'Ho Chi Minh City', '06:00:00', '09:00:00', 150, '[["A1", "A2", "A3"], ["B1", "B2", "B3"]]');
-
-select * from Flight;
-
-create table Passenger(
-	passengerID varchar(30),
-    name varchar(30),
-    bithDate varchar(30),
-    ethnicity varchar(30),
-    primary key(passengerID)
+CREATE TABLE Passenger (
+                           passenger_id VARCHAR(30) PRIMARY KEY,
+                           passenger_name VARCHAR(30),
+                           birth_date DATE,
+                           ethnicity VARCHAR(30),
+                           id_number VARCHAR(20)
 );
 
-create table Reservation(
-	reservationCounter int,
-    reservationID varchar(30),
-    passengerID varchar(30),
-    flightID varchar(30),
-    ticketID varchar(30),
-    status varchar(30),
-    reservationDate date,
-    primary key (reservationID),
-    foreign key (passenggerID) references Passenger(passengerID),
-    foreign key (flightID) references Flight(FlightID),
-    foreign key (ticketID) references Ticket(TicketID)
+CREATE TABLE Ticket (
+                        ticket_id VARCHAR(30) PRIMARY KEY,
+                        passenger_id VARCHAR(30),
+                        flight_id VARCHAR(30),
+                        seat VARCHAR(30),
+                        is_cancelled BOOL default FALSE,
+                        FOREIGN KEY (passenger_id) REFERENCES Passenger(passenger_id),
+                        FOREIGN KEY (flight_id) REFERENCES Flight(flight_id)
 );
 
-create table Ticket(
-	ticketCounter int,
-    ticketID varchar(30),
-    passengerID varchar(30),
-    flightID varchar(30),
-    seat varchar(30),
-    price int,
-	status varchar(10),
-    primary key (tikectID),
-    foreign key (passengerID) references Passenger(passengerID),
-    foreign key (flightID) references Flight(FlilghtID)
+CREATE TABLE Reservation (
+                             reservation_id VARCHAR(30) PRIMARY KEY,
+                             passenger_id VARCHAR(30),
+                             flight_id VARCHAR(30),
+                             ticket_id VARCHAR(30),
+                             reservation_status VARCHAR(10),
+                             reservation_date DATETIME,
+                             FOREIGN KEY (passenger_id) REFERENCES Passenger(passenger_id),
+                             FOREIGN KEY (flight_id) REFERENCES Flight(flight_id),
+                             FOREIGN KEY (ticket_id) REFERENCES Ticket(ticket_id)
+);
+
+CREATE TABLE User (
+                      account VARCHAR(30) PRIMARY KEY,
+                      password VARCHAR(256) NOT NULL, 
+                      passenger_id VARCHAR(30),
+                      ticket JSON,
+                      FOREIGN KEY (passenger_id) REFERENCES Passenger(passenger_id)
 );
