@@ -19,7 +19,7 @@ public class LoginWindow extends JFrame {
     }
 
     private void initializeUI() {
-        setTitle("Login GUI");
+        setTitle("Login");
         setSize(370, 260);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,8 +61,12 @@ public class LoginWindow extends JFrame {
         loginButton.addActionListener(e -> clickLoginButton());
         add(loginButton);
 
+        JLabel not_a_member = new JLabel("Not a member?");
+        not_a_member.setBounds(70,180,100,24);
+        add(not_a_member);
+
         JButton signUpButton = new JButton("Sign Up");
-        signUpButton.setBounds(120, 180, 100, 24);
+        signUpButton.setBounds(180, 180, 100, 24);
         signUpButton.addActionListener(e -> openNewUserDialog());
         add(signUpButton);
     }
@@ -72,12 +76,12 @@ public class LoginWindow extends JFrame {
         String password = new String(passwordField.getPassword());
 
         if (userManager.isValidUser(username, password)) {
-            JOptionPane.showMessageDialog(this, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+//            JOptionPane.showMessageDialog(this, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
             loginIsSuccessful = true;
             dispose();
             openMainWindow();
         } else {
-            JOptionPane.showMessageDialog(this, "The username or password is incorrect.", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Wrong user name or password!", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -90,7 +94,7 @@ public class LoginWindow extends JFrame {
     }
 
     private void openNewUserDialog() {
-        setVisible(false);  // Ẩn cửa sổ login khi mở dialog
+        setVisible(false);
         NewUserDialog newUserDialog = new NewUserDialog(this, userManager);
 
         newUserDialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -99,7 +103,6 @@ public class LoginWindow extends JFrame {
                 setVisible(true);
             }
         });
-
         newUserDialog.setVisible(true);
     }
 
