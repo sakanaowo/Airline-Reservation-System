@@ -10,8 +10,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 public class MainWindow extends JFrame {
-    private JPanel altPanel;
-    private CardLayout cardLayout;
+    JPanel mainPanel = new JPanel();
 
     public MainWindow() {
         setTitle("Main Window");
@@ -30,91 +29,95 @@ public class MainWindow extends JFrame {
         BackgroundPanel backgroundPanel = new BackgroundPanel(imageURL);
         backgroundPanel.setLayout(null); // Use null layout to set fixed positions
 
-        // Option panel for buttons
-        JPanel optionPanel = createOptionPanel();
+        JPanel navigator = createNavigator();
 
-        // Alternate panel to display different contents
-        altPanel = createAltPanel();
+        mainPanel.setBounds(70, 0, 1050, 700);
+        mainPanel.setOpaque(false);
 
-        backgroundPanel.add(optionPanel);
-        backgroundPanel.add(altPanel);
+        backgroundPanel.add(navigator);
+        backgroundPanel.add(mainPanel);
         add(backgroundPanel);
     }
 
-    // Method to create the altPanel with CardLayout
-    private JPanel createAltPanel() {
-        cardLayout = new CardLayout();
-        JPanel altPanel = new JPanel(cardLayout);  // Use CardLayout for altPanel
-        altPanel.setBounds(110, 150, 900, 450);
-        altPanel.setBackground(Color.WHITE);
+    private JPanel createNavigator() {
+        JPanel navigator = new JPanel();
+        navigator.setLayout(new BoxLayout(navigator, BoxLayout.Y_AXIS));
+        navigator.setBounds(0, -3, 70, 670);
+        navigator.setOpaque(false);
+        navigator.setBackground(Color.WHITE);
 
-        // Add different panels to the CardLayout
-        JPanel bookingPanel = createContentPanel("Đặt vé content", Color.LIGHT_GRAY);
-        JPanel manageReservationPanel = createContentPanel("Quản lý đặt chỗ content", Color.PINK);
-        JPanel userInfoPanel = createContentPanel("Thông tin cá nhân content", Color.CYAN);
+        // Load and resize icons to 65x65
+//        ImageIcon calendar = loadIcon("https://github.com/sakanaowo/Airline-Reservation-System/blob/main/icon/calendar.png?raw=true");
+//        ImageIcon home = loadIcon("https://github.com/sakanaowo/Airline-Reservation-System/blob/main/icon/home.png?raw=true");
+//        ImageIcon magnify = loadIcon("https://github.com/sakanaowo/Airline-Reservation-System/blob/main/icon/magnifying-glass.png?raw=true");
+//        ImageIcon notification = loadIcon("https://github.com/sakanaowo/Airline-Reservation-System/blob/main/icon/notification-bell.png?raw=true");
+//        ImageIcon settings = loadIcon("https://github.com/sakanaowo/Airline-Reservation-System/blob/main/icon/setting.png?raw=true");
+//        ImageIcon ticket = loadIcon("https://github.com/sakanaowo/Airline-Reservation-System/blob/main/icon/ticket-flight.png?raw=true");
+//        ImageIcon user = loadIcon("https://github.com/sakanaowo/Airline-Reservation-System/blob/main/icon/user.png?raw=true");
 
-        altPanel.add(bookingPanel, "booking");
-        altPanel.add(manageReservationPanel, "manage_reservation");
-        altPanel.add(userInfoPanel, "user_info");
+        ImageIcon home = loadIcon("src/Icon/home.png");
+        ImageIcon magnify = loadIcon("src/Icon/magnifying-glass.png");
+        ImageIcon ticket = loadIcon("src/Icon/ticket-flight.png");
+        ImageIcon calendar = loadIcon("src/Icon/calendar.png");
+        ImageIcon notification = loadIcon("src/Icon/notification-bell.png");
+        ImageIcon setting = loadIcon("src/Icon/setting.png");
+        ImageIcon user = loadIcon("src/Icon/user.png");
 
-        return altPanel;
+        // Create buttons with icons
+        JButton button1 = new JButton(home);
+        JButton button2 = new JButton(magnify);
+        JButton button3 = new JButton(ticket);
+        JButton button4 = new JButton(calendar);
+        JButton button5 = new JButton(notification);
+        JButton button6 = new JButton(setting);
+        JButton button7 = new JButton(user);
+
+        // Optionally, add ActionListener to buttons
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Define action for button1
+            }
+        });
+
+        // Add buttons to navigator panel
+        navigator.add(button1);
+        navigator.add(button2);
+        navigator.add(button3);
+        navigator.add(button4);
+
+        // Adding empty labels for spacing
+        navigator.add(Box.createRigidArea(new Dimension(0, 90)));
+        navigator.add(Box.createRigidArea(new Dimension(0, 90)));
+
+        navigator.add(button5);
+        navigator.add(button6);
+        navigator.add(button7);
+
+        return navigator;
     }
 
-    // Helper method to create content panels
-    private JPanel createContentPanel(String text, Color bgColor) {
-        JPanel panel = new JPanel();
-        panel.setBackground(bgColor);
-        JLabel label = new JLabel(text, SwingConstants.CENTER);
-        label.setFont(new Font("Arial", Font.BOLD, 24));
-        panel.add(label);
-        return panel;
-    }
-
-    private JPanel createOptionPanel() {
-        JPanel optionPanel = new JPanel();
-        optionPanel.setOpaque(false);
-        optionPanel.setLayout(new GridLayout(1, 3, 10, 0));
-        optionPanel.setBounds(110, 70, 900, 50);
-
-        Font buttonFont = new Font("Arial", Font.BOLD, 16);
-
-        // Create buttons
-        JButton booking = new JButton("Đặt vé");
-        JButton manage_reservation = new JButton("Quản lý đặt chỗ");
-        JButton user_info = new JButton("Thông tin cá nhân");
-
-        booking.setFont(buttonFont);
-        manage_reservation.setFont(buttonFont);
-        user_info.setFont(buttonFont);
-
-        // Add ActionListeners to change altPanel content
-        booking.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(altPanel, "booking");
+    // Method to load and scale icons to 65x65
+    private ImageIcon loadIcon(String url) {
+        if (url.startsWith("http")) {
+            try {
+                Image img = ImageIO.read(new URL(url));
+                if (img != null) {
+                    // Scale image to 65x65
+                    return new ImageIcon(img.getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+                } else {
+                    System.out.println("Error: Image could not be loaded.");
+                    return null;
+                }
+            } catch (IOException e) {
+                System.out.println("Error loading icon: " + e.getMessage());
+                return null;
             }
-        });
-
-        manage_reservation.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(altPanel, "manage_reservation");
-            }
-        });
-
-        user_info.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(altPanel, "user_info");
-            }
-        });
-
-        // Add buttons to the panel
-        optionPanel.add(booking);
-        optionPanel.add(manage_reservation);
-        optionPanel.add(user_info);
-
-        return optionPanel;
+        } else {
+            ImageIcon icon = new ImageIcon(url);
+            Image img = icon.getImage();
+            return new ImageIcon(img.getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+        }
     }
 
     public static void main(String[] args) {
