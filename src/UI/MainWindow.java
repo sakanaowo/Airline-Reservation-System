@@ -46,15 +46,6 @@ public class MainWindow extends JFrame {
         navigator.setOpaque(false);
         navigator.setBackground(Color.WHITE);
 
-        // Load and resize icons to 65x65
-//        ImageIcon calendar = loadIcon("https://github.com/sakanaowo/Airline-Reservation-System/blob/main/icon/calendar.png?raw=true");
-//        ImageIcon home = loadIcon("https://github.com/sakanaowo/Airline-Reservation-System/blob/main/icon/home.png?raw=true");
-//        ImageIcon magnify = loadIcon("https://github.com/sakanaowo/Airline-Reservation-System/blob/main/icon/magnifying-glass.png?raw=true");
-//        ImageIcon notification = loadIcon("https://github.com/sakanaowo/Airline-Reservation-System/blob/main/icon/notification-bell.png?raw=true");
-//        ImageIcon settings = loadIcon("https://github.com/sakanaowo/Airline-Reservation-System/blob/main/icon/setting.png?raw=true");
-//        ImageIcon ticket = loadIcon("https://github.com/sakanaowo/Airline-Reservation-System/blob/main/icon/ticket-flight.png?raw=true");
-//        ImageIcon user = loadIcon("https://github.com/sakanaowo/Airline-Reservation-System/blob/main/icon/user.png?raw=true");
-
         ImageIcon home = loadIcon("src/Icon/home.png");
         ImageIcon magnify = loadIcon("src/Icon/magnifying-glass.png");
         ImageIcon ticket = loadIcon("src/Icon/ticket-flight.png");
@@ -73,12 +64,12 @@ public class MainWindow extends JFrame {
         JButton button7 = new JButton(user);
 
         // Optionally, add ActionListener to buttons
-        button1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Define action for button1
-            }
-        });
+//        button1.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                // Define action for button1
+//            }
+//        });
 
         // Add buttons to navigator panel
         navigator.add(button1);
