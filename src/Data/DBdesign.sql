@@ -1,170 +1,158 @@
-CREATE SCHEMA `test_airline` ;
+CREATE SCHEMA `airline` ;
 
--- users table
-CREATE TABLE `test_airline`.`users` (
-  `UserID` INT NOT NULL,
-  `UserName` VARCHAR(45) NOT NULL,
-  `Password` VARCHAR(45) NOT NULL,
-  `Email` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`UserID`),
-  UNIQUE INDEX `UserName_UNIQUE` (`UserName` ASC) VISIBLE,
-  UNIQUE INDEX `Email_UNIQUE` (`Email` ASC) VISIBLE); CREATE TABLE `test_airline`.`users` (
-  `UserID` INT NOT NULL,
-  `UserName` VARCHAR(45) NOT NULL,
-  `Password` VARCHAR(45) NOT NULL,
-  `Email` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`UserID`),
-  UNIQUE INDEX `UserName_UNIQUE` (`UserName` ASC) VISIBLE,
-  UNIQUE INDEX `Email_UNIQUE` (`Email` ASC) VISIBLE);
-
--- planes table
-CREATE TABLE `test_airline`.`planes` (
-  `PlaneID` INT NOT NULL,
-  `Model` VARCHAR(45) NOT NULL,
-  `Capacity` INT NOT NULL,
-  PRIMARY KEY (`PlaneID`));
-
--- airport table
-CREATE TABLE `test_airline`.`airports` (
-  `AirportID` INT NOT NULL,
+  CREATE TABLE `airline`.`airports` (
+  `AirportID` INT NOT NULL AUTO_INCREMENT,
   `AirportName` VARCHAR(45) NOT NULL,
   `City` VARCHAR(45) NOT NULL,
   `Country` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`AirportID`));
 
---routes table
-CREATE TABLE `test_airline`.`routes` (
-  `RouteID` INT NOT NULL,
+  CREATE TABLE `airline`.`planes` (
+  `PlaneID` INT NOT NULL AUTO_INCREMENT,
+  `Model` VARCHAR(45) NOT NULL,
+  `Seats` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`PlaneID`));
+
+  CREATE TABLE `airline`.`flights` (
+  `FlightID` INT NOT NULL AUTO_INCREMENT,
+  `DepatureTime` DATETIME NOT NULL,
+  `ArrivalTime` DATETIME NOT NULL,
+  `PlaneID` INT NOT NULL,
   `DepartureAirportID` INT NOT NULL,
   `ArrivalAirportID` INT NOT NULL,
-  `Distance` INT NOT NULL,
-  PRIMARY KEY (`RouteID`),
+  PRIMARY KEY (`FlightID`),
+  INDEX `PlaneID_idx` (`PlaneID` ASC) VISIBLE,
   INDEX `DepartureAirportID_idx` (`DepartureAirportID` ASC) VISIBLE,
   INDEX `ArrivalAirportID_idx` (`ArrivalAirportID` ASC) VISIBLE,
+  CONSTRAINT `PlaneID`
+    FOREIGN KEY (`PlaneID`)
+    REFERENCES `airline`.`planes` (`PlaneID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `DepartureAirportID`
     FOREIGN KEY (`DepartureAirportID`)
-    REFERENCES `test_airline`.`airports` (`AirportID`)
+    REFERENCES `airline`.`airports` (`AirportID`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `ArrivalAirportID`
     FOREIGN KEY (`ArrivalAirportID`)
-    REFERENCES `test_airline`.`airports` (`AirportID`)
+    REFERENCES `airline`.`airports` (`AirportID`)
     ON DELETE CASCADE
     ON UPDATE CASCADE);
 
--flights table
-CREATE TABLE `test_airline`.`flights` (
-  `FlightID` INT NOT NULL,
-  `DepartureTime` DATETIME NOT NULL,
-  `ArrivalTime` DATETIME NOT NULL,
-  `Duration` TIME NOT NULL,
-  `PlaneID` INT NOT NULL,
-  `RouteID` INT NOT NULL,
-  PRIMARY KEY (`FlightID`),
-  INDEX `RouteID_idx` (`RouteID` ASC) VISIBLE,
-  INDEX `PlaneID_idx` (`PlaneID` ASC) VISIBLE,
-  CONSTRAINT `PlaneID`
-    FOREIGN KEY (`PlaneID`)
-    REFERENCES `test_airline`.`planes` (`PlaneID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `RouteID`
-    FOREIGN KEY (`RouteID`)
-    REFERENCES `test_airline`.`routes` (`RouteID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE);
-
--- passenger tables
-CREATE TABLE `test_airline`.`passengers` (
-  `PassengerID` INT NOT NULL,
-  `FirstName` VARCHAR(45) NOT NULL,
-  `LastName` VARCHAR(45) NOT NULL,
-  `UserID` INT NOT NULL,
-  `PhoneNumber` VARCHAR(45) NOT NULL,
-  `PassportCode` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`PassengerID`),
-  INDEX `UserID_idx` (`UserID` ASC) VISIBLE,
-  CONSTRAINT `UserID`
-    FOREIGN KEY (`UserID`)
-    REFERENCES `test_airline`.`users` (`UserID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE);
-
--- reservation 
-CREATE TABLE `test_airline`.`reservations` (
-  `ReservationID` INT NOT NULL,
-  `PassengerID` INT NOT NULL,
-  `FlightID` INT NOT NULL,
-  `SeatNumber` INT NOT NULL,
-  `ReservationDate` DATETIME NOT NULL,
-  PRIMARY KEY (`ReservationID`),
-  INDEX `PassengerID_idx` (`PassengerID` ASC) VISIBLE,
-  INDEX `FlightID_idx` (`FlightID` ASC) VISIBLE,
-  CONSTRAINT `PassengerID`
-    FOREIGN KEY (`PassengerID`)
-    REFERENCES `test_airline`.`passengers` (`PassengerID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `FlightID`
-    FOREIGN KEY (`FlightID`)
-    REFERENCES `test_airline`.`flights` (`FlightID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
--- Seats 
-CREATE TABLE `test_airline`.`seats` (
-  `SeatID` INT NOT NULL,
+  CREATE TABLE `airline`.`seats` (
+  `SeatID` INT NOT NULL AUTO_INCREMENT,
   `FlightID` INT NOT NULL,
   `SeatNumber` INT NOT NULL,
   `Class` VARCHAR(45) NOT NULL,
   `Avaiable` BIT NOT NULL,
-  `SeatRow` INT NOT NULL,
-  `SetColumn` INT NOT NULL,
   `Price` DOUBLE NOT NULL,
-  PRIMARY KEY (`SeatID`),
+  PRIMARY KEY (`SeatID`, `FlightID`),
   INDEX `FlightID_idx` (`FlightID` ASC) VISIBLE,
-  CONSTRAINT `FK_FlightID`  -- Đổi tên ràng buộc khóa ngoại tại đây
+  CONSTRAINT `FlightID`
     FOREIGN KEY (`FlightID`)
-    REFERENCES `test_airline`.`flights` (`FlightID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-);
+    REFERENCES `airline`.`flights` (`FlightID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+  
+  CREATE TABLE `airline`.`users` (
+  `UserID` INT NOT NULL AUTO_INCREMENT,
+  `UserName` VARCHAR(45) NOT NULL,
+  `Password` VARCHAR(45) NOT NULL,
+  `Email` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`UserID`));
 
--- Tickets table
-CREATE TABLE `test_airline`.`tickets` (
-  `TicketID` INT NOT NULL,
-  `ReservationID` VARCHAR(45) NOT NULL,
-  `Status` VARCHAR(45) NOT NULL,
-  `SeatID` INT NOT NULL,
-  PRIMARY KEY (`TicketID`),
-  INDEX `SeatID_idx` (`SeatID` ASC) VISIBLE,
-  CONSTRAINT `SeatID`
-    FOREIGN KEY (`SeatID`)
-    REFERENCES `test_airline`.`seats` (`SeatID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
--- Payments table
-CREATE TABLE `test_airline`.`payments` (
-  `PaymentID` INT NOT NULL AUTO_INCREMENT,
-  `ReservationID` INT NOT NULL,
-  `PaymentDate` DATETIME NOT NULL,
-  `PaymentAmount` DOUBLE NOT NULL,
+  CREATE TABLE `airline`.`passengers` (
+  `PassengerID` INT NOT NULL AUTO_INCREMENT,
   `UserID` INT NOT NULL,
-  `PaymentMethod` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`PaymentID`),
-  INDEX `UserID_idx` (`UserID` ASC),
-  CONSTRAINT `FK_UserID`
+  `FirstName` VARCHAR(45) NOT NULL,
+  `LastName` VARCHAR(45) NOT NULL,
+  `Passengerscol` VARCHAR(45) NOT NULL,
+  `Passengerscol1` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`PassengerID`),
+  INDEX `UserID_idx` (`UserID` ASC) VISIBLE,
+  CONSTRAINT `UserID`
     FOREIGN KEY (`UserID`)
-    REFERENCES `test_airline`.`users` (`UserID`)
+    REFERENCES `airline`.`users` (`UserID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+
+  CREATE TABLE `airline`.`tickets` (
+  `TicketID` INT NOT NULL AUTO_INCREMENT,
+  `PassengerID` INT NOT NULL,
+  `SeatID` INT NOT NULL,
+  `FlightID` INT NOT NULL,
+  `TicketCode` VARCHAR(45) NOT NULL,
+  `ReservationDate` DATETIME NOT NULL,
+  `Ticketscol` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`TicketID`),
+  INDEX `PassengerID_idx` (`PassengerID` ASC) VISIBLE,
+  INDEX `SeatID_idx` (`SeatID` ASC) VISIBLE,
+  INDEX `FlightID_idx` (`FlightID` ASC) VISIBLE,
+  CONSTRAINT `FK_PassengerID`
+    FOREIGN KEY (`PassengerID`)
+    REFERENCES `airline`.`passengers` (`PassengerID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `FK_SeatID`
+    FOREIGN KEY (`SeatID`)
+    REFERENCES `airline`.`seats` (`SeatID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `FK_ReservationID`
-    FOREIGN KEY (`ReservationID`)
-    REFERENCES `test_airline`.`reservations` (`ReservationID`)
+  CONSTRAINT `FK_FlightID`
+    FOREIGN KEY (`FlightID`)
+    REFERENCES `airline`.`seats` (`FlightID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
-);
+  );
 
+
+INSERT INTO `airline`.`planes` (`Model`, `Seats`) VALUES
+('Boeing 737', '160'),
+('Boeing 777', '396');
+
+INSERT INTO `airline`.`airports` (`AirportName`, `City`, `Country`) VALUES
+('Noi Bai International Airport', 'Hanoi', 'Vietnam'),
+('Tan Son Nhat International Airport', 'Ho Chi Minh City', 'Vietnam'),
+('Da Nang International Airport', 'Da Nang', 'Vietnam'),
+('Cam Ranh International Airport', 'Nha Trang', 'Vietnam'),
+('Phu Quoc International Airport', 'Phu Quoc', 'Vietnam'),
+('Cat Bi International Airport', 'Hai Phong', 'Vietnam'),
+('Vinh International Airport', 'Vinh', 'Vietnam'),
+('Can Tho International Airport', 'Can Tho', 'Vietnam'),
+('Chu Lai Airport', 'Quang Nam', 'Vietnam'),
+('Dong Hoi Airport', 'Quang Binh', 'Vietnam');
+
+INSERT INTO `airline`.`flights` (`DepatureTime`, `ArrivalTime`, `PlaneID`, `DepartureAirportID`, `ArrivalAirportID`) VALUES
+(DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '08:00:00' HOUR_SECOND, DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '10:00:00' HOUR_SECOND, 1, 1, 2),
+(DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '09:00:00' HOUR_SECOND, DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '11:30:00' HOUR_SECOND, 2, 6, 3);
+
+USE airline;
+
+DELIMITER //
+
+CREATE PROCEDURE InsertSeats(IN flightID INT, IN numEconomySeats INT, IN economyPrice DOUBLE, IN numBusinessSeats INT, IN businessPrice DOUBLE)
+BEGIN
+    DECLARE seatNumber INT DEFAULT 1;
+
+    WHILE seatNumber <= numEconomySeats DO
+        INSERT INTO `airline`.`seats` (`FlightID`, `SeatNumber`, `Class`, `Avaiable`, `Price`)
+        VALUES (flightID, seatNumber, 'Economy', 1, economyPrice);
+        SET seatNumber = seatNumber + 1;
+    END WHILE;
+
+    SET seatNumber = numEconomySeats + 1;
+    WHILE seatNumber <= (numEconomySeats + numBusinessSeats) DO
+        INSERT INTO `airline`.`seats` (`FlightID`, `SeatNumber`, `Class`, `Avaiable`, `Price`)
+        VALUES (flightID, seatNumber, 'Business', 1, businessPrice);
+        SET seatNumber = seatNumber + 1;
+    END WHILE;
+END //
+
+DELIMITER ;
+
+CALL InsertSeats(1, 150, 500000, 10, 1500000);
+
+CALL InsertSeats(2, 380, 500000, 16, 1500000);
 
 
