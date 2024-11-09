@@ -8,11 +8,15 @@ package UI;
  *
  * @author ADMIN
  */
-public class LoginAndSignUp {
+public class Main {
+
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
-        Login LoginFrame = new Login();
-        LoginFrame.setVisible(true);
-        LoginFrame.pack();
-        LoginFrame.setLocationRelativeTo(null);
+        Home HomeFrame = new Home();
+        HomeFrame.setVisible(true);
+        HomeFrame.pack();
+        HomeFrame.setLocationRelativeTo(null);
     }
 }

@@ -4,6 +4,10 @@
  */
 package UI;
 
+
+import UI.SignUp;
+import UI.SignUp;
+
 /**
  *
  * @author ADMIN
@@ -19,9 +23,9 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         Left = new javax.swing.JPanel();
-        Icon = new javax.swing.JLabel();
         BrandName = new javax.swing.JLabel();
         CopyRight = new javax.swing.JLabel();
+        logo = new javax.swing.JLabel();
         Right = new javax.swing.JPanel();
         LoginLabel = new javax.swing.JLabel();
         EmailLabel = new javax.swing.JLabel();
@@ -32,7 +36,7 @@ public class Login extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         LoginButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("LOGIN");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -42,8 +46,6 @@ public class Login extends javax.swing.JFrame {
         Left.setBackground(new java.awt.Color(0, 102, 102));
         Left.setPreferredSize(new java.awt.Dimension(400, 500));
 
-        Icon.setIcon(new javax.swing.ImageIcon("C:\\JAVA\\LoginAndSignUp\\src\\Icon\\logo.png")); // NOI18N
-
         BrandName.setFont(new java.awt.Font("Showcard Gothic", 3, 36)); // NOI18N
         BrandName.setForeground(new java.awt.Color(255, 255, 255));
         BrandName.setText("CLC04 Airlines");
@@ -52,32 +54,34 @@ public class Login extends javax.swing.JFrame {
         CopyRight.setForeground(new java.awt.Color(255, 255, 255));
         CopyRight.setText("copyright (c) CLC04 AIRLINES All rights reversed");
 
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/logo.png"))); // NOI18N
+        logo.setText("jLabel1");
+
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LeftLayout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addComponent(Icon)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
+                .addContainerGap(50, Short.MAX_VALUE)
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
                         .addComponent(CopyRight)
                         .addGap(57, 57, 57))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
+                        .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(74, 74, 74))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
                         .addComponent(BrandName, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(16, 16, 16))))
         );
         LeftLayout.setVerticalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LeftLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(Icon, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(85, Short.MAX_VALUE)
+                .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
                 .addComponent(BrandName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                .addGap(92, 92, 92)
                 .addComponent(CopyRight)
                 .addGap(71, 71, 71))
         );
@@ -183,7 +187,7 @@ public class Login extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 38, Short.MAX_VALUE))
+                .addGap(0, 14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,7 +224,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel CopyRight;
     private javax.swing.JTextField EmailField;
     private javax.swing.JLabel EmailLabel;
-    private javax.swing.JLabel Icon;
     private javax.swing.JPanel Left;
     private javax.swing.JButton LoginButton;
     private javax.swing.JLabel LoginLabel;
@@ -230,5 +233,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton SignUpButtons;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel logo;
     // End of variables declaration//GEN-END:variables
 }

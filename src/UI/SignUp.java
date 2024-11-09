@@ -23,10 +23,10 @@ public class SignUp extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         Right = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        Icon = new javax.swing.JLabel();
+        Logo = new javax.swing.JLabel();
         BrandName = new javax.swing.JLabel();
         CopyRight = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         SignUpLabel = new javax.swing.JLabel();
         Fullname = new javax.swing.JLabel();
         Password = new javax.swing.JLabel();
@@ -38,7 +38,8 @@ public class SignUp extends javax.swing.JFrame {
         SignUpButton = new javax.swing.JButton();
         PasswordField = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("SIGNUP");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
@@ -46,9 +47,6 @@ public class SignUp extends javax.swing.JFrame {
 
         Right.setBackground(new java.awt.Color(0, 102, 102));
         Right.setMinimumSize(new java.awt.Dimension(400, 500));
-
-        Icon.setIcon(new javax.swing.ImageIcon("C:\\JAVA\\LoginAndSignUp\\src\\Icon\\logo.png")); // NOI18N
-        Icon.setText("jLabel7");
 
         BrandName.setFont(new java.awt.Font("Showcard Gothic", 0, 36)); // NOI18N
         BrandName.setForeground(new java.awt.Color(255, 255, 255));
@@ -58,34 +56,34 @@ public class SignUp extends javax.swing.JFrame {
         CopyRight.setForeground(new java.awt.Color(255, 255, 255));
         CopyRight.setText("copyright (c) CLC04 AIRLINES All rights reserved");
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/logo.png"))); // NOI18N
+
         javax.swing.GroupLayout RightLayout = new javax.swing.GroupLayout(Right);
         Right.setLayout(RightLayout);
         RightLayout.setHorizontalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RightLayout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(Icon, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(165, 165, 165)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(485, 485, 485)
+                .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(RightLayout.createSequentialGroup()
                 .addGap(55, 55, 55)
-                .addGroup(RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BrandName, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CopyRight)))
+                .addGroup(RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(CopyRight)
+                    .addComponent(BrandName, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(RightLayout.createSequentialGroup()
+                .addGap(73, 73, 73)
+                .addComponent(jLabel1))
         );
         RightLayout.setVerticalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RightLayout.createSequentialGroup()
-                .addGroup(RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(RightLayout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(jLabel6))
-                    .addGroup(RightLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(Icon, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(64, 64, 64)
+                .addComponent(Logo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
                 .addComponent(BrandName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(CopyRight)
                 .addGap(78, 78, 78))
         );
@@ -238,15 +236,15 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JTextField EmailField;
     private javax.swing.JLabel Fullname;
     private javax.swing.JTextField FullnameField;
-    private javax.swing.JLabel Icon;
     private javax.swing.JButton LoginButton;
+    private javax.swing.JLabel Logo;
     private javax.swing.JLabel Password;
     private javax.swing.JPasswordField PasswordField;
     private javax.swing.JPanel Right;
     private javax.swing.JButton SignUpButton;
     private javax.swing.JLabel SignUpLabel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

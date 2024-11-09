@@ -16,5 +16,36 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES />
+        <JAVADOC>
+          <root url="file://$MODULE_DIR$/../../jcalendar-1.4/doc/api" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../jcalendar-1.4/src" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES />
+        <JAVADOC>
+          <root url="file://$USER_HOME$/Downloads/jcalendar-1.4/doc/api" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="file://$USER_HOME$/Downloads/jcalendar-1.4/src" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/jcalendar-1.4/lib/jcalendar-1.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
