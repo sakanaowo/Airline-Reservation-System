@@ -12,7 +12,7 @@ public class CommonConstants {
     public static final String DB_URL = "jdbc:mysql://localhost:3306/airline";
     public static final String DB_USERNAME = "root";
     public static final String DB_PASSWORD = "150106";
-    public static final String DB_AIRPORT = "AIRPORTS";
+    public static final String DB_AIRPORTS_TABLE = "AIRPORTS";
     public static final String DB_FLIGHTS_TABLE = "FLIGHTS";
     public static final String DB_PLANES_TABLE = "PLANES";
     public static final String DB_SEATS_TABLE = "SEATS";
