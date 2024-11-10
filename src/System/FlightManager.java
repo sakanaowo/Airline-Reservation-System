@@ -21,7 +21,7 @@ public class FlightManager {
     }
 
     // Tìm kiếm chuyến bay theo flightID
-    public Optional<Flight> getFlightByID(String flightID) {
+    public Optional<Flight> getFlightByID(int flightID) {
         for (Flight flight : flights) {
             if (flight.getFlightID().equals(flightID)) {
                 return Optional.of(flight);
