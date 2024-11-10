@@ -61,9 +61,9 @@ public class AirlineSystem {
         }
     }
 
-    public Flight findFlightByID(String flightID) {
+    public Flight findFlightByID(int flightID) {
         for (Flight flight : flights) {
-            if (flight.getFlightID().equals(flightID)) return flight;
+            if (flight.getFlightID() == flightID) return flight;
         }
         return null;
     }
