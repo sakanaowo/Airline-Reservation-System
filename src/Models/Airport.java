@@ -1,44 +1,40 @@
 package Models;
 
 public class Airport {
-    private String ID, name, city, country;
+    private String AirportName, City, Country;
+    private int AirportID;
 
-    public Airport(String ID, String name, String city, String country) {
-        this.ID = ID;
-        this.name = name;
-        this.city = city;
-        this.country = country;
+    public Airport(String AirportName, String City, String Country) {
+        this.AirportName = AirportName;
+        this.City = City;
+        this.Country = Country;
     }
 
-    public String getID() {
-        return ID;
+    public String getAirportName() {
+        return AirportName;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setAirportName(String AirportName) {
+        this.AirportName = AirportName;
     }
 
     public String getCity() {
-        return city;
+        return City;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCity(String City) {
+        this.City = City;
     }
 
     public String getCountry() {
-        return country;
+        return Country;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCountry(String Country) {
+        this.Country = Country;
+    }
+
+    public int getAirportID() {
+        return AirportID;
     }
 }
