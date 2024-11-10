@@ -1,7 +1,6 @@
 package Models;
-
+// chưa xong
 public class Ticket {
-    private static int ticketCounter = 0;  // Đếm số vé được tạo
     private int ticketID;
     private Passenger passenger;
     private Flight flight;
@@ -11,7 +10,6 @@ public class Ticket {
 
     // Constructor để khởi tạo Ticket
     public Ticket(Passenger passenger, Flight flight, String seat, double price) {
-        this.ticketID = ++ticketCounter;
         this.passenger = passenger;
         this.flight = flight;
         this.seat = seat;
