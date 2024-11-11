@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Plane {
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     private int planeID;
     private String Model;
     private int Seats;
