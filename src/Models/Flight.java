@@ -15,7 +15,6 @@ public class Flight {
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     private int flightID;
     private Date DepartureTime, ArrivalTime;
-
     Plane plane;
     Airport ArrivalAirport, DepartureAirport;
 
