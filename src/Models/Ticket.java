@@ -15,12 +15,12 @@ public class Ticket {
     private double Price;
     private boolean Status;
 
-    public Ticket(Passenger passenger, Seat Seat, Flight flight, Date ReservationDate, double Price) {
+    public Ticket(Passenger passenger, Seat Seat, Flight flight, Date ReservationDate) {
         this.passenger = passenger;
         this.Seat = Seat;
         this.flight = flight;
         this.ReservationDate = ReservationDate;
-        this.Price = Price;
+        this.Price = getSeat().getPrice();
         this.Status = true;
     }
 
