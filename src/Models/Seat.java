@@ -2,20 +2,26 @@ package Models;
 
 public class Seat {
     private int SeatID;
+    private String Position;
     private String Class;
     private int Available;
     private double Price;
     Flight flight;
 
-    public Seat(String Class, int Available, double Price, Flight flight) {
+    public Seat(String Class, int Available, String Position, double Price, Flight flight) {
         this.Class = Class;
         this.Available = Available;
+        this.Position = Position;
         this.Price = Price;
         this.flight = flight;
     }
 
-    public int getSeatID() {
-        return SeatID;
+    public String getPosition() {
+        return Position;
+    }
+
+    public void setPosition(String position) {
+        Position = position;
     }
 
     public String getSeatClass() {
