@@ -1,67 +1,89 @@
 package Models;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 // chưa xong
 public class Ticket {
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     private int ticketID;
+    private String TicketCode;
     private Passenger passenger;
+    private Seat Seat;
     private Flight flight;
-    private String seat;
-    private double price;
-    private boolean isCancelled;  // Trạng thái của vé: true nếu vé đã bị hủy, false nếu chưa
+    private Date ReservationDate;
+    private double Price;
+    private boolean Status;
 
-    // Constructor để khởi tạo Ticket
-    public Ticket(Passenger passenger, Flight flight, String seat, double price) {
+    public Ticket(Passenger passenger, Seat Seat, Flight flight, Date ReservationDate, double Price) {
         this.passenger = passenger;
+        this.Seat = Seat;
         this.flight = flight;
-        this.seat = seat;
-        this.price = price;
-        this.isCancelled = false;  // Khi vé được tạo, mặc định là chưa bị hủy
+        this.ReservationDate = ReservationDate;
+        this.Price = Price;
+        this.Status = true;
     }
 
-    // Getter cho ticketID
-    public int getTicketID() {
-        return ticketID;
+    public String getTicketCode() {
+        return TicketCode;
     }
 
-    // Getter cho passenger
+    public void setTicketCode(String TicketCode) {
+        this.TicketCode = TicketCode;
+    }
+
     public Passenger getPassenger() {
         return passenger;
     }
 
-    // Getter cho flight
-    public Flight getFlight() {
-        return flight;
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
     }
 
-    // Getter cho seat
-    public String getSeat() {
-        return seat;
+    public Seat getSeat() {
+        return Seat;
     }
 
-    // Getter cho price
+    public void setSeat(Seat Seat) {
+        this.Seat = Seat;
+    }
+
+    public String getReservationDate() {
+        return sdf.format(ReservationDate);
+    }
+
+    public void setReservationDate(Date ReservationDate) {
+        this.ReservationDate = ReservationDate;
+    }
+
     public double getPrice() {
-        return price;
+        return Price;
     }
 
     // Phương thức hủy vé
     public void cancelTicket() {
-        if (!isCancelled) {
-            this.isCancelled = true;
+        if (Status) {
+            this.Status = false;
             System.out.println("Vé số " + ticketID + " đã bị hủy.");
         } else {
             System.out.println("Vé số " + ticketID + " đã bị hủy trước đó.");
         }
     }
 
-    // Kiểm tra xem vé đã bị hủy hay chưa
-    public boolean isCancelled() {
-        return isCancelled;
+    public String getStatus() {
+        if (Status) {
+            return "Vé đang có hiệu lực";
+        } else return "Vé đã hết hiệu lực";
+    }
+    public boolean isActive() {
+        return Status;
     }
 
     // Hiển thị thông tin vé
     @Override
     public String toString() {
         return "Ticket ID: " + ticketID + ", Passenger: " + passenger.getName() +
-                ", Flight: " + flight.getFlightID() + ", Seat: " + seat +
-                ", Price: $" + price + ", Status: " + (isCancelled ? "Cancelled" : "Active");
+                ", Flight: " + flight.getFlightID() + ", Seat: " + getSeat().getPosition() +
+                ", Price: $" + Price + ", Status: " + (Status ? "Cancelled" : "Active");
     }
 }
