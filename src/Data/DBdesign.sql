@@ -70,11 +70,12 @@ CREATE TABLE `airline`.`seats` (
   `SeatID` INT NOT NULL AUTO_INCREMENT,
   `FlightID` INT NOT NULL,
   `Class` VARCHAR(45) NOT NULL,
+  `Position` VARCHAR(45) NOT NULL,
   `Available` TINYINT NOT NULL,
   `Price` DOUBLE NOT NULL,
   `UpdatedBy` INT NULL,
   `UpdatedDate` DATE NOT NULL,  
-  PRIMARY KEY (`SeatID`, `FlightID`),
+  PRIMARY KEY (`SeatID`),
   INDEX `FlightID_idx` (`FlightID` ASC),
   CONSTRAINT `fk_flightid`
     FOREIGN KEY (`FlightID`)
@@ -109,26 +110,18 @@ CREATE TABLE `airline`.`tickets` (
   `TicketID` INT NOT NULL AUTO_INCREMENT,
   `PassengerID` INT NOT NULL,
   `SeatID` INT NOT NULL,
-  `FlightID` INT NOT NULL,
   `TicketCode` VARCHAR(45) NOT NULL,
   `ReservationDate` DATETIME NOT NULL,  
   PRIMARY KEY (`TicketID`),
   INDEX `PassengerID_idx` (`PassengerID` ASC),
   INDEX `SeatID_idx` (`SeatID` ASC),
-  INDEX `FlightID_idx` (`FlightID` ASC),
   CONSTRAINT `fk_passengerid`
     FOREIGN KEY (`PassengerID`)
     REFERENCES `airline`.`passengers` (`PassengerID`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_seat_flight`
-    FOREIGN KEY (`SeatID`, `FlightID`)
-    REFERENCES `airline`.`seats` (`SeatID`, `FlightID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
+    ON UPDATE CASCADE
 );
 
--- Insert sample data
 INSERT INTO `airline`.`admins` (`AdminName`, `Password`, `Email`)
 VALUES ('thinh', SHA2('1', 256), 'thinhthiennguyen2004@gmail.com');
 
@@ -149,110 +142,140 @@ INSERT INTO `airline`.`airports` (`AirportName`, `City`, `Country`) VALUES
 ('Chu Lai Airport', 'Quang Nam', 'Vietnam'),
 ('Dong Hoi Airport', 'Quang Binh', 'Vietnam');
 
+INSERT INTO `airline`.`planes` (`Model`, `Seats`, `UpdatedBy`, `UpdatedDate`) VALUES
+('Airbus A320', 180, 1, CURDATE()),   
+('Airbus A320', 180, 1, CURDATE()), 
+('Airbus A320', 180, 1, CURDATE()), 
+('Airbus A320', 180, 1, CURDATE()), 
+('Airbus A320', 180, 1, CURDATE()), 
+('Airbus A320', 180, 1, CURDATE()), 
+('Airbus A320', 180, 1, CURDATE()), 
+('Airbus A320', 180, 1, CURDATE()), 
+('Airbus A320', 180, 1, CURDATE()), 
+('Airbus A320', 180, 1, CURDATE()),
+('Airbus A320', 180, 1, CURDATE()), 
+('Airbus A320', 180, 1, CURDATE());  
+  
+
 INSERT INTO `airline`.`flights` 
-    (`DepartureTime`, `ArrivalTime`, `PlaneID`, `DepartureAirportID`, `ArrivalAirportID`, `UpdatedDate`) 
+    (`DepartureTime`, `ArrivalTime`, `PlaneID`, `DepartureAirportID`, `ArrivalAirportID`, `UpdatedBy`, `UpdatedDate`) 
 VALUES 
     (DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '08:00:00' HOUR_SECOND, 
      DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '10:00:00' HOUR_SECOND, 
-     1, 1, 2, CURDATE()),  
+     1, 1, 2, 1, CURDATE()),  
+     
     (DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '09:00:00' HOUR_SECOND, 
      DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '11:30:00' HOUR_SECOND, 
-     2, 6, 3, CURDATE());
+     2, 6, 3, 1, CURDATE()),
+     
+     (DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '08:00:00' HOUR_SECOND, 
+	DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '10:30:00' HOUR_SECOND, 
+	3, 1, 2, 1, CURDATE()),  
+ 
+	(DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '09:00:00' HOUR_SECOND, 
+	DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '12:00:00' HOUR_SECOND, 
+	4, 2, 3, 1, CURDATE()),   
+
+	(DATE_ADD(CURDATE(), INTERVAL 3 DAY) + INTERVAL '07:00:00' HOUR_SECOND, 
+	DATE_ADD(CURDATE(), INTERVAL 3 DAY) + INTERVAL '10:15:00' HOUR_SECOND, 
+	5, 3, 4, 1, CURDATE()),   
+
+	(DATE_ADD(CURDATE(), INTERVAL 4 DAY) + INTERVAL '10:00:00' HOUR_SECOND, 
+	DATE_ADD(CURDATE(), INTERVAL 4 DAY) + INTERVAL '13:00:00' HOUR_SECOND, 
+	6, 4, 5, 1, CURDATE()), 
+    
+	(DATE_ADD(CURDATE(), INTERVAL 5 DAY) + INTERVAL '06:00:00' HOUR_SECOND, 
+	DATE_ADD(CURDATE(), INTERVAL 5 DAY) + INTERVAL '09:30:00' HOUR_SECOND, 
+	7, 5, 6, 1, CURDATE()),   
+
+	(DATE_ADD(CURDATE(), INTERVAL 6 DAY) + INTERVAL '11:00:00' HOUR_SECOND, 
+	DATE_ADD(CURDATE(), INTERVAL 6 DAY) + INTERVAL '13:45:00' HOUR_SECOND, 
+	8, 6, 7, 1, CURDATE()),  
+
+	(DATE_ADD(CURDATE(), INTERVAL 7 DAY) + INTERVAL '08:30:00' HOUR_SECOND, 
+	DATE_ADD(CURDATE(), INTERVAL 7 DAY) + INTERVAL '12:00:00' HOUR_SECOND, 
+	9, 7, 8, 1, CURDATE()),   
+
+	(DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '14:00:00' HOUR_SECOND, 
+	DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '16:30:00' HOUR_SECOND, 
+	10, 8, 9, 1, CURDATE()),  
+
+	(DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '17:00:00' HOUR_SECOND, 
+	DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '20:00:00' HOUR_SECOND, 
+	11, 9, 10, 1, CURDATE()),  
+
+	(DATE_ADD(CURDATE(), INTERVAL 3 DAY) + INTERVAL '15:30:00' HOUR_SECOND, 
+	DATE_ADD(CURDATE(), INTERVAL 3 DAY) + INTERVAL '18:45:00' HOUR_SECOND, 
+	12, 10, 1, 1, CURDATE());
 
 USE airline;
 
 DELIMITER //
 
 CREATE PROCEDURE InsertSeats(
-    IN flightID INT, 
-    IN numEconomySeats INT, 
-    IN economyPrice DOUBLE, 
-    IN numBusinessSeats INT, 
+    IN flightID INT,
     IN businessPrice DOUBLE,
+    IN economyPrice DOUBLE,
     IN updatedBy INT,
     IN updatedDate DATE 
 )
 BEGIN
+    DECLARE totalBusinessSeats INT DEFAULT 30;
+    DECLARE totalEconomySeats INT DEFAULT 150;
     DECLARE economySeatsInserted INT DEFAULT 0;
     DECLARE businessSeatsInserted INT DEFAULT 0;
+    DECLARE position CHAR(3);
 
-    WHILE economySeatsInserted < numEconomySeats DO
-        INSERT INTO `airline`.`seats` (`FlightID`, `Class`, `Available`, `Price`, `UpdatedBy`, `UpdatedDate`)
-        VALUES (flightID, 'Economy', 1, economyPrice, updatedBy, updatedDate);
-        SET economySeatsInserted = economySeatsInserted + 1;
+    DECLARE seatLetters CHAR(1) DEFAULT 'A';
+
+    WHILE businessSeatsInserted < totalBusinessSeats DO
+        SET seatLetters = CHAR(65 + (businessSeatsInserted % 6)); 
+        SET position = CONCAT(seatLetters, FLOOR(businessSeatsInserted / 6) + 1);
+        
+        INSERT INTO `airline`.`seats` (`FlightID`, `Class`, `Position`, `Available`, `Price`, `UpdatedBy`, `UpdatedDate`)
+        VALUES (flightID, 'Business', position, 1, businessPrice, updatedBy, updatedDate);
+
+        SET businessSeatsInserted = businessSeatsInserted + 1;
     END WHILE;
 
-    WHILE businessSeatsInserted < numBusinessSeats DO
-        INSERT INTO `airline`.`seats` (`FlightID`, `Class`, `Available`, `Price`, `UpdatedBy`, `UpdatedDate`)
-        VALUES (flightID, 'Business', 1, businessPrice, updatedBy, updatedDate);  
-        SET businessSeatsInserted = businessSeatsInserted + 1;
+
+    WHILE economySeatsInserted < totalEconomySeats DO
+
+        SET seatLetters = CHAR(65 + (economySeatsInserted % 6)); 
+        SET position = CONCAT(seatLetters, FLOOR(economySeatsInserted / 6) + 1);
+
+        INSERT INTO `airline`.`seats` (`FlightID`, `Class`, `Position`, `Available`, `Price`, `UpdatedBy`, `UpdatedDate`)
+        VALUES (flightID, 'Economy', position, 1, economyPrice, updatedBy, updatedDate);
+
+        SET economySeatsInserted = economySeatsInserted + 1;
     END WHILE;
 END //
 
 DELIMITER ;
 
-CALL InsertSeats(3, 170, 500000, 10, 1500000, 1, CURDATE());
-CALL InsertSeats(4, 200, 500000, 20, 1500000, 1, CURDATE());
-CALL InsertSeats(5, 250, 500000, 16, 1500000, 1, CURDATE());
-CALL InsertSeats(6, 300, 500000, 25, 1500000, 1, CURDATE());
-CALL InsertSeats(8, 180, 500000, 9, 1500000, 1, CURDATE());
-CALL InsertSeats(10, 180, 500000, 20, 1500000, 1, CURDATE());
-CALL InsertSeats(1, 150, 500000, 10, 1500000, 1, CURDATE());
-CALL InsertSeats(2, 380, 500000, 16, 1500000, 1, CURDATE());
-
-INSERT INTO `airline`.`planes` (`Model`, `Seats`, `UpdatedBy`, `UpdatedDate`) VALUES
-('Airbus A320', 180, 1, CURDATE()),     
-('Airbus A321', 220, 1, CURDATE()),     
-('Airbus A330', 277, 1, CURDATE()),     
-('Airbus A350', 325, 1, CURDATE()),     
-('Airbus A380', 555, 1, CURDATE()),     
-('Boeing 737', 189, 1, CURDATE()),      
-('Boeing 747', 416, 1, CURDATE()),     
-('Boeing 757', 200, 1, CURDATE()),     
-('Boeing 767', 375, 1, CURDATE()),     
-('Boeing 787', 242, 1, CURDATE());   
-
-INSERT INTO `airline`.`flights` (`DepartureTime`, `ArrivalTime`, `PlaneID`, `DepartureAirportID`, `ArrivalAirportID`, `UpdatedBy`, `UpdatedDate`) 
-VALUES
-(DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '08:00:00' HOUR_SECOND, 
- DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '10:30:00' HOUR_SECOND, 
- 4, 1, 2, 1, CURDATE()),  
+CALL InsertSeats(1, 1500000, 500000, 1, CURDATE());
+CALL InsertSeats(2, 1500000, 500000, 1, CURDATE());
+CALL InsertSeats(3, 1500000, 500000, 1, CURDATE());
+CALL InsertSeats(4, 1500000, 500000, 1, CURDATE());
+CALL InsertSeats(5, 1500000, 500000, 1, CURDATE());
+CALL InsertSeats(6, 1500000, 500000, 1, CURDATE());
+CALL InsertSeats(7, 1500000, 500000, 1, CURDATE());
+CALL InsertSeats(8, 1500000, 500000, 1, CURDATE());
+CALL InsertSeats(9, 1500000, 500000, 1, CURDATE());
+CALL InsertSeats(10, 1500000, 500000, 1, CURDATE());
+CALL InsertSeats(11, 1500000, 500000, 1, CURDATE());
+CALL InsertSeats(12, 1500000, 500000, 1, CURDATE());
  
-(DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '09:00:00' HOUR_SECOND, 
- DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '12:00:00' HOUR_SECOND, 
- 5, 2, 3, 1, CURDATE()),   
 
-(DATE_ADD(CURDATE(), INTERVAL 3 DAY) + INTERVAL '07:00:00' HOUR_SECOND, 
- DATE_ADD(CURDATE(), INTERVAL 3 DAY) + INTERVAL '10:15:00' HOUR_SECOND, 
- 6, 3, 4, 1, CURDATE()),   
 
-(DATE_ADD(CURDATE(), INTERVAL 4 DAY) + INTERVAL '10:00:00' HOUR_SECOND, 
- DATE_ADD(CURDATE(), INTERVAL 4 DAY) + INTERVAL '13:00:00' HOUR_SECOND, 
- 7, 4, 5, 1, CURDATE()),   
 
-(DATE_ADD(CURDATE(), INTERVAL 5 DAY) + INTERVAL '06:00:00' HOUR_SECOND, 
- DATE_ADD(CURDATE(), INTERVAL 5 DAY) + INTERVAL '09:30:00' HOUR_SECOND, 
- 8, 5, 6, 1, CURDATE()),   -- Flight 5, Plane 8 (Airbus A380)
 
-(DATE_ADD(CURDATE(), INTERVAL 6 DAY) + INTERVAL '11:00:00' HOUR_SECOND, 
- DATE_ADD(CURDATE(), INTERVAL 6 DAY) + INTERVAL '13:45:00' HOUR_SECOND, 
- 9, 6, 7, 1, CURDATE()),  
 
-(DATE_ADD(CURDATE(), INTERVAL 7 DAY) + INTERVAL '08:30:00' HOUR_SECOND, 
- DATE_ADD(CURDATE(), INTERVAL 7 DAY) + INTERVAL '12:00:00' HOUR_SECOND, 
- 10, 7, 8, 1, CURDATE()),   
 
-(DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '14:00:00' HOUR_SECOND, 
- DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '16:30:00' HOUR_SECOND, 
- 11, 8, 9, 1, CURDATE()),  
 
-(DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '17:00:00' HOUR_SECOND, 
- DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '20:00:00' HOUR_SECOND, 
- 12, 9, 10, 1, CURDATE()),  
 
-(DATE_ADD(CURDATE(), INTERVAL 3 DAY) + INTERVAL '15:30:00' HOUR_SECOND, 
- DATE_ADD(CURDATE(), INTERVAL 3 DAY) + INTERVAL '18:45:00' HOUR_SECOND, 
- 13, 10, 1, 1, CURDATE()); 
+
+
 
 
 
