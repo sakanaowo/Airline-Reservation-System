@@ -125,10 +125,6 @@ CREATE TABLE `airline`.`tickets` (
 INSERT INTO `airline`.`admins` (`AdminName`, `Password`, `Email`)
 VALUES ('thinh', SHA2('1', 256), 'thinhthiennguyen2004@gmail.com');
 
-INSERT INTO `airline`.`planes` (`Model`, `Seats`, `UpdatedBy`, `UpdatedDate`) VALUES
-('Boeing 737', 160, 1, CURDATE()),
-('Boeing 777', 396, 1, CURDATE()),
-('Boeing 737', 160, 1, CURDATE());
 
 INSERT INTO `airline`.`airports` (`AirportName`, `City`, `Country`) VALUES
 ('Noi Bai International Airport', 'Ha Noi', 'Vietnam'),
@@ -266,6 +262,15 @@ CALL InsertSeats(10, 1500000, 500000, 1, CURDATE());
 CALL InsertSeats(11, 1500000, 500000, 1, CURDATE());
 CALL InsertSeats(12, 1500000, 500000, 1, CURDATE());
  
+
+
+
+
+
+
+
+
+
 
 
 
