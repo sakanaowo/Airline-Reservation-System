@@ -35,7 +35,7 @@ The **Airline Reservation System** is a Java-based application designed to simpl
 ```
 src
 │
-├── Data
+├── DataHandle
 │   ├── DBManager.java      # Manages database connections (optional if using database)
 │
 ├── Service
@@ -62,7 +62,7 @@ src
 
 ### Explanation of Key Components:
 
-- **Data**: Contains classes responsible for managing data storage and retrieval, either through file handling (`FileManager`) or database management (`DBManager`).
+- **DataHandle**: Contains classes responsible for managing data storage and retrieval, either through file handling (`FileManager`) or database management (`DBManager`).
 
 - **Service**: Business logic for managing users and payments. The `PaymentService` handles payment-related operations, and the `UserManager` is responsible for user authentication and management.
 
