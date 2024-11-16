@@ -3,72 +3,73 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DataHandle.Data;
+
 import DataHandle.constants.CommonConstants;
 
 import java.sql.*;
 import java.util.*;
 import java.time.*;
+
 /**
- *
  * @author DELL
  */
 public class Flights {
-        public static boolean insertFlight(Timestamp departureTime, Timestamp arrivalTime, int planeID, 
-                                   String departureCity, String arrivalCity, String updatedName) {
-    String insertFlightSQL = "INSERT INTO " + CommonConstants.DB_FLIGHTS_TABLE +
-        " (DepartureTime, ArrivalTime, PlaneID, DepartureAirportID, ArrivalAirportID, UpdatedBy, UpdatedDate) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public static boolean insertFlight(Timestamp departureTime, Timestamp arrivalTime, int planeID,
+                                       String departureCity, String arrivalCity, String updatedName) {
+        String insertFlightSQL = "INSERT INTO " + CommonConstants.DB_FLIGHTS_TABLE +
+                " (DepartureTime, ArrivalTime, PlaneID, DepartureAirportID, ArrivalAirportID, UpdatedBy, UpdatedDate) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-    try (Connection connection = DriverManager.getConnection(
-            CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-         PreparedStatement adminIDStmt = connection.prepareStatement(
-                 "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?");
-         PreparedStatement departureAirportStmt = connection.prepareStatement(
-                 "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?");
-         PreparedStatement arrivalAirportStmt = connection.prepareStatement(
-                 "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?");
-         PreparedStatement insertFlightStmt = connection.prepareStatement(insertFlightSQL)) {
+        try (Connection connection = DriverManager.getConnection(
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+             PreparedStatement adminIDStmt = connection.prepareStatement(
+                     "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?");
+             PreparedStatement departureAirportStmt = connection.prepareStatement(
+                     "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?");
+             PreparedStatement arrivalAirportStmt = connection.prepareStatement(
+                     "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?");
+             PreparedStatement insertFlightStmt = connection.prepareStatement(insertFlightSQL)) {
 
-        adminIDStmt.setString(1, updatedName);
-        ResultSet adminResultSet = adminIDStmt.executeQuery();
-        Integer adminID = null;
-        if (adminResultSet.next()) {
-            adminID = adminResultSet.getInt("AdminID");
-        }
+            adminIDStmt.setString(1, updatedName);
+            ResultSet adminResultSet = adminIDStmt.executeQuery();
+            Integer adminID = null;
+            if (adminResultSet.next()) {
+                adminID = adminResultSet.getInt("AdminID");
+            }
 
-        departureAirportStmt.setString(1, departureCity);
-        ResultSet departureResultSet = departureAirportStmt.executeQuery();
-        int departureAirportID = -1;
-        if (departureResultSet.next()) {
-            departureAirportID = departureResultSet.getInt("AirportID");
-        } else {
-            System.err.println("Departure airport not found");
-            return false;
-        }
+            departureAirportStmt.setString(1, departureCity);
+            ResultSet departureResultSet = departureAirportStmt.executeQuery();
+            int departureAirportID = -1;
+            if (departureResultSet.next()) {
+                departureAirportID = departureResultSet.getInt("AirportID");
+            } else {
+                System.err.println("Departure airport not found");
+                return false;
+            }
 
-        arrivalAirportStmt.setString(1, arrivalCity);
-        ResultSet arrivalResultSet = arrivalAirportStmt.executeQuery();
-        int arrivalAirportID = -1;
-        if (arrivalResultSet.next()) {
-            arrivalAirportID = arrivalResultSet.getInt("AirportID");
-        } else {
-            System.err.println("Arrival airport not found");
-            return false;
-        }
+            arrivalAirportStmt.setString(1, arrivalCity);
+            ResultSet arrivalResultSet = arrivalAirportStmt.executeQuery();
+            int arrivalAirportID = -1;
+            if (arrivalResultSet.next()) {
+                arrivalAirportID = arrivalResultSet.getInt("AirportID");
+            } else {
+                System.err.println("Arrival airport not found");
+                return false;
+            }
 
-        insertFlightStmt.setTimestamp(1, departureTime);
-        insertFlightStmt.setTimestamp(2, arrivalTime);
-        insertFlightStmt.setInt(3, planeID);
-        insertFlightStmt.setInt(4, departureAirportID);
-        insertFlightStmt.setInt(5, arrivalAirportID);
-        if (adminID != null) {
-            insertFlightStmt.setInt(6, adminID);
-        } else {
-            insertFlightStmt.setNull(6, java.sql.Types.INTEGER);
-        }
-        insertFlightStmt.setDate(7, new java.sql.Date(System.currentTimeMillis()));
+            insertFlightStmt.setTimestamp(1, departureTime);
+            insertFlightStmt.setTimestamp(2, arrivalTime);
+            insertFlightStmt.setInt(3, planeID);
+            insertFlightStmt.setInt(4, departureAirportID);
+            insertFlightStmt.setInt(5, arrivalAirportID);
+            if (adminID != null) {
+                insertFlightStmt.setInt(6, adminID);
+            } else {
+                insertFlightStmt.setNull(6, java.sql.Types.INTEGER);
+            }
+            insertFlightStmt.setDate(7, new java.sql.Date(System.currentTimeMillis()));
 
-        insertFlightStmt.executeUpdate();
-        return true;
+            insertFlightStmt.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,14 +77,14 @@ public class Flights {
         }
     }
 
-    public static ArrayList<ArrayList<Object>> viewFlight(String departureTime, String arrivalTime, 
-                                                      String planeID, String departureCityName, String arrivalCityName) {
+    public static ArrayList<ArrayList<Object>> viewFlight(String departureTime, String arrivalTime,
+                                                          String planeID, String departureCityName, String arrivalCityName) {
         String viewFlightSQL = "SELECT f.FlightID, f.DepartureTime, f.ArrivalTime, f.PlaneID, " +
-            "da.AirportName AS DepartureAirportName, aa.AirportName AS ArrivalAirportName, " +
-            "da.City AS DepartureCity, aa.City AS ArrivalCity " +  
-            "FROM " + CommonConstants.DB_FLIGHTS_TABLE + " f " +
-            "JOIN " + CommonConstants.DB_AIRPORTS_TABLE + " da ON f.DepartureAirportID = da.AirportID " +
-            "JOIN " + CommonConstants.DB_AIRPORTS_TABLE + " aa ON f.ArrivalAirportID = aa.AirportID WHERE 1=1 ";
+                "da.AirportName AS DepartureAirportName, aa.AirportName AS ArrivalAirportName, " +
+                "da.City AS DepartureCity, aa.City AS ArrivalCity " +
+                "FROM " + CommonConstants.DB_FLIGHTS_TABLE + " f " +
+                "JOIN " + CommonConstants.DB_AIRPORTS_TABLE + " da ON f.DepartureAirportID = da.AirportID " +
+                "JOIN " + CommonConstants.DB_AIRPORTS_TABLE + " aa ON f.ArrivalAirportID = aa.AirportID WHERE 1=1 ";
 
         ArrayList<ArrayList<Object>> flightsList = new ArrayList<>();
 
@@ -97,15 +98,15 @@ public class Flights {
             viewFlightSQL += " AND f.PlaneID = ? ";
         }
         if (!departureCityName.isEmpty()) {
-            viewFlightSQL += " AND da.City LIKE ? "; 
+            viewFlightSQL += " AND da.City LIKE ? ";
         }
         if (!arrivalCityName.isEmpty()) {
-            viewFlightSQL += " AND aa.City LIKE ? "; 
+            viewFlightSQL += " AND aa.City LIKE ? ";
         }
 
         try (Connection connection = DriverManager.getConnection(
-            CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-            PreparedStatement viewFlightsStmt = connection.prepareStatement(viewFlightSQL)) {
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+             PreparedStatement viewFlightsStmt = connection.prepareStatement(viewFlightSQL)) {
 
             int index = 1;
             if (!departureTime.isEmpty()) {
@@ -133,8 +134,8 @@ public class Flights {
                 flightData.add(resultSet.getInt("PlaneID"));
                 flightData.add(resultSet.getString("DepartureAirportName"));
                 flightData.add(resultSet.getString("ArrivalAirportName"));
-                flightData.add(resultSet.getString("DepartureCity"));  
-                flightData.add(resultSet.getString("ArrivalCity"));    
+                flightData.add(resultSet.getString("DepartureCity"));
+                flightData.add(resultSet.getString("ArrivalCity"));
                 flightsList.add(flightData);
             }
 
@@ -149,8 +150,8 @@ public class Flights {
         String deleteFlightSQL = "DELETE FROM " + CommonConstants.DB_FLIGHTS_TABLE + " WHERE FlightID = ?";
 
         try (Connection connection = DriverManager.getConnection(
-            CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-            PreparedStatement deleteFlightStmt = connection.prepareStatement(deleteFlightSQL)) {
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+             PreparedStatement deleteFlightStmt = connection.prepareStatement(deleteFlightSQL)) {
 
             deleteFlightStmt.setInt(1, flightID);
             int rowsAffected = deleteFlightStmt.executeUpdate();
@@ -163,20 +164,20 @@ public class Flights {
     }
 
     public static boolean modifyFlight(int flightID, Timestamp newDepartureTime, Timestamp newArrivalTime,
-                                   int newPlaneID, String newDepartureCity, String newArrivalCity, String updatedBy) {
+                                       int newPlaneID, String newDepartureCity, String newArrivalCity, String updatedBy) {
         String modifyFlightSQL = "UPDATE " + CommonConstants.DB_FLIGHTS_TABLE +
-            " SET DepartureTime = ?, ArrivalTime = ?, PlaneID = ?, DepartureAirportID = ?, ArrivalAirportID = ?, " +
-            "UpdatedBy = ?, UpdatedDate = ? WHERE FlightID = ?";
+                " SET DepartureTime = ?, ArrivalTime = ?, PlaneID = ?, DepartureAirportID = ?, ArrivalAirportID = ?, " +
+                "UpdatedBy = ?, UpdatedDate = ? WHERE FlightID = ?";
 
         try (Connection connection = DriverManager.getConnection(
-            CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-            PreparedStatement modifyFlightStmt = connection.prepareStatement(modifyFlightSQL);
-            PreparedStatement adminIDStmt = connection.prepareStatement(
-                 "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?");
-            PreparedStatement departureAirportStmt = connection.prepareStatement(
-                 "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?");
-            PreparedStatement arrivalAirportStmt = connection.prepareStatement(
-                 "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?")) {
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+             PreparedStatement modifyFlightStmt = connection.prepareStatement(modifyFlightSQL);
+             PreparedStatement adminIDStmt = connection.prepareStatement(
+                     "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?");
+             PreparedStatement departureAirportStmt = connection.prepareStatement(
+                     "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?");
+             PreparedStatement arrivalAirportStmt = connection.prepareStatement(
+                     "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?")) {
 
             adminIDStmt.setString(1, updatedBy);
             ResultSet resultSet = adminIDStmt.executeQuery();
