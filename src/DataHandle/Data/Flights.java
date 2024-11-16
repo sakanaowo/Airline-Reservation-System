@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DataHandle.Data;
-import constants.CommonConstants;
+import DataHandle.constants.CommonConstants;
+
 import java.sql.*;
 import java.util.*;
 import java.time.*;

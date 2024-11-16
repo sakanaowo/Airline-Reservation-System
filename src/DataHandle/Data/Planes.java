@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DataHandle.Data;
-import constants.CommonConstants;
+import DataHandle.Data.*;
+import DataHandle.constants.CommonConstants;
+
 import java.sql.*;
 import java.util.*;
 import java.time.*;
@@ -18,9 +20,9 @@ public class Planes {
 
         try (Connection connection = DriverManager.getConnection(
             CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-            PreparedStatement adminIDStmt = connection.prepareStatement(
+             PreparedStatement adminIDStmt = connection.prepareStatement(
              "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?");
-            PreparedStatement insertPlaneStmt = connection.prepareStatement(insertPlaneSQL)) {
+             PreparedStatement insertPlaneStmt = connection.prepareStatement(insertPlaneSQL)) {
 
             adminIDStmt.setString(1, updatedBy);
             ResultSet resultSet = adminIDStmt.executeQuery();
