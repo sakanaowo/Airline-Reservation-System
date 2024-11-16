@@ -4,22 +4,21 @@
  */
 package DataHandle.Data;
 
-import DataHandle.Data.*;
 import DataHandle.constants.CommonConstants;
+import Models.Plane;
 
 import java.sql.*;
 import java.util.*;
 import java.time.*;
 
-/**
- * @author DELL
- */
+import static java.sql.DriverManager.getConnection;
+
 public class Planes {
     public static boolean insertPlane(String model, int seats, String updatedBy) {
         String insertPlaneSQL = "INSERT INTO " + CommonConstants.DB_PLANES_TABLE +
                 " (Model, Seats, UpdatedBy, UpdatedDate) VALUES (?, ?, ?, ?)";
 
-        try (Connection connection = DriverManager.getConnection(
+        try (Connection connection = getConnection(
                 CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
              PreparedStatement adminIDStmt = connection.prepareStatement(
                      "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?");
@@ -58,7 +57,7 @@ public class Planes {
         String modifyPlaneSQL = "UPDATE " + CommonConstants.DB_PLANES_TABLE +
                 " SET Model = ?, Seats = ?, UpdatedBy = ?, UpdatedDate = ? WHERE PlaneID = ?";
 
-        try (Connection connection = DriverManager.getConnection(
+        try (Connection connection = getConnection(
                 CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
              PreparedStatement modifyPlaneStmt = connection.prepareStatement(modifyPlaneSQL);
              PreparedStatement adminIDStmt = connection.prepareStatement(
@@ -97,7 +96,7 @@ public class Planes {
     public static boolean deletePlane(int planeID) {
         String deletePlaneSQL = "DELETE FROM " + CommonConstants.DB_PLANES_TABLE + " WHERE PlaneID = ?";
 
-        try (Connection connection = DriverManager.getConnection(
+        try (Connection connection = getConnection(
                 CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
              PreparedStatement deletePlaneStmt = connection.prepareStatement(deletePlaneSQL)) {
 
@@ -115,7 +114,7 @@ public class Planes {
         String viewPlaneSQL = "SELECT * FROM " + CommonConstants.DB_PLANES_TABLE;
         ArrayList<ArrayList<Object>> planesList = new ArrayList<>();
 
-        try (Connection connection = DriverManager.getConnection(
+        try (Connection connection = getConnection(
                 CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
              PreparedStatement viewPlanesStmt = connection.prepareStatement(viewPlaneSQL)) {
 
@@ -134,5 +133,45 @@ public class Planes {
             e.printStackTrace();
         }
         return planesList;
+    }
+
+    // get plane by ID
+    public static Plane getPlaneById(int planeID) {
+        String sql = "SELECT p.*, a.AdminName FROM " + CommonConstants.DB_PLANES_TABLE + " p " +
+                "LEFT JOIN " + CommonConstants.DB_ADMIN_TABLE + " a ON p.UpdatedBy = a.AdminID " +
+                "WHERE p.PlaneID = ?";
+
+        try (Connection conn = getConnection(
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, planeID);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Plane plane = new Plane(
+                            rs.getString("Model"),
+                            rs.getInt("Seats"),
+                            rs.getInt("UpdatedBy"),
+                            rs.getTimestamp("UpdatedDate")
+                    );
+                    return plane;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // custom exception for plane
+    public static class PlaneOperationException extends Exception {
+        public PlaneOperationException(String message) {
+            super(message);
+        }
+
+        public PlaneOperationException(String message, Throwable cause) {
+            super(message, cause);
+        }
     }
 }
