@@ -10,6 +10,8 @@ public class Airport {
         this.Country = Country;
     }
 
+    public Airport() {}
+
     public String getAirportName() {
         return AirportName;
     }
@@ -36,5 +38,9 @@ public class Airport {
 
     public int getAirportID() {
         return AirportID;
+    }
+
+    public void setAirportID(int airportID) {
+        this.AirportID = airportID;
     }
 }
