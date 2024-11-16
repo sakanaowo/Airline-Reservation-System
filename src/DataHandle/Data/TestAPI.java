@@ -6,18 +6,12 @@ package DataHandle.Data;
 
 
 import java.util.Scanner;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-
-import static DataHandle.Data.Flights.viewFlight;
-import static DataHandle.Data.Planes.viewPlane;
 
 /**
  *
  * @author DELL
  */
-public class Airline_project {
+public class TestAPI {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
