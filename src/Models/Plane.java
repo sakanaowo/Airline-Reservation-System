@@ -11,6 +11,11 @@ public class Plane {
     private int UpdatedBy;
     private Date UpdatedDate;
 
+    public Plane(String Model, int Seats) {
+        this.Model = Model;
+        this.Seats = Seats;
+    }
+
     public Plane(String Model, int Seats, int UpdatedBy, Date UpdatedDate) {
         this.Model = Model;
         this.Seats = Seats;
