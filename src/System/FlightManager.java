@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static DataHandle.Data.Airports.getAirportByCity;
 import static DataHandle.Data.Planes.getPlaneById;
 
 public class FlightManager {
@@ -62,8 +63,8 @@ public class FlightManager {
 
                 // Create Plane and Airport objects (you may need to fetch more details if necessary)
                 Plane plane = getPlaneById(planeId);
-                Airport departureAirport = new Airport(-1, departureAirportName, departureCityName);
-                Airport arrivalAirport = new Airport(-1, arrivalAirportName, arrivalCityName);
+                Airport departureAirport = getAirportByCity(departureCity);
+                Airport arrivalAirport = getAirportByCity(arrivalCity);
 
                 // Create Flight object
                 Flight flight = new Flight(depTime, arrTime, plane, arrivalAirport, departureAirport);
