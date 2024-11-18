@@ -52,11 +52,10 @@ public class Login extends javax.swing.JFrame {
         jLabel4 = new JLabel();
         LoginButton = new javax.swing.JButton();
         SignUp = new javax.swing.JPanel();
-        Left1 = new javax.swing.JPanel();
-        Logo = new JLabel();
-        BrandName1 = new JLabel();
-        CopyRight1 = new JLabel();
-        label_logo = new JLabel();
+        Left2 = new javax.swing.JPanel();
+        BrandName2 = new JLabel();
+        CopyRight2 = new JLabel();
+        logo1 = new JLabel();
         Right1 = new javax.swing.JPanel();
         SignUpLabel = new JLabel();
         Fullname = new JLabel();
@@ -88,8 +87,7 @@ public class Login extends javax.swing.JFrame {
         CopyRight.setForeground(new Color(255, 255, 255));
         CopyRight.setText("copyright (c) CLC04 AIRLINES All rights reversed");
 
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/logo.png"))); // NOI18N
-        logo.setText("jLabel1");
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UI/Icon/logo.png"))); // NOI18N
 
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
@@ -221,53 +219,49 @@ public class Login extends javax.swing.JFrame {
         SignUp.setPreferredSize(new java.awt.Dimension(896, 497));
         SignUp.setLayout(null);
 
-        Left1.setBackground(new Color(204, 0, 0));
-        Left1.setMinimumSize(new java.awt.Dimension(400, 500));
+        Left2.setBackground(new Color(204, 0, 0));
+        Left2.setPreferredSize(new java.awt.Dimension(400, 500));
 
-        BrandName1.setFont(new java.awt.Font("Showcard Gothic", 0, 36)); // NOI18N
-        BrandName1.setForeground(new Color(255, 255, 255));
-        BrandName1.setText("CLC04 Airlines");
+        BrandName2.setFont(new java.awt.Font("Showcard Gothic", 3, 36)); // NOI18N
+        BrandName2.setForeground(new Color(255, 255, 255));
+        BrandName2.setText("CLC04 Airlines");
 
-        CopyRight1.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
-        CopyRight1.setForeground(new Color(255, 255, 255));
-        CopyRight1.setText("copyright (c) CLC04 AIRLINES All rights reserved");
+        CopyRight2.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        CopyRight2.setForeground(new Color(255, 255, 255));
+        CopyRight2.setText("copyright (c) CLC04 AIRLINES All rights reversed");
 
-        label_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/logo.png"))); // NOI18N
+        logo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UI/Icon/logo.png"))); // NOI18N
 
-        javax.swing.GroupLayout Left1Layout = new javax.swing.GroupLayout(Left1);
-        Left1.setLayout(Left1Layout);
-        Left1Layout.setHorizontalGroup(
-            Left1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Left1Layout.createSequentialGroup()
-                .addGap(107, 107, 107)
-                .addComponent(label_logo)
-                .addGap(128, 128, 128)
-                .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(Left1Layout.createSequentialGroup()
-                .addGap(89, 89, 89)
-                .addGroup(Left1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(CopyRight1)
-                    .addComponent(BrandName1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        javax.swing.GroupLayout Left2Layout = new javax.swing.GroupLayout(Left2);
+        Left2.setLayout(Left2Layout);
+        Left2Layout.setHorizontalGroup(
+            Left2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Left2Layout.createSequentialGroup()
+                .addContainerGap(88, Short.MAX_VALUE)
+                .addGroup(Left2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CopyRight2)
+                    .addGroup(Left2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Left2Layout.createSequentialGroup()
+                            .addComponent(logo1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(93, 93, 93))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Left2Layout.createSequentialGroup()
+                            .addComponent(BrandName2, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(69, 69, 69)))))
         );
-        Left1Layout.setVerticalGroup(
-            Left1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Left1Layout.createSequentialGroup()
-                .addGroup(Left1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Left1Layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(Logo))
-                    .addGroup(Left1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(label_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(49, 49, 49)
-                .addComponent(BrandName1)
-                .addGap(80, 80, 80)
-                .addComponent(CopyRight1)
-                .addContainerGap(83, Short.MAX_VALUE))
+        Left2Layout.setVerticalGroup(
+            Left2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Left2Layout.createSequentialGroup()
+                .addContainerGap(66, Short.MAX_VALUE)
+                .addComponent(logo1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addComponent(BrandName2)
+                .addGap(91, 91, 91)
+                .addComponent(CopyRight2)
+                .addGap(106, 106, 106))
         );
 
-        SignUp.add(Left1);
-        Left1.setBounds(0, 0, 450, 500);
+        SignUp.add(Left2);
+        Left2.setBounds(0, 0, 450, 500);
 
         Right1.setBackground(new Color(255, 255, 255));
 
@@ -398,7 +392,6 @@ public class Login extends javax.swing.JFrame {
         }
         else if(accounts.containsKey(email) && password.equals(accounts.get(email)))
         {
-            JOptionPane.showMessageDialog(null,"Đăng nhập thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             new Login().dispose();
             Menu MenuFrame = new Menu();
             MenuFrame.setVisible(true);
@@ -466,20 +459,19 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JLabel BrandName;
-    private JLabel BrandName1;
+    private JLabel BrandName2;
     private JLabel CopyRight;
-    private JLabel CopyRight1;
+    private JLabel CopyRight2;
     private JLabel Email;
     private javax.swing.JTextField EmailField;
     private JLabel EmailLabel;
     private JLabel Fullname;
     private javax.swing.JPanel Left;
-    private javax.swing.JPanel Left1;
+    private javax.swing.JPanel Left2;
     private javax.swing.JPanel Login;
     private javax.swing.JButton LoginButton;
     private javax.swing.JButton LoginButton1;
     private JLabel LoginLabel;
-    private JLabel Logo;
     private JLabel Password;
     private javax.swing.JPasswordField PasswordField;
     private JLabel PasswordLabel;
@@ -493,8 +485,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField fullnameField;
     private JLabel jLabel4;
     private JLabel jLabel5;
-    private JLabel label_logo;
     private JLabel logo;
+    private JLabel logo1;
     private javax.swing.JPasswordField passwordField;
     // End of variables declaration//GEN-END:variables
 }
