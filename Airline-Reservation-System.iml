@@ -17,5 +17,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="jcalendar-1.4" level="project" />
+    <orderEntry type="library" name="swing-layout-1.0.4" level="project" />
+    <orderEntry type="library" name="AbsoluteLayout-RELEASE220" level="project" />
   </component>
 </module>
