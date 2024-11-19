@@ -1,10 +1,10 @@
-//package System;
-//
-//import Models.*;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
+package System;
+
+import Models.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 //public class AirlineSystem {
 //    private List<Flight> flights;
 //    private List<User> users;
@@ -84,3 +84,11 @@
 ////        }
 ////    }
 //}
+public class AirlineSystem {
+    public FlightManager flightManager;
+    public UserManager userManager;
+    public AirlineSystem() {
+        flightManager = new FlightManager();
+        userManager = new UserManager();
+    }
+}
