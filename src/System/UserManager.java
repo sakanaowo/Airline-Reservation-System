@@ -1,14 +1,33 @@
-//package System;
-//
-//import java.security.MessageDigest;
-//import java.security.NoSuchAlgorithmException;
-//import java.sql.*;
-//import java.util.HashMap;
-//import java.util.Map;
-//
-//import Models.*;
-//
-//public class UserManager {
+package System;
+
+import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
+
+import DataHandle.Data.Users;
+
+import Models.*;
+
+public class UserManager {
+    public UserManager(){}
+    //     Kiểm tra người dùng hợp lệ
+    public boolean isValidUser(String username, String password) throws SQLException {
+        boolean b = Users.validateUser(username, password);
+        return b;
+    }
+
+    // kiểm tra nếu người dùng tồn tại
+    public boolean IfExists(String username) throws SQLException {
+        return Users.isUserNameExist(username);
+    }
+
+    // thêm tài khoản vào DB
+    public boolean addUser(String username, String password, String email) throws SQLException {
+        boolean b = Users.insertUser(username, password, email);
+        return b;
+    }
+
+}
 //    private Map<String, String> users;
 //    private Connection connection;
 //
@@ -33,12 +52,7 @@
 //        }
 //    }
 //
-//    // Kiểm tra người dùng hợp lệ
-//    public boolean isValidUser(String username, String password) {
-////        String hashedPassword = hashPassword(password);
-//        String hashedPassword = password;
-//        return users.containsKey(username.trim()) && users.get(username.trim()).equals(hashedPassword);
-//    }
+//
 //
 //    // Thêm người dùng mới vào cơ sở dữ liệu và bản đồ (map) nội bộ
 //    public void addUser(String username, String password) {

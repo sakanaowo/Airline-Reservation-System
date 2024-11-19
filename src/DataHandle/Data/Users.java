@@ -1,12 +1,39 @@
 package DataHandle.Data;
 
 import java.sql.*;
+
 import DataHandle.constants.CommonConstants;
 
 
 public class Users {
 
     public static Connection conn;
+    // kiem tra nguoi dung hop le
+    public static boolean validateUser(String userName, String password) throws SQLException {
+        String validateQuery = "SELECT COUNT(*) FROM " + CommonConstants.DB_USER_TABLE +
+                " WHERE UserName = ? AND Password = ?";
+        conn = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+
+        try (PreparedStatement validateStmt = conn.prepareStatement(validateQuery)) {
+            validateStmt.setString(1, userName);
+            validateStmt.setString(2, password);
+
+            ResultSet rs = validateStmt.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                if (count > 0) {
+                    System.out.println("Dang nhap thanh cong!");
+                    return true;
+                }
+            }
+            System.out.println("Ten dang nhap hoac mat khau khong dung!");
+            return false;
+        } finally {
+            if (conn != null && !conn.isClosed()) {
+                conn.close();
+            }
+        }
+    }
 
     public static boolean insertUser(String userName, String password, String email) throws SQLException {
         String insertUserQuery = "INSERT INTO " + CommonConstants.DB_USER_TABLE
@@ -23,8 +50,7 @@ public class Users {
             if (rowsAffected > 0) {
                 System.out.println("Them nguoi dung thanh cong!");
             }
-        }
-        else {
+        } else {
             System.out.println("Them nguoi dung that bai!");
             check = false;
         }
@@ -167,11 +193,11 @@ public class Users {
 
 //    public static void main(String[] args) throws SQLException {
 //        conn = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-//        //insertUser("meobinh", "123", "meobinh123");
-//        //insertUser("binhmeo", "321", "dcmeo");
-//        //System.out.println(getIDViaName("meobinh"));
-//        //updateUserEmail(6, "okokokok");
-//        //updateUserPassword(6, "123213");
-//        //deleteUser(6);
+//        insertUser("meobinh", "123", "meobinh123");
+//        insertUser("binhmeo", "321", "dcmeo");
+//        System.out.println(getIDViaName("meobinh"));
+//        updateUserEmail(6, "okokokok");
+//        updateUserPassword(6, "123213");
+//        deleteUser(6);
 //    }
 }
