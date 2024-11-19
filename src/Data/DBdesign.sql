@@ -21,12 +21,18 @@ CREATE TABLE `airline`.`planes` (
   `Model` VARCHAR(45) NOT NULL,
   `Seats` INT NOT NULL,
   `UpdatedBy` INT NULL,
-  `UpdatedDate` DATE NOT NULL,  
+  `UpdatedDate` DATE NOT NULL,
+  `LocationID` INT NOT NULL,
   PRIMARY KEY (`PlaneID`),
-  CONSTRAINT `fk_updatedby` 
+  CONSTRAINT `fk_updatedby`
     FOREIGN KEY (`UpdatedBy`)
     REFERENCES `airline`.`admins` (`AdminID`)
     ON DELETE SET NULL
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_locationid_planes`
+    FOREIGN KEY (`LocationID`)
+    REFERENCES `airline`.`airports` (`AirportID`)
+    ON DELETE CASCADE
     ON UPDATE CASCADE
 );
 
@@ -38,7 +44,7 @@ CREATE TABLE `airline`.`flights` (
   `DepartureAirportID` INT NOT NULL,
   `ArrivalAirportID` INT NOT NULL,
   `UpdatedBy` INT NULL,
-  `UpdatedDate` DATE NOT NULL,  
+  `UpdatedDate` DATE NOT NULL,
   PRIMARY KEY (`FlightID`),
   INDEX `PlaneID_idx` (`PlaneID` ASC),
   INDEX `DepartureAirportID_idx` (`DepartureAirportID` ASC),
@@ -49,9 +55,9 @@ CREATE TABLE `airline`.`flights` (
     REFERENCES `airline`.`planes` (`PlaneID`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_departureairportid`
+  CONSTRAINT `fk_departureairportid_flights`
     FOREIGN KEY (`DepartureAirportID`)
-    REFERENCES `airline`.`airports` (`AirportID`)
+    REFERENCES `airline`.`planes` (`LocationID`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_arrivalairportid`
@@ -66,6 +72,7 @@ CREATE TABLE `airline`.`flights` (
     ON UPDATE CASCADE
 );
 
+
 CREATE TABLE `airline`.`seats` (
   `SeatID` INT NOT NULL AUTO_INCREMENT,
   `FlightID` INT NOT NULL,
@@ -74,7 +81,7 @@ CREATE TABLE `airline`.`seats` (
   `Available` TINYINT NOT NULL,
   `Price` DOUBLE NOT NULL,
   `UpdatedBy` INT NULL,
-  `UpdatedDate` DATE NOT NULL,  
+  `UpdatedDate` DATE NOT NULL,
   PRIMARY KEY (`SeatID`),
   INDEX `FlightID_idx` (`FlightID` ASC),
   CONSTRAINT `fk_flightid`
@@ -111,7 +118,7 @@ CREATE TABLE `airline`.`tickets` (
   `PassengerID` INT NOT NULL,
   `SeatID` INT NOT NULL,
   `TicketCode` VARCHAR(45) NOT NULL,
-  `ReservationDate` DATETIME NOT NULL,  
+  `ReservationDate` DATETIME NOT NULL,
   PRIMARY KEY (`TicketID`),
   INDEX `PassengerID_idx` (`PassengerID` ASC),
   INDEX `SeatID_idx` (`SeatID` ASC),
@@ -138,71 +145,30 @@ INSERT INTO `airline`.`airports` (`AirportName`, `City`, `Country`) VALUES
 ('Chu Lai Airport', 'Quang Nam', 'Vietnam'),
 ('Dong Hoi Airport', 'Quang Binh', 'Vietnam');
 
-INSERT INTO `airline`.`planes` (`Model`, `Seats`, `UpdatedBy`, `UpdatedDate`) VALUES
-('Airbus A320', 180, 1, CURDATE()),   
-('Airbus A320', 180, 1, CURDATE()), 
-('Airbus A320', 180, 1, CURDATE()), 
-('Airbus A320', 180, 1, CURDATE()), 
-('Airbus A320', 180, 1, CURDATE()), 
-('Airbus A320', 180, 1, CURDATE()), 
-('Airbus A320', 180, 1, CURDATE()), 
-('Airbus A320', 180, 1, CURDATE()), 
-('Airbus A320', 180, 1, CURDATE()), 
-('Airbus A320', 180, 1, CURDATE()),
-('Airbus A320', 180, 1, CURDATE()), 
-('Airbus A320', 180, 1, CURDATE());  
-  
+INSERT INTO `airline`.`planes` (`Model`, `Seats`, `UpdatedBy`, `UpdatedDate`, `LocationID`) VALUES
+('Airbus A320', 180, 1, CURDATE(), 1),
+('Airbus A320', 180, 1, CURDATE(), 2),
+('Airbus A320', 180, 1, CURDATE(), 3),
+('Airbus A320', 180, 1, CURDATE(), 4),
+('Airbus A320', 180, 1, CURDATE(), 5),
+('Airbus A320', 180, 1, CURDATE(), 6),
+('Airbus A320', 180, 1, CURDATE(), 7),
+('Airbus A320', 180, 1, CURDATE(), 8),
+('Airbus A320', 180, 1, CURDATE(), 9),
+('Airbus A320', 180, 1, CURDATE(), 10);
 
-INSERT INTO `airline`.`flights` 
-    (`DepartureTime`, `ArrivalTime`, `PlaneID`, `DepartureAirportID`, `ArrivalAirportID`, `UpdatedBy`, `UpdatedDate`) 
-VALUES 
-    (DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '08:00:00' HOUR_SECOND, 
-     DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '10:00:00' HOUR_SECOND, 
-     1, 1, 2, 1, CURDATE()),  
-     
-    (DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '09:00:00' HOUR_SECOND, 
-     DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '11:30:00' HOUR_SECOND, 
-     2, 6, 3, 1, CURDATE()),
-     
-     (DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '08:00:00' HOUR_SECOND, 
-	DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '10:30:00' HOUR_SECOND, 
-	3, 1, 2, 1, CURDATE()),  
- 
-	(DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '09:00:00' HOUR_SECOND, 
-	DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '12:00:00' HOUR_SECOND, 
-	4, 2, 3, 1, CURDATE()),   
+INSERT INTO `airline`.`flights` (`DepartureTime`, `ArrivalTime`, `PlaneID`, `DepartureAirportID`, `ArrivalAirportID`, `UpdatedBy`, `UpdatedDate`) VALUES
+(DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '08:00:00' HOUR_SECOND, DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '12:00:00' HOUR_SECOND, 1, 1, 2, 1, CURDATE()),
+(DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '09:00:00' HOUR_SECOND, DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '13:00:00' HOUR_SECOND, 2, 2, 3, 1, CURDATE()),
+(DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '10:00:00' HOUR_SECOND, DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '14:00:00' HOUR_SECOND, 3, 3, 4, 1, CURDATE()),
+(DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '11:00:00' HOUR_SECOND, DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '15:00:00' HOUR_SECOND, 4, 4, 5, 1, CURDATE()),
+(DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '12:00:00' HOUR_SECOND, DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '16:00:00' HOUR_SECOND, 5, 5, 6, 1, CURDATE()),
 
-	(DATE_ADD(CURDATE(), INTERVAL 3 DAY) + INTERVAL '07:00:00' HOUR_SECOND, 
-	DATE_ADD(CURDATE(), INTERVAL 3 DAY) + INTERVAL '10:15:00' HOUR_SECOND, 
-	5, 3, 4, 1, CURDATE()),   
-
-	(DATE_ADD(CURDATE(), INTERVAL 4 DAY) + INTERVAL '10:00:00' HOUR_SECOND, 
-	DATE_ADD(CURDATE(), INTERVAL 4 DAY) + INTERVAL '13:00:00' HOUR_SECOND, 
-	6, 4, 5, 1, CURDATE()), 
-    
-	(DATE_ADD(CURDATE(), INTERVAL 5 DAY) + INTERVAL '06:00:00' HOUR_SECOND, 
-	DATE_ADD(CURDATE(), INTERVAL 5 DAY) + INTERVAL '09:30:00' HOUR_SECOND, 
-	7, 5, 6, 1, CURDATE()),   
-
-	(DATE_ADD(CURDATE(), INTERVAL 6 DAY) + INTERVAL '11:00:00' HOUR_SECOND, 
-	DATE_ADD(CURDATE(), INTERVAL 6 DAY) + INTERVAL '13:45:00' HOUR_SECOND, 
-	8, 6, 7, 1, CURDATE()),  
-
-	(DATE_ADD(CURDATE(), INTERVAL 7 DAY) + INTERVAL '08:30:00' HOUR_SECOND, 
-	DATE_ADD(CURDATE(), INTERVAL 7 DAY) + INTERVAL '12:00:00' HOUR_SECOND, 
-	9, 7, 8, 1, CURDATE()),   
-
-	(DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '14:00:00' HOUR_SECOND, 
-	DATE_ADD(CURDATE(), INTERVAL 1 DAY) + INTERVAL '16:30:00' HOUR_SECOND, 
-	10, 8, 9, 1, CURDATE()),  
-
-	(DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '17:00:00' HOUR_SECOND, 
-	DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '20:00:00' HOUR_SECOND, 
-	11, 9, 10, 1, CURDATE()),  
-
-	(DATE_ADD(CURDATE(), INTERVAL 3 DAY) + INTERVAL '15:30:00' HOUR_SECOND, 
-	DATE_ADD(CURDATE(), INTERVAL 3 DAY) + INTERVAL '18:45:00' HOUR_SECOND, 
-	12, 10, 1, 1, CURDATE());
+(DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '08:00:00' HOUR_SECOND, DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '12:00:00' HOUR_SECOND, 6, 6, 7, 1, CURDATE()),
+(DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '09:00:00' HOUR_SECOND, DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '13:00:00' HOUR_SECOND, 7, 7, 8, 1, CURDATE()),
+(DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '10:00:00' HOUR_SECOND, DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '14:00:00' HOUR_SECOND, 8, 8, 9, 1, CURDATE()),
+(DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '11:00:00' HOUR_SECOND, DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '15:00:00' HOUR_SECOND, 9, 9, 10, 1, CURDATE()),
+(DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '12:00:00' HOUR_SECOND, DATE_ADD(CURDATE(), INTERVAL 2 DAY) + INTERVAL '16:00:00' HOUR_SECOND, 10, 10, 1, 1, CURDATE());
 
 USE airline;
 
@@ -213,7 +179,7 @@ CREATE PROCEDURE InsertSeats(
     IN businessPrice DOUBLE,
     IN economyPrice DOUBLE,
     IN updatedBy INT,
-    IN updatedDate DATE 
+    IN updatedDate DATE
 )
 BEGIN
     DECLARE totalBusinessSeats INT DEFAULT 30;
@@ -225,9 +191,9 @@ BEGIN
     DECLARE seatLetters CHAR(1) DEFAULT 'A';
 
     WHILE businessSeatsInserted < totalBusinessSeats DO
-        SET seatLetters = CHAR(65 + (businessSeatsInserted % 6)); 
+        SET seatLetters = CHAR(65 + (businessSeatsInserted % 6));
         SET position = CONCAT(seatLetters, FLOOR(businessSeatsInserted / 6) + 1);
-        
+
         INSERT INTO `airline`.`seats` (`FlightID`, `Class`, `Position`, `Available`, `Price`, `UpdatedBy`, `UpdatedDate`)
         VALUES (flightID, 'Business', position, 1, businessPrice, updatedBy, updatedDate);
 
@@ -237,7 +203,7 @@ BEGIN
 
     WHILE economySeatsInserted < totalEconomySeats DO
 
-        SET seatLetters = CHAR(65 + (economySeatsInserted % 6)); 
+        SET seatLetters = CHAR(65 + (economySeatsInserted % 6));
         SET position = CONCAT(seatLetters, FLOOR(economySeatsInserted / 6) + 1);
 
         INSERT INTO `airline`.`seats` (`FlightID`, `Class`, `Position`, `Available`, `Price`, `UpdatedBy`, `UpdatedDate`)
@@ -259,44 +225,6 @@ CALL InsertSeats(7, 1500000, 500000, 1, CURDATE());
 CALL InsertSeats(8, 1500000, 500000, 1, CURDATE());
 CALL InsertSeats(9, 1500000, 500000, 1, CURDATE());
 CALL InsertSeats(10, 1500000, 500000, 1, CURDATE());
-CALL InsertSeats(11, 1500000, 500000, 1, CURDATE());
-CALL InsertSeats(12, 1500000, 500000, 1, CURDATE());
- 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- -- Chay lenh nay de xoa database
+-- DROP DATABASE `airline`;
