@@ -5,15 +5,16 @@
 package DataHandle.Data;
 
 
+import java.sql.SQLException;
 import java.util.Scanner;
+import System.AirlineSystem;
 
 /**
- *
  * @author DELL
  */
 public class TestAPI {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Scanner scanner = new Scanner(System.in);
 //
 //        System.out.print("Enter Flight ID: ");
@@ -105,7 +106,13 @@ public class TestAPI {
 //        }
 //        boolean insertfilght = MyJDBC.insertFlight(Timestamp.valueOf("2024-11-15 08:00:00"),
 //                Timestamp.valueOf("2024-11-15 10:30:00"), 3, "Da Nang", "Phu Quoc", "thinh");
-        
+//        System.out.print("Username: ");
+//        String username = scanner.next();
+//        System.out.print("Password: ");
+//        String password = scanner.next();
+//
+//        AirlineSystem manager=new AirlineSystem();
+//        System.out.println(manager.userManager.IfExists(username));
     }
 }
 
