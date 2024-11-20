@@ -12,62 +12,70 @@ import java.time.*;
  * @author DELL
  */
 public class Flights {
-        public static boolean insertFlight(Timestamp departureTime, Timestamp arrivalTime, int planeID, 
-                                   String departureCity, String arrivalCity, String updatedName) {
-    String insertFlightSQL = "INSERT INTO " + CommonConstants.DB_FLIGHTS_TABLE +
-        " (DepartureTime, ArrivalTime, PlaneID, DepartureAirportID, ArrivalAirportID, UpdatedBy, UpdatedDate) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public static boolean insertFlight(Timestamp departureTime, Timestamp arrivalTime, int planeID,
+                                       String departureCity, String arrivalCity, String updatedName) {
+        String insertFlightSQL = "INSERT INTO " + CommonConstants.DB_FLIGHTS_TABLE +
+                " (DepartureTime, ArrivalTime, PlaneID, DepartureAirportID, ArrivalAirportID, UpdatedBy, UpdatedDate) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-    try (Connection connection = DriverManager.getConnection(
-            CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-         PreparedStatement adminIDStmt = connection.prepareStatement(
-                 "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?");
-         PreparedStatement departureAirportStmt = connection.prepareStatement(
-                 "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?");
-         PreparedStatement arrivalAirportStmt = connection.prepareStatement(
-                 "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?");
-         PreparedStatement insertFlightStmt = connection.prepareStatement(insertFlightSQL)) {
+        try (Connection connection = DriverManager.getConnection(
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+             PreparedStatement adminIDStmt = connection.prepareStatement(
+                     "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?");
+             PreparedStatement departureAirportStmt = connection.prepareStatement(
+                     "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " a " +
+                             "JOIN " + CommonConstants.DB_PLANES_TABLE + " p ON p.LocationID = a.AirportID " +
+                             "WHERE a.City = ?");
+             PreparedStatement arrivalAirportStmt = connection.prepareStatement(
+                     "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?");
+             PreparedStatement insertFlightStmt = connection.prepareStatement(insertFlightSQL)) {
 
-        adminIDStmt.setString(1, updatedName);
-        ResultSet adminResultSet = adminIDStmt.executeQuery();
-        Integer adminID = null;
-        if (adminResultSet.next()) {
-            adminID = adminResultSet.getInt("AdminID");
-        }
+            adminIDStmt.setString(1, updatedName);
+            ResultSet adminResultSet = adminIDStmt.executeQuery();
+            Integer adminID = null;
+            if (adminResultSet.next()) {
+                adminID = adminResultSet.getInt("AdminID");
+            } else {
+                System.err.println("Admin not found");
+                return false;
+            }
 
-        departureAirportStmt.setString(1, departureCity);
-        ResultSet departureResultSet = departureAirportStmt.executeQuery();
-        int departureAirportID = -1;
-        if (departureResultSet.next()) {
-            departureAirportID = departureResultSet.getInt("AirportID");
-        } else {
-            System.err.println("Departure airport not found");
-            return false;
-        }
+            departureAirportStmt.setString(1, departureCity);
+            ResultSet departureResultSet = departureAirportStmt.executeQuery();
+            int departureAirportID = -1;
+            if (departureResultSet.next()) {
+                departureAirportID = departureResultSet.getInt("AirportID");
+            } else {
+                System.err.println("Departure airport not found");
+                return false;
+            }
 
-        arrivalAirportStmt.setString(1, arrivalCity);
-        ResultSet arrivalResultSet = arrivalAirportStmt.executeQuery();
-        int arrivalAirportID = -1;
-        if (arrivalResultSet.next()) {
-            arrivalAirportID = arrivalResultSet.getInt("AirportID");
-        } else {
-            System.err.println("Arrival airport not found");
-            return false;
-        }
+            arrivalAirportStmt.setString(1, arrivalCity);
+            ResultSet arrivalResultSet = arrivalAirportStmt.executeQuery();
+            int arrivalAirportID = -1;
+            if (arrivalResultSet.next()) {
+                arrivalAirportID = arrivalResultSet.getInt("AirportID");
+            } else {
+                System.err.println("Arrival airport not found");
+                return false;
+            }
 
-        insertFlightStmt.setTimestamp(1, departureTime);
-        insertFlightStmt.setTimestamp(2, arrivalTime);
-        insertFlightStmt.setInt(3, planeID);
-        insertFlightStmt.setInt(4, departureAirportID);
-        insertFlightStmt.setInt(5, arrivalAirportID);
-        if (adminID != null) {
-            insertFlightStmt.setInt(6, adminID);
-        } else {
-            insertFlightStmt.setNull(6, java.sql.Types.INTEGER);
-        }
-        insertFlightStmt.setDate(7, new java.sql.Date(System.currentTimeMillis()));
+            insertFlightStmt.setTimestamp(1, departureTime);
+            insertFlightStmt.setTimestamp(2, arrivalTime);
+            insertFlightStmt.setInt(3, planeID);
+            insertFlightStmt.setInt(4, departureAirportID);
+            insertFlightStmt.setInt(5, arrivalAirportID);
 
-        insertFlightStmt.executeUpdate();
-        return true;
+            if (adminID != null) {
+                insertFlightStmt.setInt(6, adminID); // Admin ID
+            } else {
+                insertFlightStmt.setNull(6, java.sql.Types.INTEGER); // Null Admin ID if not found
+            }
+
+            insertFlightStmt.setDate(7, new java.sql.Date(System.currentTimeMillis())); // Current date for UpdatedDate
+
+            insertFlightStmt.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
