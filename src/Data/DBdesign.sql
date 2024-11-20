@@ -4,7 +4,7 @@ CREATE TABLE `airline`.`airports` (
   `AirportID` INT NOT NULL AUTO_INCREMENT,
   `AirportName` VARCHAR(45) NOT NULL,
   `City` VARCHAR(45) NOT NULL,
-  `Country` VARCHAR(45) NOT NULL,
+  `AirportCode` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`AirportID`)
 );
 
@@ -133,17 +133,29 @@ INSERT INTO `airline`.`admins` (`AdminName`, `Password`, `Email`)
 VALUES ('thinh', SHA2('1', 256), 'thinhthiennguyen2004@gmail.com');
 
 
-INSERT INTO `airline`.`airports` (`AirportName`, `City`, `Country`) VALUES
-('Noi Bai International Airport', 'Ha Noi', 'Vietnam'),
-('Tan Son Nhat International Airport', 'Ho Chi Minh', 'Vietnam'),
-('Da Nang International Airport', 'Da Nang', 'Vietnam'),
-('Cam Ranh International Airport', 'Nha Trang', 'Vietnam'),
-('Phu Quoc International Airport', 'Phu Quoc', 'Vietnam'),
-('Cat Bi International Airport', 'Hai Phong', 'Vietnam'),
-('Vinh International Airport', 'Vinh', 'Vietnam'),
-('Can Tho International Airport', 'Can Tho', 'Vietnam'),
-('Chu Lai Airport', 'Quang Nam', 'Vietnam'),
-('Dong Hoi Airport', 'Quang Binh', 'Vietnam');
+INSERT INTO `airline`.`airports` (`AirportName`, `City`, `AirportCode`) VALUES
+		('San bay Chu Lai', 'Quang Nam', 'VCL'),
+       ('San bay Tho Xuan', 'Thanh Hoa', 'THD'),
+       ('San bay Dong Hoi', 'Quang Binh', 'VDH'),
+       ('San bay Dien Bien Phu', 'Dien Bien', 'DIN'),
+       ('San bay Tuy Hoa', 'Phu Yen', 'TBB'),
+       ('San bay Pleiku', 'Gia Lai', 'PXU'),
+       ('San bay Buon Me Thuot', 'Dak Lak', 'BMV'),
+       ('San bay Rach Gia', 'Kien Giang', 'VKG'),
+       ('San bay Ca Mau', 'Ca Mau', 'CAH'),
+       ('San bay Con Dao', 'Ba Ria – Vung Tau', 'VCS'),
+       ('San bay quoc te Noi Bai', 'Ha Noi', 'HAN'),
+       ('San bay quoc te Tan Son Nhat', 'Thanh pho Ho Chi Minh', 'SGN'),
+       ('San bay quoc te Phu Quoc', 'Kien Giang', 'PQC'),
+       ('San bay quoc te Da Nang', 'Da Nang', 'DAD'),
+       ('San bay quoc te Cam Ranh', 'Khanh Hoa', 'CXR'),
+       ('San bay quoc te Phu Bai', 'Thua Thien Hue', 'HUI'),
+       ('San bay quoc te Van Don', 'Quang Ninh', 'VDO'),
+       ('San bay quoc te Can Tho', 'Can Tho', 'VCA'),
+       ('San bay quoc te Vinh', 'Nghe An', 'VII'),
+       ('San bay Quoc te Phu Cat', 'Binh Dinh', 'UIH'),
+       ('San bay Quoc te Cat Bi', 'Hai Phong', 'HPH'),
+       ('San bay Quoc te Lien Khuong (dang de xuat)', 'Lam Dong', 'DLI');
 
 INSERT INTO `airline`.`planes` (`Model`, `Seats`, `UpdatedBy`, `UpdatedDate`, `LocationID`) VALUES
 ('Airbus A320', 180, 1, CURDATE(), 1),
