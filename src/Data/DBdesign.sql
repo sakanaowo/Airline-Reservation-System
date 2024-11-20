@@ -20,9 +20,9 @@ CREATE TABLE `airline`.`planes` (
   `PlaneID` INT NOT NULL AUTO_INCREMENT,
   `Model` VARCHAR(45) NOT NULL,
   `Seats` INT NOT NULL,
+  `LocationID` INT NOT NULL,
   `UpdatedBy` INT NULL,
   `UpdatedDate` DATE NOT NULL,
-  `LocationID` INT NOT NULL,
   PRIMARY KEY (`PlaneID`),
   CONSTRAINT `fk_updatedby`
     FOREIGN KEY (`UpdatedBy`)
