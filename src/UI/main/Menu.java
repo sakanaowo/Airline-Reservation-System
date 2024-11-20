@@ -784,7 +784,8 @@ public class Menu extends javax.swing.JFrame {
         Date DerpartureTime = ngay_di.getDate();
         int PassengerNumber = Integer.parseInt(so_khach_combobox.getSelectedItem().toString());
 
-//        ArrayList<Flight> FoundedFlights = manager.flightManager.getFlights(DerpartureTime,null,null,DerpatureAirport,);
+//        ArrayList<Flight> FoundedFlights = manager.flightManager.getFlights(String.valueOf(DerpartureTime),null,null,DerpatureAirport,ArrivalAirport);
+
 
     }//GEN-LAST:event_nut_tim_chuyen_bayActionPerformed
 
