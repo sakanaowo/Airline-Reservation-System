@@ -1,13 +1,13 @@
 package Models;
 
 public class Airport {
-    private String AirportName, City, Country;
+    private String AirportName, City, AirportCode;
     private int AirportID;
 
-    public Airport(String AirportName, String City, String Country) {
+    public Airport(String AirportName, String City, String APC) {
         this.AirportName = AirportName;
         this.City = City;
-        this.Country = Country;
+        this.AirportCode = APC;
     }
 
     public Airport() {}
@@ -28,12 +28,12 @@ public class Airport {
         this.City = City;
     }
 
-    public String getCountry() {
-        return Country;
+    public String getAirportCode() {
+        return AirportCode;
     }
 
-    public void setCountry(String Country) {
-        this.Country = Country;
+    public void setAirportCode(String Country) {
+        this.AirportCode = Country;
     }
 
     public int getAirportID() {
