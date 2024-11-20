@@ -40,7 +40,7 @@ public class Airports {
 
             stmt.setString(1, airport.getAirportName());
             stmt.setString(2, airport.getCity());
-            stmt.setString(3, airport.getCountry());
+            stmt.setString(3, airport.getAirportCode());
 
             int affectedRows = stmt.executeUpdate();
 
@@ -74,7 +74,7 @@ public class Airports {
 
             stmt.setString(1, airport.getAirportName());
             stmt.setString(2, airport.getCity());
-            stmt.setString(3, airport.getCountry());
+            stmt.setString(3, airport.getAirportCode());
             stmt.setInt(4, airport.getAirportID());
 
             return stmt.executeUpdate() > 0;
@@ -140,7 +140,7 @@ public class Airports {
                 airport.setAirportID(rs.getInt("AirportID"));
                 airport.setAirportName(rs.getString("AirportName"));
                 airport.setCity(rs.getString("City"));
-                airport.setCountry(rs.getString("Country"));
+                airport.setAirportCode(rs.getString("Country"));
                 airports.add(airport);
             }
         } catch (SQLException e) {
@@ -169,7 +169,7 @@ public class Airports {
                     airport.setAirportID(rs.getInt("AirportID"));
                     airport.setAirportName(rs.getString("AirportName"));
                     airport.setCity(rs.getString("City"));
-                    airport.setCountry(rs.getString("Country"));
+                    airport.setAirportCode(rs.getString("Country"));
                     return airport;
                 }
             }
@@ -204,7 +204,7 @@ public class Airports {
                     airport.setAirportID(rs.getInt("AirportID"));
                     airport.setAirportName(rs.getString("AirportName"));
                     airport.setCity(rs.getString("City"));
-                    airport.setCountry(rs.getString("Country"));
+                    airport.setAirportCode(rs.getString("Country"));
                     airports.add(airport);
                 }
             }
@@ -236,7 +236,7 @@ public class Airports {
                     airport.setAirportID(rs.getInt("AirportID"));
                     airport.setAirportName(rs.getString("AirportName"));
                     airport.setCity(rs.getString("City"));
-                    airport.setCountry(rs.getString("Country"));
+                    airport.setAirportCode(rs.getString("Country"));
                     airports.add(airport);
                 }
             }
@@ -280,7 +280,7 @@ public class Airports {
                     airport.setAirportID(rs.getInt("AirportID"));
                     airport.setAirportName(rs.getString("AirportName"));
                     airport.setCity(rs.getString("City"));
-                    airport.setCountry(rs.getString("Country"));
+                    airport.setAirportCode(rs.getString("Country"));
                     return airport;
                 }
             }
