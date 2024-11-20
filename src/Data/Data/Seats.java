@@ -29,17 +29,19 @@ public class Seats {
         }
     }
 
-    public static ArrayList<ArrayList<Object>> viewSeatAvailable(String departureTime, String arrivalTime, 
-            String flightID, String departureCityName, String arrivalCityName) {
+    public static ArrayList<ArrayList<Object>> viewSeatAvailable(String departureTime, String arrivalTime,
+                                                                 String flightID, String departureCityName, String arrivalCityName) {
 
         String viewSeatSQL = "SELECT f.FlightID, f.DepartureTime, f.ArrivalTime, f.PlaneID, " +
-                         "da.AirportName AS DepartureAirportName, aa.AirportName AS ArrivalAirportName, " +
-                         "da.City AS DepartureCity, aa.City AS ArrivalCity, COUNT(s.SeatID) AS AvailableSeats " +
-                         "FROM airline.flights f " +
-                         "JOIN airline.airports da ON f.DepartureAirportID = da.AirportID " +
-                         "JOIN airline.airports aa ON f.ArrivalAirportID = aa.AirportID " +
-                         "JOIN airline.seats s ON f.FlightID = s.FlightID " +
-                         "WHERE s.Available = 1 ";
+                "da.AirportName AS DepartureAirportName, aa.AirportName AS ArrivalAirportName, " +
+                "da.City AS DepartureCity, aa.City AS ArrivalCity, " +
+                "SUM(CASE WHEN s.Class = 'Business' AND s.Available = 1 THEN 1 ELSE 0 END) AS BusinessAvailableSeats, " +
+                "SUM(CASE WHEN s.Class = 'Economy' AND s.Available = 1 THEN 1 ELSE 0 END) AS EconomyAvailableSeats " +
+                "FROM airline.flights f " +
+                "JOIN airline.airports da ON f.DepartureAirportID = da.AirportID " +
+                "JOIN airline.airports aa ON f.ArrivalAirportID = aa.AirportID " +
+                "JOIN airline.seats s ON f.FlightID = s.FlightID " +
+                "WHERE 1=1 ";
 
         ArrayList<ArrayList<Object>> seatsList = new ArrayList<>();
 
@@ -58,18 +60,20 @@ public class Seats {
         if (!arrivalCityName.isEmpty()) {
             viewSeatSQL += " AND aa.City LIKE ? ";
         }
-        viewSeatSQL += " GROUP BY f.FlightID";
+
+        viewSeatSQL += " GROUP BY f.FlightID, f.DepartureTime, f.ArrivalTime, f.PlaneID, " +
+                "da.AirportName, aa.AirportName, da.City, aa.City";
 
         try (Connection connection = DriverManager.getConnection(
-            CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-            PreparedStatement viewSeatsStmt = connection.prepareStatement(viewSeatSQL)) {
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+             PreparedStatement viewSeatsStmt = connection.prepareStatement(viewSeatSQL)) {
 
             int index = 1;
             if (!departureTime.isEmpty()) {
                 viewSeatsStmt.setString(index++, departureTime);
             }
             if (!arrivalTime.isEmpty()) {
-            viewSeatsStmt.setString(index++, arrivalTime);
+                viewSeatsStmt.setString(index++, arrivalTime);
             }
             if (!flightID.isEmpty()) {
                 viewSeatsStmt.setString(index++, flightID);
@@ -84,7 +88,7 @@ public class Seats {
             ResultSet resultSet = viewSeatsStmt.executeQuery();
             while (resultSet.next()) {
                 ArrayList<Object> seatData = new ArrayList<>();
-                seatData.add(resultSet.getInt("FlightID"));
+                seatData.add(resultSet.getString("FlightID"));
                 seatData.add(resultSet.getTimestamp("DepartureTime"));
                 seatData.add(resultSet.getTimestamp("ArrivalTime"));
                 seatData.add(resultSet.getInt("PlaneID"));
@@ -92,7 +96,8 @@ public class Seats {
                 seatData.add(resultSet.getString("ArrivalAirportName"));
                 seatData.add(resultSet.getString("DepartureCity"));
                 seatData.add(resultSet.getString("ArrivalCity"));
-                seatData.add(resultSet.getInt("AvailableSeats"));
+                seatData.add(resultSet.getInt("BusinessAvailableSeats"));
+                seatData.add(resultSet.getInt("EconomyAvailableSeats"));
                 seatsList.add(seatData);
             }
 
