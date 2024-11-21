@@ -126,6 +126,11 @@ CREATE TABLE `airline`.`tickets` (
     FOREIGN KEY (`PassengerID`)
     REFERENCES `airline`.`passengers` (`PassengerID`)
     ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_seatid`
+    FOREIGN KEY (`SeatID`)
+    REFERENCES `airline`.`Seats` (`SeatID`)
+    ON DELETE CASCADE
     ON UPDATE CASCADE
 );
 
@@ -143,7 +148,7 @@ INSERT INTO `airline`.`airports` (`AirportName`, `City`, `AirportCode`) VALUES
        ('San bay Buon Me Thuot', 'Dak Lak', 'BMV'),
        ('San bay Rach Gia', 'Kien Giang', 'VKG'),
        ('San bay Ca Mau', 'Ca Mau', 'CAH'),
-       ('San bay Con Dao', 'Ba Ria – Vung Tau', 'VCS'),
+       ('San bay Con Dao', 'Ba Ria Vung Tau', 'VCS'),
        ('San bay quoc te Noi Bai', 'Ha Noi', 'HAN'),
        ('San bay quoc te Tan Son Nhat', 'Thanh pho Ho Chi Minh', 'SGN'),
        ('San bay quoc te Phu Quoc', 'Kien Giang', 'PQC'),
@@ -154,8 +159,7 @@ INSERT INTO `airline`.`airports` (`AirportName`, `City`, `AirportCode`) VALUES
        ('San bay quoc te Can Tho', 'Can Tho', 'VCA'),
        ('San bay quoc te Vinh', 'Nghe An', 'VII'),
        ('San bay Quoc te Phu Cat', 'Binh Dinh', 'UIH'),
-       ('San bay Quoc te Cat Bi', 'Hai Phong', 'HPH'),
-       ('San bay Quoc te Lien Khuong (dang de xuat)', 'Lam Dong', 'DLI');
+       ('San bay Quoc te Cat Bi', 'Hai Phong', 'HPH');
 
 INSERT INTO `airline`.`planes` (`Model`, `Seats`, `UpdatedBy`, `UpdatedDate`, `LocationID`) VALUES
 ('Airbus A320', 180, 1, CURDATE(), 1),
@@ -237,6 +241,7 @@ CALL InsertSeats(7, 1500000, 500000, 1, CURDATE());
 CALL InsertSeats(8, 1500000, 500000, 1, CURDATE());
 CALL InsertSeats(9, 1500000, 500000, 1, CURDATE());
 CALL InsertSeats(10, 1500000, 500000, 1, CURDATE());
+
 
 -- -- Chay lenh nay de xoa database
 -- DROP DATABASE `airline`;
