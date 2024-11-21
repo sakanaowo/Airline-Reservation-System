@@ -2,6 +2,9 @@ package admininterface;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.table.DefaultTableModel;
 
 public class AdminInterface {
 
@@ -124,15 +127,13 @@ public class AdminInterface {
         return panel;
     }
 
-    // Method to create Flights Management Panel
-    private static JPanel createFlightsManagementPanel() {
+    public static JPanel createFlightsManagementPanel() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(new Color(240, 248, 255)); // Alice Blue color
 
         String[] columnNames = {"Flight ID", "Flight Name", "Departure", "Arrival", "Date", "Seats Available"};
-        Object[][] data = {};
-
-        JTable table = new JTable(data, columnNames);
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        JTable table = new JTable(model);
         JScrollPane tableScrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);
         panel.add(tableScrollPane, BorderLayout.CENTER);
@@ -175,7 +176,7 @@ public class AdminInterface {
         panel.add(buttonPanel, BorderLayout.EAST);
 
         // Action listeners for buttons
-        addFlightButton.addActionListener(e -> handleAddFlight());
+        addFlightButton.addActionListener(e -> handleAddFlight(panel, table));
         editFlightButton.addActionListener(e -> handleEditFlight());
         removeFlightButton.addActionListener(e -> handleRemoveFlight());
         searchFlightButton.addActionListener(e -> handleSearchFlight());
@@ -184,10 +185,55 @@ public class AdminInterface {
         return panel;
     }
 
-    // Event handling methods
-    private static void handleAddFlight() {
-        System.out.println("Add Flight button clicked");
-        // Implement add flight functionality
+    private static void handleAddFlight(JPanel panel, JTable table) {
+        JDialog dialog = new JDialog((Frame) null, "Add Flight", true);
+        dialog.setSize(400, 300);
+        dialog.setLayout(new GridLayout(7, 2, 10, 10));
+
+        JTextField flightIDField = new JTextField();
+        JTextField flightNameField = new JTextField();
+        JTextField departureField = new JTextField();
+        JTextField arrivalField = new JTextField();
+        JTextField dateField = new JTextField();
+        JTextField seatsAvailableField = new JTextField();
+
+        dialog.add(new JLabel("Flight ID:"));
+        dialog.add(flightIDField);
+        dialog.add(new JLabel("Flight Name:"));
+        dialog.add(flightNameField);
+        dialog.add(new JLabel("Departure:"));
+        dialog.add(departureField);
+        dialog.add(new JLabel("Arrival:"));
+        dialog.add(arrivalField);
+        dialog.add(new JLabel("Date:"));
+        dialog.add(dateField);
+        dialog.add(new JLabel("Seats Available:"));
+        dialog.add(seatsAvailableField);
+
+        JButton addButton = new JButton("Add");
+        styleButton(addButton);
+
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String flightID = flightIDField.getText();
+                String flightName = flightNameField.getText();
+                String departure = departureField.getText();
+                String arrival = arrivalField.getText();
+                String date = dateField.getText();
+                String seatsAvailable = seatsAvailableField.getText();
+
+                DefaultTableModel model = (DefaultTableModel) table.getModel();
+                model.addRow(new Object[]{flightID, flightName, departure, arrival, date, seatsAvailable});
+
+                dialog.dispose();
+            }
+        });
+
+        dialog.add(new JLabel(""));
+        dialog.add(addButton);
+
+        dialog.setVisible(true);
     }
 
     private static void handleEditFlight() {
@@ -270,7 +316,7 @@ public class AdminInterface {
 
         return panel;
     }
-    
+
     // Event handling methods
     private static void handleAddUser() {
         System.out.println("Add Flight button clicked");
@@ -357,7 +403,7 @@ public class AdminInterface {
 
         return panel;
     }
-    
+
     // Event handling methods
     private static void handleAddTicket() {
         System.out.println("Add Flight button clicked");
@@ -444,7 +490,7 @@ public class AdminInterface {
 
         return panel;
     }
-    
+
     // Event handling methods
     private static void handleAddAirport() {
         System.out.println("Add Flight button clicked");
