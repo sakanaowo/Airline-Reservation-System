@@ -34,20 +34,24 @@ public class Flight {
         return plane.getPlaneID();
     }
 
-    public String getDepartureTime() {
-        return formatter.format(DepartureTime);
+    public Date getDepartureTime() {
+        return DepartureTime;
     }
 
     public void setDepartureTime(Date DepartureTime) {
         this.DepartureTime = DepartureTime;
     }
 
-    public String getArrivalTime() {
-        return formatter.format(ArrivalTime);
+    public Date getArrivalTime() {
+        return ArrivalTime;
     }
 
     public void setArrivalTime(Date ArrivalTime) {
         this.ArrivalTime = ArrivalTime;
+    }
+
+    public Plane getPlane() {
+        return plane;
     }
 
     public void setPlane(Plane plane) {
@@ -70,4 +74,8 @@ public class Flight {
         this.DepartureAirport = DepartureAirport;
     }
 
+    @Override
+    public String toString() {
+        return formatter.format(DepartureTime)+ " "+ formatter.format(ArrivalTime)+ " "+ plane.getModel()+" "+DepartureAirport.getAirportName()+" "+ ArrivalAirport.getAirportName();
+    }
 }
