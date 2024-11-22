@@ -101,9 +101,11 @@ CREATE TABLE `airline`.`users` (
 
 CREATE TABLE `airline`.`passengers` (
   `PassengerID` INT NOT NULL AUTO_INCREMENT,
-  `UserID` INT NOT NULL,
   `FirstName` VARCHAR(45) NOT NULL,
   `LastName` VARCHAR(45) NOT NULL,
+  `PhoneNumber` VARCHAR(45) NOT NULL,
+  `CCCD` VARCHAR(45) NOT NULL,
+  `UserID` INT NOT NULL,
   PRIMARY KEY (`PassengerID`),
   INDEX `UserID_idx` (`UserID` ASC),
   CONSTRAINT `fk_userid`
