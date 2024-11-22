@@ -5,14 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
+    private int UserID;
     private String account, password, email;
-    private List<Passenger> passengers;
 
     public User(String account, String password, String email) {
         this.account = account;
         this.password = password;
         this.email = email;
-        this.passengers = new ArrayList<>();
+    }
+
+    public int getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(int userID) {
+        UserID = userID;
     }
 
     public String getAccount() {
@@ -39,15 +46,15 @@ public class User {
         this.email = email;
     }
 
-    public List<Passenger> getPassengers() {
-        return passengers;
-    }
-
-    public void addPassenger(Passenger passenger) {
-        this.passengers.add(passenger);
-    }
-
-    public void removePassenger(Passenger passenger) {
-        this.passengers.remove(passenger);
-    }
+//    public List<Passenger> getPassengers() {
+//        return passengers;
+//    }
+//
+//    public void addPassenger(Passenger passenger) {
+//        this.passengers.add(passenger);
+//    }
+//
+//    public void removePassenger(Passenger passenger) {
+//        this.passengers.remove(passenger);
+//    }
 }
