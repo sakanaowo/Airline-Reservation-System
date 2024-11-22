@@ -4,23 +4,71 @@
  */
 package UI.main.CustomPlugin;
 
-import Models.Flight;
+import Models.Flightxtended;
+import UI.main.ConfirmationFrame;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
- *
  * @author Sakana
  */
 public class FlightTemplate extends javax.swing.JPanel {
-    private Flight flight;
+    private int userID;
+    private Flightxtended flight;
+    private int passengerNumber;
+    SimpleDateFormat hour = new SimpleDateFormat("HH:mm"), day = new SimpleDateFormat("dd-MM-yyyy");
+
+    public FlightTemplate(Flightxtended flight, int passengerNumber, int userID) {
+        initComponents();
+        this.flight = flight;
+        this.userID = userID;
+        this.passengerNumber = passengerNumber;
+        loadFlightInfor();
+    }
+
+    private void loadFlightInfor() {
+        String deptime = hour.format(flight.getDepartureTime());
+        DepTime.setText(deptime);
+
+        String arrtime = hour.format(flight.getArrivalTime());
+        ArrTime.setText(arrtime);
+
+        String depday = day.format(flight.getDepartureTime());
+        DepDay.setText(depday);
+
+        String[] diffTime = getDiffTime(flight.getDepartureTime(), flight.getArrivalTime()).split(" ");
+        FlightTime.setText("Thời gian bay " + diffTime[0] + " giờ " + diffTime[1] + " phút");
+
+        String depcode = flight.getDepartureAirport().getAirportCode();
+        DepCity.setText(depcode);
+
+        String arrcode = flight.getArrivalAirport().getAirportCode();
+        ArrCity.setText(arrcode);
+
+        String FN = flight.getPlane().getModel();
+        FlightModel.setText(FN + " bởi CLC04AIRLINE");
+
+        EconomySeatAvailable.setText("còn " + flight.getEconomySeat() + " chỗ");
+        BusinessSeatAvailable.setText("còn " + flight.getBusinessSeat() + " chỗ");
+    }
+
+    private String getDiffTime(Date departureTime, Date arrivalTime) {
+        // Tính chênh lệch thời gian bằng milliseconds
+        long diffInMillis = Math.abs(arrivalTime.getTime() - departureTime.getTime());
+
+        // Chuyển đổi milliseconds thành giờ và phút
+        long hours = diffInMillis / (60 * 60 * 1000);
+        long minutes = (diffInMillis / (60 * 1000)) % 60;
+        return hours + " " + minutes;
+    }
 
     /**
      * Creates new form FlightScrollPane
      */
     public FlightTemplate() {
-//        setSize(650,250);
-//        setPreferredSize(new Dimension(650, 250));
         initComponents();
-//        loadInfor();
+//        this.setShape(new Rectangle2D.Double(0,0,getWidth(),getHeight(),20,20));
     }
 
     /**
@@ -37,10 +85,11 @@ public class FlightTemplate extends javax.swing.JPanel {
         ArrTime = new javax.swing.JLabel();
         DepCity = new javax.swing.JLabel();
         ArrCity = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         FlightTime = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        FlightModel = new javax.swing.JLabel();
+        DepDay = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
         BusinessClassPane = new javax.swing.JPanel();
         CLASSA = new javax.swing.JLabel();
         businessSeatCost = new javax.swing.JLabel();
@@ -58,7 +107,7 @@ public class FlightTemplate extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(141, 186, 170));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        setPreferredSize(new java.awt.Dimension(650, 230));
+        setMaximumSize(new java.awt.Dimension(1190, 230));
 
         Info.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         Info.setPreferredSize(new java.awt.Dimension(310, 212));
@@ -79,9 +128,6 @@ public class FlightTemplate extends javax.swing.JPanel {
         ArrCity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ArrCity.setText("SGN");
 
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("________________________________________________________________________________________");
-
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Bay thẳng");
@@ -89,51 +135,58 @@ public class FlightTemplate extends javax.swing.JPanel {
         FlightTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         FlightTime.setText("Thời gian bay 2 giờ 10 phút");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("VN 7209 bởi CLC04AIRLINES");
+        FlightModel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        FlightModel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FlightModel.setText("VN 7209 bởi CLC04AIRLINES");
+
+        DepDay.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        DepDay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        DepDay.setText("01-01-2004");
 
         javax.swing.GroupLayout InfoLayout = new javax.swing.GroupLayout(Info);
         Info.setLayout(InfoLayout);
         InfoLayout.setHorizontalGroup(
-            InfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(InfoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(InfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(InfoLayout.createSequentialGroup()
-                        .addComponent(DepCity, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(FlightTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ArrCity, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(InfoLayout.createSequentialGroup()
-                        .addComponent(DepTime, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ArrTime, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                InfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(InfoLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(InfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jSeparator1)
+                                        .addComponent(DepDay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(InfoLayout.createSequentialGroup()
+                                                .addComponent(DepCity, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(FlightTime, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(ArrCity, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(FlightModel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(InfoLayout.createSequentialGroup()
+                                                .addComponent(DepTime, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(ArrTime, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap())
         );
         InfoLayout.setVerticalGroup(
-            InfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(InfoLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(InfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(DepTime, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ArrTime, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(InfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FlightTime)
-                    .addComponent(DepCity, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ArrCity, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel9)
-                .addGap(29, 29, 29))
+                InfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(InfoLayout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(DepDay)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(InfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(DepTime, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(ArrTime, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel8))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(InfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(FlightTime)
+                                        .addComponent(DepCity, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(ArrCity, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(FlightModel)
+                                .addGap(29, 29, 29))
         );
 
         BusinessClassPane.setBackground(new java.awt.Color(246, 249, 180));
@@ -172,40 +225,45 @@ public class FlightTemplate extends javax.swing.JPanel {
         javax.swing.GroupLayout BusinessClassPaneLayout = new javax.swing.GroupLayout(BusinessClassPane);
         BusinessClassPane.setLayout(BusinessClassPaneLayout);
         BusinessClassPaneLayout.setHorizontalGroup(
-            BusinessClassPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(CLASSA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(BusinessClassPaneLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(BusinessClassPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(businessSeatCost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                    .addComponent(BusinessSeatAvailable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                BusinessClassPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(CLASSA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(BusinessClassPaneLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(BusinessClassPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(businessSeatCost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                                        .addComponent(BusinessSeatAvailable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap())
         );
         BusinessClassPaneLayout.setVerticalGroup(
-            BusinessClassPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BusinessClassPaneLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(CLASSA)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(businessSeatCost)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(BusinessSeatAvailable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                BusinessClassPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(BusinessClassPaneLayout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(CLASSA)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(businessSeatCost)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(BusinessSeatAvailable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
         );
 
         economyClassPane.setBackground(new java.awt.Color(57, 135, 162));
         economyClassPane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         economyClassPane.setForeground(new java.awt.Color(255, 255, 255));
         economyClassPane.setPreferredSize(new java.awt.Dimension(150, 175));
+        economyClassPane.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                economyClassPaneMouseClicked(evt);
+            }
+        });
 
         CLASSA2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         CLASSA2.setForeground(new java.awt.Color(255, 255, 255));
@@ -240,64 +298,70 @@ public class FlightTemplate extends javax.swing.JPanel {
         javax.swing.GroupLayout economyClassPaneLayout = new javax.swing.GroupLayout(economyClassPane);
         economyClassPane.setLayout(economyClassPaneLayout);
         economyClassPaneLayout.setHorizontalGroup(
-            economyClassPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(CLASSA2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, economyClassPaneLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(economyClassPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(EconomySeatAvailable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(EconomySeatCost, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
-                .addContainerGap())
+                economyClassPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(CLASSA2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, economyClassPaneLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(economyClassPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(EconomySeatAvailable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(EconomySeatCost, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
+                                .addContainerGap())
         );
         economyClassPaneLayout.setVerticalGroup(
-            economyClassPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(economyClassPaneLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(CLASSA2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(EconomySeatCost)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
-                .addGap(12, 12, 12)
-                .addComponent(jLabel12)
-                .addGap(18, 18, 18)
-                .addComponent(EconomySeatAvailable, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                .addContainerGap())
+                economyClassPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(economyClassPaneLayout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(CLASSA2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(EconomySeatCost)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel11)
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel12)
+                                .addGap(18, 18, 18)
+                                .addComponent(EconomySeatAvailable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Info, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
-                .addGap(18, 108, Short.MAX_VALUE)
-                .addComponent(economyClassPane, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BusinessClassPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(Info, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+                                .addGap(18, 132, Short.MAX_VALUE)
+                                .addComponent(economyClassPane, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BusinessClassPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(economyClassPane, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                    .addComponent(BusinessClassPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                    .addComponent(Info, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(economyClassPane, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                                        .addComponent(BusinessClassPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                                        .addComponent(Info, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
+                                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void BusinessClassPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BusinessClassPaneMouseClicked
         // TODO add your handling code here:
+        new ConfirmationFrame(flight, passengerNumber, "BusinessClass", userID).setVisible(true);
     }//GEN-LAST:event_BusinessClassPaneMouseClicked
+
+    private void economyClassPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_economyClassPaneMouseClicked
+        // TODO add your handling code here:
+        new ConfirmationFrame(flight, passengerNumber, "EconomyClass", userID);
+    }//GEN-LAST:event_economyClassPaneMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -308,9 +372,11 @@ public class FlightTemplate extends javax.swing.JPanel {
     private javax.swing.JLabel CLASSA;
     private javax.swing.JLabel CLASSA2;
     private javax.swing.JLabel DepCity;
+    private javax.swing.JLabel DepDay;
     private javax.swing.JLabel DepTime;
     private javax.swing.JLabel EconomySeatAvailable;
     private javax.swing.JLabel EconomySeatCost;
+    private javax.swing.JLabel FlightModel;
     private javax.swing.JLabel FlightTime;
     private javax.swing.JPanel Info;
     private javax.swing.JLabel businessSeatCost;
@@ -321,8 +387,7 @@ public class FlightTemplate extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

@@ -511,7 +511,7 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="78" max="32767" attributes="0"/>
+                                  <EmptySpace pref="81" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="485" max="-2" attributes="0"/>
@@ -572,30 +572,29 @@
                               <Font name="Segoe UI Black" size="18" style="0"/>
                             </Property>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="23">
-                                <StringItem index="0" value="H&#xe0; N&#x1ed9;i (HAN), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="1" value="Tp. H&#x1ed3; Ch&#xed; Minh (SGN), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="2" value="&#x110;&#xe0; N&#x1eb5;ng (DAD), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="3" value="Ph&#xfa; Qu&#x1ed1;c (PQC), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="4" value="Nha Trang (CXR), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="5" value="Bu&#xf4;n Ma Thu&#x1ed9;t (BMV), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="6" value="C&#xe0; Mau (CAH), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="7" value="C&#x1ea7;n Th&#x1a1; (VCA), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="8" value="Chu Lai (VCL), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="9" value="C&#xf4;n &#x110;&#x1ea3;o (VCS), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="10" value="&#x110;&#xe0; L&#x1ea1;t (DLI), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="11" value="&#x110;i&#x1ec7;n Bi&#xea;n (DIN), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="12" value="&#x110;&#x1ed3;ng H&#x1edb;i (VDH), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="13" value="H&#x1ea3;i Ph&#xf2;ng (HPH), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="14" value="Hu&#x1ebf; (HUI), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="15" value="Pleiku (PXU), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="16" value="Quy Nh&#x1a1;n (UIH), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="17" value="R&#x1ea1;ch Gi&#xe1; (VKG), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="18" value="Thanh H&#xf3;a (THD), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="19" value="Tuy H&#xf2;a (TBB), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="20" value="V&#xe2;n &#x110;&#x1ed3;n (VDO), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="21" value="Vinh (VII), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="22" value=" "/>
+                              <StringArray count="22">
+                                <StringItem index="0" value="Quang Nam"/>
+                                <StringItem index="1" value="Thanh Hoa"/>
+                                <StringItem index="2" value="Quang Binh"/>
+                                <StringItem index="3" value="Dien Bien"/>
+                                <StringItem index="4" value="Phu Yen"/>
+                                <StringItem index="5" value="Gia Lai"/>
+                                <StringItem index="6" value="Dak Lak"/>
+                                <StringItem index="7" value="Kien Giang"/>
+                                <StringItem index="8" value="Ca Mau"/>
+                                <StringItem index="9" value="Ba Ria &#x2013; Vung Tau"/>
+                                <StringItem index="10" value="Ha Noi"/>
+                                <StringItem index="11" value="Thanh pho Ho Chi Minh"/>
+                                <StringItem index="12" value="Kien Giang"/>
+                                <StringItem index="13" value="Da Nang"/>
+                                <StringItem index="14" value="Khanh Hoa"/>
+                                <StringItem index="15" value="Thua Thien Hue"/>
+                                <StringItem index="16" value="Quang Ninh"/>
+                                <StringItem index="17" value="Can Tho"/>
+                                <StringItem index="18" value="Nghe An"/>
+                                <StringItem index="19" value="Binh Dinh"/>
+                                <StringItem index="20" value="Hai Phong"/>
+                                <StringItem index="21" value="Lam Dong"/>
                               </StringArray>
                             </Property>
                           </Properties>
@@ -626,30 +625,29 @@
                               <Font name="Segoe UI Black" size="18" style="0"/>
                             </Property>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="23">
-                                <StringItem index="0" value="H&#xe0; N&#x1ed9;i (HAN), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="1" value="Tp. H&#x1ed3; Ch&#xed; Minh (SGN), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="2" value="&#x110;&#xe0; N&#x1eb5;ng (DAD), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="3" value="Ph&#xfa; Qu&#x1ed1;c (PQC), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="4" value="Nha Trang (CXR), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="5" value="Bu&#xf4;n Ma Thu&#x1ed9;t (BMV), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="6" value="C&#xe0; Mau (CAH), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="7" value="C&#x1ea7;n Th&#x1a1; (VCA), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="8" value="Chu Lai (VCL), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="9" value="C&#xf4;n &#x110;&#x1ea3;o (VCS), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="10" value="&#x110;&#xe0; L&#x1ea1;t (DLI), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="11" value="&#x110;i&#x1ec7;n Bi&#xea;n (DIN), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="12" value="&#x110;&#x1ed3;ng H&#x1edb;i (VDH), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="13" value="H&#x1ea3;i Ph&#xf2;ng (HPH), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="14" value="Hu&#x1ebf; (HUI), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="15" value="Pleiku (PXU), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="16" value="Quy Nh&#x1a1;n (UIH), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="17" value="R&#x1ea1;ch Gi&#xe1; (VKG), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="18" value="Thanh H&#xf3;a (THD), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="19" value="Tuy H&#xf2;a (TBB), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="20" value="V&#xe2;n &#x110;&#x1ed3;n (VDO), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="21" value="Vinh (VII), Vi&#x1ec7;t Nam"/>
-                                <StringItem index="22" value=" "/>
+                              <StringArray count="22">
+                                <StringItem index="0" value="Quang Nam"/>
+                                <StringItem index="1" value="Thanh Hoa"/>
+                                <StringItem index="2" value="Quang Binh"/>
+                                <StringItem index="3" value="Dien Bien"/>
+                                <StringItem index="4" value="Phu Yen"/>
+                                <StringItem index="5" value="Gia Lai"/>
+                                <StringItem index="6" value="Dak Lak"/>
+                                <StringItem index="7" value="Kien Giang"/>
+                                <StringItem index="8" value="Ca Mau"/>
+                                <StringItem index="9" value="Ba Ria &#x2013; Vung Tau"/>
+                                <StringItem index="10" value="Ha Noi"/>
+                                <StringItem index="11" value="Thanh pho Ho Chi Minh"/>
+                                <StringItem index="12" value="Kien Giang"/>
+                                <StringItem index="13" value="Da Nang"/>
+                                <StringItem index="14" value="Khanh Hoa"/>
+                                <StringItem index="15" value="Thua Thien Hue"/>
+                                <StringItem index="16" value="Quang Ninh"/>
+                                <StringItem index="17" value="Can Tho"/>
+                                <StringItem index="18" value="Nghe An"/>
+                                <StringItem index="19" value="Binh Dinh"/>
+                                <StringItem index="20" value="Hai Phong"/>
+                                <StringItem index="21" value="Lam Dong"/>
                               </StringArray>
                             </Property>
                           </Properties>
@@ -736,6 +734,11 @@
                       </SubComponents>
                     </Container>
                     <Container class="javax.swing.JScrollPane" name="FlightScroll">
+                      <Properties>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[1200, 32767]"/>
+                        </Property>
+                      </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                           <AbsoluteConstraints x="0" y="190" width="1200" height="560"/>
@@ -745,6 +748,11 @@
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
                         <Container class="javax.swing.JPanel" name="FlightFoundedPane">
+                          <Properties>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[1200, 32767]"/>
+                            </Property>
+                          </Properties>
 
                           <Layout>
                             <DimensionLayout dim="0">
@@ -754,7 +762,7 @@
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="554" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="556" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>

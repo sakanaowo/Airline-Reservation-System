@@ -5,20 +5,22 @@
  */
 package UI.main;
 
-import Models.Flight;
-
-import java.awt.List;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.*;
 
+import Models.Flightxtended;
+import Models.User;
 import System.AirlineSystem;
+import UI.main.CustomPlugin.FlightTemplate;
 
 /**
  * @author User
  */
 public class Menu extends javax.swing.JFrame {
     private AirlineSystem manager = new AirlineSystem();
+    private int userID;
 
     int x = 300;    //chieu rong
     int y = 750;    //chieu cao
@@ -26,10 +28,16 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
+    public Menu(int userID) {
+        initComponents();
+        cardTrangChu.setVisible(true);
+        jplSlideMenu.setSize(300, 750);
+        this.userID = userID;
+    }
+
     public Menu() {
         initComponents();
         cardTrangChu.setVisible(true);
-
         jplSlideMenu.setSize(300, 750);
     }
 
@@ -413,7 +421,7 @@ public class Menu extends javax.swing.JFrame {
         });
 
         diem_den.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        diem_den.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Hà Nội (HAN), Việt Nam", "Tp. Hồ Chí Minh (SGN), Việt Nam", "Đà Nẵng (DAD), Việt Nam", "Phú Quốc (PQC), Việt Nam", "Nha Trang (CXR), Việt Nam", "Buôn Ma Thuột (BMV), Việt Nam", "Cà Mau (CAH), Việt Nam", "Cần Thơ (VCA), Việt Nam", "Chu Lai (VCL), Việt Nam", "Côn Đảo (VCS), Việt Nam", "Đà Lạt (DLI), Việt Nam", "Điện Biên (DIN), Việt Nam", "Đồng Hới (VDH), Việt Nam", "Hải Phòng (HPH), Việt Nam", "Huế (HUI), Việt Nam", "Pleiku (PXU), Việt Nam", "Quy Nhơn (UIH), Việt Nam", "Rạch Giá (VKG), Việt Nam", "Thanh Hóa (THD), Việt Nam", "Tuy Hòa (TBB), Việt Nam", "Vân Đồn (VDO), Việt Nam", "Vinh (VII), Việt Nam", " "}));
+        diem_den.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Quang Nam", "Thanh Hoa", "Quang Binh", "Dien Bien", "Phu Yen", "Gia Lai", "Dak Lak", "Kien Giang", "Ca Mau", "Ba Ria – Vung Tau", "Ha Noi", "Thanh pho Ho Chi Minh", "Kien Giang", "Da Nang", "Khanh Hoa", "Thua Thien Hue", "Quang Ninh", "Can Tho", "Nghe An", "Binh Dinh", "Hai Phong", "Lam Dong"}));
         diem_den.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 diem_denActionPerformed(evt);
@@ -430,7 +438,7 @@ public class Menu extends javax.swing.JFrame {
         });
 
         diem_khoi_hanh.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        diem_khoi_hanh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Hà Nội (HAN), Việt Nam", "Tp. Hồ Chí Minh (SGN), Việt Nam", "Đà Nẵng (DAD), Việt Nam", "Phú Quốc (PQC), Việt Nam", "Nha Trang (CXR), Việt Nam", "Buôn Ma Thuột (BMV), Việt Nam", "Cà Mau (CAH), Việt Nam", "Cần Thơ (VCA), Việt Nam", "Chu Lai (VCL), Việt Nam", "Côn Đảo (VCS), Việt Nam", "Đà Lạt (DLI), Việt Nam", "Điện Biên (DIN), Việt Nam", "Đồng Hới (VDH), Việt Nam", "Hải Phòng (HPH), Việt Nam", "Huế (HUI), Việt Nam", "Pleiku (PXU), Việt Nam", "Quy Nhơn (UIH), Việt Nam", "Rạch Giá (VKG), Việt Nam", "Thanh Hóa (THD), Việt Nam", "Tuy Hòa (TBB), Việt Nam", "Vân Đồn (VDO), Việt Nam", "Vinh (VII), Việt Nam", " "}));
+        diem_khoi_hanh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Quang Nam", "Thanh Hoa", "Quang Binh", "Dien Bien", "Phu Yen", "Gia Lai", "Dak Lak", "Kien Giang", "Ca Mau", "Ba Ria – Vung Tau", "Ha Noi", "Thanh pho Ho Chi Minh", "Kien Giang", "Da Nang", "Khanh Hoa", "Thua Thien Hue", "Quang Ninh", "Can Tho", "Nghe An", "Binh Dinh", "Hai Phong", "Lam Dong"}));
         diem_khoi_hanh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 diem_khoi_hanhActionPerformed(evt);
@@ -482,7 +490,7 @@ public class Menu extends javax.swing.JFrame {
                                                 .addGroup(khung_tim_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                         .addComponent(label_ngay_di1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                         .addComponent(so_khach_combobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                                .addContainerGap(78, Short.MAX_VALUE))
+                                .addContainerGap(81, Short.MAX_VALUE))
                         .addGroup(khung_tim_chuyen_bayLayout.createSequentialGroup()
                                 .addGap(485, 485, 485)
                                 .addComponent(nut_tim_chuyen_bay)
@@ -513,6 +521,10 @@ public class Menu extends javax.swing.JFrame {
 
         pnContainer1.add(khung_tim_chuyen_bay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 190));
 
+        FlightScroll.setMaximumSize(new java.awt.Dimension(1200, 32767));
+
+        FlightFoundedPane.setMaximumSize(new java.awt.Dimension(1200, 32767));
+
         javax.swing.GroupLayout FlightFoundedPaneLayout = new javax.swing.GroupLayout(FlightFoundedPane);
         FlightFoundedPane.setLayout(FlightFoundedPaneLayout);
         FlightFoundedPaneLayout.setHorizontalGroup(
@@ -521,7 +533,7 @@ public class Menu extends javax.swing.JFrame {
         );
         FlightFoundedPaneLayout.setVerticalGroup(
                 FlightFoundedPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 554, Short.MAX_VALUE)
+                        .addGap(0, 556, Short.MAX_VALUE)
         );
 
         FlightScroll.setViewportView(FlightFoundedPane);
@@ -753,67 +765,25 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_diem_denActionPerformed
 
     private void nut_tim_chuyen_bayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nut_tim_chuyen_bayActionPerformed
-        /*// 1. Lấy thông tin từ giao diện
-        String diemKhoiHanh = diem_khoi_hanh.getSelectedItem().toString();
-        String diemDen = diem_den.getSelectedItem().toString();
-        Date ngayDi = ngay_di.getDate(); // Lấy ngày từ JCalendar
-        
 
-        // 2. Xử lý logic lấy danh sách vé (giả lập dữ liệu ở đây)
-        ArrayList danhSachVe = new ArrayList();
-        if (diemKhoiHanh.equals("Hà Nội (HAN), Việt Nam") && diemDen.equals("Tp. Hồ Chí Minh (SGN), Việt Nam")) {
-            danhSachVe.add(new String[]{"VE001", "Hà Nội (HAN), Việt Nam", "Tp. Hồ Chí Minh (SGN), Việt Nam", "2024-11-20", "9:00"});
-            danhSachVe.add(new String[]{"VE002", "Hà Nội (HAN), Việt Nam", "Tp. Hồ Chí Minh (SGN), Việt Nam", "2024-11-21", "20:00"});
-        } else {
-            danhSachVe.add(new String[]{"VE003", diemKhoiHanh, diemDen, "2024-11-22", "21:00"});
-        }
-
-       
-
-        // 3. Hiển thị dữ liệu lên JTable
-        DefaultTableModel model = (DefaultTableModel) table_thong_tin_ve.getModel();
-        model.setRowCount(0);
-        for (Object obj : danhSachVe) {
-            String[] ve = (String[]) obj; // Ép kiểu sang String[]
-            model.addRow(ve);
-        }
-
-         */
         String DerpatureAirport = diem_khoi_hanh.getSelectedItem().toString();
         String ArrivalAirport = diem_den.getSelectedItem().toString();
         Date DerpartureTime = ngay_di.getDate();
         int PassengerNumber = Integer.parseInt(so_khach_combobox.getSelectedItem().toString());
 
-//        ArrayList<Flight> FoundedFlights = manager.flightManager.getFlights(String.valueOf(DerpartureTime),null,null,DerpatureAirport,ArrivalAirport);
-
-
-    }//GEN-LAST:event_nut_tim_chuyen_bayActionPerformed
-
-    private void btn_tiep_tucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tiep_tucActionPerformed
-        int selectedRow = table_thong_tin_ve.getSelectedRow();
-        if (selectedRow != -1) {
-            // Lấy thông tin vé từ JTable
-            String maVe = table_thong_tin_ve.getValueAt(selectedRow, 0).toString();
-            String diemKhoiHanh = table_thong_tin_ve.getValueAt(selectedRow, 1).toString();
-            String diemDen = table_thong_tin_ve.getValueAt(selectedRow, 2).toString();
-            String ngayDi = table_thong_tin_ve.getValueAt(selectedRow, 3).toString();
-            String thoiGianBay = table_thong_tin_ve.getValueAt(selectedRow, 4).toString();
-
-            // Chuyển sang giao diện xác nhận
-            XacNhan xacNhanFrame = new XacNhan();
-            xacNhanFrame.setDiemKhoiHanh(diemKhoiHanh);
-            xacNhanFrame.setDiemDen(diemDen);
-            xacNhanFrame.setNgayBay(ngayDi);
-            xacNhanFrame.setThoiGianBay(thoiGianBay);
-            xacNhanFrame.setVisible(true);
-            pack();
-            xacNhanFrame.setLocationRelativeTo(null);
+        ArrayList<Flightxtended> flightFounded = manager.flightManager.UserFindFlight(DerpartureTime, DerpatureAirport, ArrivalAirport, PassengerNumber);
+        FlightFoundedPane.setLayout(new BoxLayout(FlightFoundedPane, BoxLayout.Y_AXIS));
+        for (Flightxtended flight : flightFounded) {
+            FlightTemplate tmp = new FlightTemplate(flight, PassengerNumber,userID);
+            tmp.setPreferredSize(new Dimension(930, 230));
+            tmp.setMaximumSize(new Dimension(1180, 230));
+            tmp.setAlignmentX(Component.LEFT_ALIGNMENT); // Căn trái
+            FlightFoundedPane.add(tmp);
         }
-    }//GEN-LAST:event_btn_tiep_tucActionPerformed
-
-    private void table_thong_tin_veMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_thong_tin_veMouseClicked
-
-    }//GEN-LAST:event_table_thong_tin_veMouseClicked
+        FlightScroll.getVerticalScrollBar().setUnitIncrement(16);
+        FlightFoundedPane.revalidate();
+        FlightFoundedPane.repaint();
+    }//GEN-LAST:event_nut_tim_chuyen_bayActionPerformed
 
     private void lblVeCuaToiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVeCuaToiMouseClicked
         cardTrangChu.setVisible(false);
@@ -840,6 +810,34 @@ public class Menu extends javax.swing.JFrame {
         l.pack();
         l.setLocationRelativeTo(null);
     }//GEN-LAST:event_label_dang_xuatMouseClicked
+
+    private void btn_tiep_tucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tiep_tucActionPerformed
+
+        XacNhan xacNhanFrame = new XacNhan();
+//        int selectedRow = table_thong_tin_ve.getSelectedRow();
+//        if (selectedRow != -1) {
+//            // Lấy thông tin vé từ JTable
+//            String maVe = table_thong_tin_ve.getValueAt(selectedRow, 0).toString();
+//            String diemKhoiHanh = table_thong_tin_ve.getValueAt(selectedRow, 1).toString();
+//            String diemDen = table_thong_tin_ve.getValueAt(selectedRow, 2).toString();
+//            String ngayDi = table_thong_tin_ve.getValueAt(selectedRow, 3).toString();
+//            String thoiGianBay = table_thong_tin_ve.getValueAt(selectedRow, 4).toString();
+//
+//            // Chuyển sang giao diện xác nhận
+//            XacNhan xacNhanFrame = new XacNhan();
+//            xacNhanFrame.setDiemKhoiHanh(diemKhoiHanh);
+//            xacNhanFrame.setDiemDen(diemDen);
+//            xacNhanFrame.setNgayBay(ngayDi);
+//            xacNhanFrame.setThoiGianBay(thoiGianBay);
+//            xacNhanFrame.setVisible(true);
+//            pack();
+//            xacNhanFrame.setLocationRelativeTo(null);
+//        }
+    }//GEN-LAST:event_btn_tiep_tucActionPerformed
+
+    private void table_thong_tin_veMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_thong_tin_veMouseClicked
+
+    }//GEN-LAST:event_table_thong_tin_veMouseClicked
 
     /**
      * @param args the command line arguments
