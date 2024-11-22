@@ -31,17 +31,90 @@ public class Seats {
         }
     }
 
+    // method for user to find flights
+    public static ArrayList<ArrayList<Object>> viewSeatAvailableForPassenger(String departureTime,String departureCityName,
+                                                                          String arrivalCityName, int seatNumber) {
+        String viewSeatSQL = "SELECT f.FlightID, f.DepartureTime, f.ArrivalTime, f.PlaneID, " +
+                "da.AirportName AS DepartureAirportName, aa.AirportName AS ArrivalAirportName, " +
+                "da.City AS DepartureCity, aa.City AS ArrivalCity, " +
+                "SUM(CASE WHEN s.Class = 'Business' AND s.Available = 1 THEN 1 ELSE 0 END) AS BusinessAvailableSeats, " +
+                "SUM(CASE WHEN s.Class = 'Economy' AND s.Available = 1 THEN 1 ELSE 0 END) AS EconomyAvailableSeats " +
+                "FROM airline.flights f " +
+                "JOIN airline.airports da ON f.DepartureAirportID = da.AirportID " +
+                "JOIN airline.airports aa ON f.ArrivalAirportID = aa.AirportID " +
+                "JOIN airline.seats s ON f.FlightID = s.FlightID " +
+                "WHERE 1=1 ";
+
+        ArrayList<ArrayList<Object>> seatsList = new ArrayList<>();
+
+        if (!departureTime.isEmpty()) {
+            viewSeatSQL += " AND f.DepartureTime >= ? ";
+        }
+        if (!departureCityName.isEmpty()) {
+            viewSeatSQL += " AND da.City LIKE ? ";
+        }
+        if (!arrivalCityName.isEmpty()) {
+            viewSeatSQL += " AND aa.City LIKE ? ";
+        }
+
+        viewSeatSQL += " GROUP BY f.FlightID, f.DepartureTime, f.ArrivalTime, f.PlaneID, " +
+                "da.AirportName, aa.AirportName, da.City, aa.City " +
+                "HAVING SUM(CASE WHEN s.Class = 'Business' AND s.Available = 1 THEN 1 ELSE 0 END) + " +
+                "SUM(CASE WHEN s.Class = 'Economy' AND s.Available = 1 THEN 1 ELSE 0 END) >= ?";
+
+        try (Connection connection = DriverManager.getConnection(
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+             PreparedStatement viewSeatsStmt = connection.prepareStatement(viewSeatSQL)) {
+
+            int index = 1;
+            if (!departureTime.isEmpty()) {
+                viewSeatsStmt.setString(index++, departureTime);
+            }
+            if (!departureCityName.isEmpty()) {
+                viewSeatsStmt.setString(index++, "%" + departureCityName + "%");
+            }
+            if (!arrivalCityName.isEmpty()) {
+                viewSeatsStmt.setString(index++, "%" + arrivalCityName + "%");
+            }
+            viewSeatsStmt.setInt(index++, seatNumber);
+
+            ResultSet resultSet = viewSeatsStmt.executeQuery();
+            while (resultSet.next()) {
+                ArrayList<Object> seatData = new ArrayList<>();
+                seatData.add(resultSet.getString("FlightID"));
+                seatData.add(resultSet.getTimestamp("DepartureTime"));
+                seatData.add(resultSet.getTimestamp("ArrivalTime"));
+                seatData.add(resultSet.getInt("PlaneID"));
+                seatData.add(resultSet.getString("DepartureAirportName"));
+                seatData.add(resultSet.getString("ArrivalAirportName"));
+                seatData.add(resultSet.getString("DepartureCity"));
+                seatData.add(resultSet.getString("ArrivalCity"));
+                seatData.add(resultSet.getInt("BusinessAvailableSeats"));
+                seatData.add(resultSet.getInt("EconomyAvailableSeats"));
+                seatsList.add(seatData);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error executing viewSeatAvailablePassenger query: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return seatsList;
+    }
+
     public static ArrayList<ArrayList<Object>> viewSeatAvailable(String departureTime, String arrivalTime,
                                                                  String flightID, String departureCityName, String arrivalCityName) {
 
         String viewSeatSQL = "SELECT f.FlightID, f.DepartureTime, f.ArrivalTime, f.PlaneID, " +
                 "da.AirportName AS DepartureAirportName, aa.AirportName AS ArrivalAirportName, " +
-                "da.City AS DepartureCity, aa.City AS ArrivalCity, COUNT(s.SeatID) AS AvailableSeats " +
+                "da.City AS DepartureCity, aa.City AS ArrivalCity, " +
+                "SUM(CASE WHEN s.Class = 'Business' AND s.Available = 1 THEN 1 ELSE 0 END) AS BusinessAvailableSeats, " +
+                "SUM(CASE WHEN s.Class = 'Economy' AND s.Available = 1 THEN 1 ELSE 0 END) AS EconomyAvailableSeats " +
                 "FROM airline.flights f " +
                 "JOIN airline.airports da ON f.DepartureAirportID = da.AirportID " +
                 "JOIN airline.airports aa ON f.ArrivalAirportID = aa.AirportID " +
                 "JOIN airline.seats s ON f.FlightID = s.FlightID " +
-                "WHERE s.Available = 1 ";
+                "WHERE 1=1 ";
 
         ArrayList<ArrayList<Object>> seatsList = new ArrayList<>();
 
@@ -60,7 +133,9 @@ public class Seats {
         if (!arrivalCityName.isEmpty()) {
             viewSeatSQL += " AND aa.City LIKE ? ";
         }
-        viewSeatSQL += " GROUP BY f.FlightID";
+
+        viewSeatSQL += " GROUP BY f.FlightID, f.DepartureTime, f.ArrivalTime, f.PlaneID, " +
+                "da.AirportName, aa.AirportName, da.City, aa.City";
 
         try (Connection connection = DriverManager.getConnection(
                 CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
@@ -86,7 +161,7 @@ public class Seats {
             ResultSet resultSet = viewSeatsStmt.executeQuery();
             while (resultSet.next()) {
                 ArrayList<Object> seatData = new ArrayList<>();
-                seatData.add(resultSet.getInt("FlightID"));
+                seatData.add(resultSet.getString("FlightID"));
                 seatData.add(resultSet.getTimestamp("DepartureTime"));
                 seatData.add(resultSet.getTimestamp("ArrivalTime"));
                 seatData.add(resultSet.getInt("PlaneID"));
@@ -94,7 +169,8 @@ public class Seats {
                 seatData.add(resultSet.getString("ArrivalAirportName"));
                 seatData.add(resultSet.getString("DepartureCity"));
                 seatData.add(resultSet.getString("ArrivalCity"));
-                seatData.add(resultSet.getInt("AvailableSeats"));
+                seatData.add(resultSet.getInt("BusinessAvailableSeats"));
+                seatData.add(resultSet.getInt("EconomyAvailableSeats"));
                 seatsList.add(seatData);
             }
 
@@ -205,6 +281,26 @@ public class Seats {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+    public static int getMinAvailableSeatIDByClass(String seatClass) {
+        String query = "SELECT MIN(SeatID) AS MinAvailableSeatID " +
+                "FROM airline.seats " +
+                "WHERE Available = 1 AND Class = ?";
+        try (Connection connection = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, seatClass);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next() && resultSet.getInt("MinAvailableSeatID") != 0) {
+                return resultSet.getInt("MinAvailableSeatID");
+            } else {
+                System.out.println("No available seats found for class: " + seatClass);
+                return -1;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching minimum available SeatID for class '" + seatClass + "': " + e.getMessage());
+            e.printStackTrace();
+            return -1;
         }
     }
 }

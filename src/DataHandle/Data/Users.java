@@ -3,11 +3,13 @@ package DataHandle.Data;
 import java.sql.*;
 
 import DataHandle.constants.CommonConstants;
+import Models.User;
 
 
 public class Users {
 
     public static Connection conn;
+
     // kiem tra nguoi dung hop le
     public static boolean validateUser(String userName, String password) throws SQLException {
         String validateQuery = "SELECT COUNT(*) FROM " + CommonConstants.DB_USER_TABLE +
@@ -186,10 +188,39 @@ public class Users {
         return check;
     }
 
-    public static boolean insertTicket() {
-        //Con xem UI nhu nao roi phat trien sau
-        return true;
+    public static User getUserByID(int userID) throws SQLException {
+        String getUserQuery = "SELECT UserName, Password, Email FROM " + CommonConstants.DB_USER_TABLE + " WHERE UserID = ?";
+        conn = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+
+        try (PreparedStatement getUserStmt = conn.prepareStatement(getUserQuery)) {
+            getUserStmt.setInt(1, userID);
+            ResultSet rs = getUserStmt.executeQuery();
+
+            if (rs.next()) {
+                // Lấy thông tin từ kết quả truy vấn
+                String userName = rs.getString("UserName");
+                String password = rs.getString("Password");
+                String email = rs.getString("Email");
+
+                // Tạo đối tượng User và trả về
+                User user = new User(userName, password, email); // Điều chỉnh constructor User nếu cần
+                user.setUserID(userID);
+                return user;
+            } else {
+                System.out.println("Không tìm thấy User với ID: " + userID);
+                return null;
+            }
+        } finally {
+            if (conn != null && !conn.isClosed()) {
+                conn.close();
+            }
+        }
     }
+//
+//    public static boolean insertTicket() {
+//        //Con xem UI nhu nao roi phat trien sau
+//        return true;
+//    }
 
 //    public static void main(String[] args) throws SQLException {
 //        conn = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
