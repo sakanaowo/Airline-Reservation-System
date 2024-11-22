@@ -5,8 +5,12 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FlightsManagementPanel {
+    private static List<Object[]> tempFlightsList = new ArrayList<>();
+
     public static JPanel createFlightsManagementPanel() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(new Color(240, 248, 255)); // Alice Blue color
@@ -56,16 +60,16 @@ public class FlightsManagementPanel {
         panel.add(buttonPanel, BorderLayout.EAST);
 
         // Action listeners for buttons
-        addFlightButton.addActionListener(e -> handleAddFlight(panel, table));
+        addFlightButton.addActionListener(e -> handleAddFlight());
         editFlightButton.addActionListener(e -> handleEditFlight());
         removeFlightButton.addActionListener(e -> handleRemoveFlight());
         searchFlightButton.addActionListener(e -> handleSearchFlight());
-        refreshButton.addActionListener(e -> handleRefreshList());
+        refreshButton.addActionListener(e -> handleRefreshList(table));
 
         return panel;
     }
 
-    private static void handleAddFlight(JPanel panel, JTable table) {
+    private static void handleAddFlight() {
         JDialog dialog = new JDialog((Frame) null, "Add Flight", true);
         dialog.setSize(400, 300);
         dialog.setLayout(new GridLayout(8, 2, 10, 10));
@@ -107,9 +111,8 @@ public class FlightsManagementPanel {
                 String updatedBy = updatedByField.getText();
                 String updatedDate = updatedDateField.getText();
 
-                // Thêm dòng mới vào bảng
-                DefaultTableModel model = (DefaultTableModel) table.getModel();
-                model.addRow(new Object[]{departureTime, arrivalTime, planeID, departureAirportID, arrivalAirportID, updatedBy, updatedDate});
+                // Thêm vào danh sách tạm thời
+                tempFlightsList.add(new Object[]{departureTime, arrivalTime, planeID, departureAirportID, arrivalAirportID, updatedBy, updatedDate});
 
                 dialog.dispose();
             }
@@ -136,8 +139,13 @@ public class FlightsManagementPanel {
         // Implement search flight functionality
     }
 
-    private static void handleRefreshList() {
-        System.out.println("Refresh List button clicked");
-        // Implement refresh list functionality
+    private static void handleRefreshList(JTable table) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        // Thêm các chuyến bay từ danh sách tạm thời vào bảng
+        for (Object[] flight : tempFlightsList) {
+            model.addRow(flight);
+        }
+        // Xóa danh sách tạm thời sau khi cập nhật bảng
+        tempFlightsList.clear();
     }
 }
