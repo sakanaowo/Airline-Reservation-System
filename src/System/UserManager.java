@@ -15,6 +15,9 @@ public class UserManager {
         boolean b = Users.validateUser(username, password);
         return b;
     }
+    public int getIDByUserName(String username) throws SQLException {
+        return Users.getIDViaName(username);
+    }
 
     // kiểm tra nếu người dùng tồn tại
     public boolean IfExists(String username) throws SQLException {
