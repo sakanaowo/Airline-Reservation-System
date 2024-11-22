@@ -220,6 +220,7 @@ public class Airports {
      * @param country The country to filter by
      * @return List of Airport objects in the specified country
      */
+/*
     public static ArrayList<Airport> getAirportsByCountry(String country) {
         String sql = "SELECT * FROM " + CommonConstants.DB_AIRPORTS_TABLE +
                 " WHERE Country = ? ORDER BY City, AirportName";
@@ -245,7 +246,7 @@ public class Airports {
         }
         return airports;
     }
-
+*/
     /**
      * Checks if an airport exists in the database
      *
@@ -280,7 +281,28 @@ public class Airports {
                     airport.setAirportID(rs.getInt("AirportID"));
                     airport.setAirportName(rs.getString("AirportName"));
                     airport.setCity(rs.getString("City"));
-                    airport.setAirportCode(rs.getString("Country"));
+                    airport.setAirportCode(rs.getString("AirportCode"));
+                    return airport;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public static Airport getAirportByName(String AirportName) {
+        String sql = "SELECT * FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE AirportName = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+            stmt.setString(1, AirportName);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Airport airport = new Airport();
+                    airport.setAirportID(rs.getInt("AirportID"));
+                    airport.setAirportName(rs.getString("AirportName"));
+                    airport.setCity(rs.getString("City"));
+                    airport.setAirportCode(rs.getString("AirportCode"));
                     return airport;
                 }
             }
