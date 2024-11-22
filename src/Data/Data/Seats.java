@@ -280,4 +280,29 @@ public class Seats {
             return false;
         }
     }
+    public static int getMinAvailableSeatIDByClass(String seatClass) {
+        String query = "SELECT MIN(SeatID) AS MinAvailableSeatID " +
+                "FROM airline.seats " +
+                "WHERE Available = 1 AND Class = ?";
+
+        try (Connection connection = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, seatClass);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next() && resultSet.getInt("MinAvailableSeatID") != 0) {
+                return resultSet.getInt("MinAvailableSeatID");
+            } else {
+                System.out.println("No available seats found for class: " + seatClass);
+                return -1;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error fetching minimum available SeatID for class '" + seatClass + "': " + e.getMessage());
+            e.printStackTrace();
+            return -1;
+        }
+    }
 }
