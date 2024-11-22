@@ -31,10 +31,11 @@ public class Seats {
     public static ArrayList<ArrayList<Object>> viewSeatAvailablePassenger(String departureTime,
                                                                           String departureCityName, String arrivalCityName, int seatNumber) {
         String viewSeatSQL = "SELECT f.FlightID, f.DepartureTime, f.ArrivalTime, f.PlaneID, " +
-                "da.AirportName AS DepartureAirportName, aa.AirportName AS ArrivalAirportName, " +
                 "da.City AS DepartureCity, aa.City AS ArrivalCity, " +
                 "SUM(CASE WHEN s.Class = 'Business' AND s.Available = 1 THEN 1 ELSE 0 END) AS BusinessAvailableSeats, " +
-                "SUM(CASE WHEN s.Class = 'Economy' AND s.Available = 1 THEN 1 ELSE 0 END) AS EconomyAvailableSeats " +
+                "SUM(CASE WHEN s.Class = 'Economy' AND s.Available = 1 THEN 1 ELSE 0 END) AS EconomyAvailableSeats, " +
+                "MAX(CASE WHEN s.Class = 'Business' THEN s.Price ELSE 0 END) AS BusinessPrice, " +
+                "MAX(CASE WHEN s.Class = 'Economy' THEN s.Price ELSE 0 END) AS EconomyPrice " +
                 "FROM airline.flights f " +
                 "JOIN airline.airports da ON f.DepartureAirportID = da.AirportID " +
                 "JOIN airline.airports aa ON f.ArrivalAirportID = aa.AirportID " +
@@ -54,7 +55,7 @@ public class Seats {
         }
 
         viewSeatSQL += " GROUP BY f.FlightID, f.DepartureTime, f.ArrivalTime, f.PlaneID, " +
-                "da.AirportName, aa.AirportName, da.City, aa.City " +
+                "da.City, aa.City " +
                 "HAVING SUM(CASE WHEN s.Class = 'Business' AND s.Available = 1 THEN 1 ELSE 0 END) + " +
                 "SUM(CASE WHEN s.Class = 'Economy' AND s.Available = 1 THEN 1 ELSE 0 END) >= ?";
 
@@ -81,12 +82,12 @@ public class Seats {
                 seatData.add(resultSet.getTimestamp("DepartureTime"));
                 seatData.add(resultSet.getTimestamp("ArrivalTime"));
                 seatData.add(resultSet.getInt("PlaneID"));
-                seatData.add(resultSet.getString("DepartureAirportName"));
-                seatData.add(resultSet.getString("ArrivalAirportName"));
                 seatData.add(resultSet.getString("DepartureCity"));
                 seatData.add(resultSet.getString("ArrivalCity"));
                 seatData.add(resultSet.getInt("BusinessAvailableSeats"));
                 seatData.add(resultSet.getInt("EconomyAvailableSeats"));
+                seatData.add(resultSet.getDouble("BusinessPrice"));
+                seatData.add(resultSet.getDouble("EconomyPrice"));
                 seatsList.add(seatData);
             }
 
@@ -97,6 +98,7 @@ public class Seats {
 
         return seatsList;
     }
+
     public static ArrayList<ArrayList<Object>> viewSeatAvailable(String departureTime, String arrivalTime,
                                                                  String flightID, String departureCityName, String arrivalCityName) {
 
