@@ -5,16 +5,9 @@
 package UI.main;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import Models.User;
 import System.AirlineSystem;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
