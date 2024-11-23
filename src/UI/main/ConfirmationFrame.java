@@ -344,6 +344,13 @@ public class ConfirmationFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
         );
 
+        for (int i = 0; i < 5; i++) {
+            ConfirmTemplate tmp = new ConfirmTemplate();
+            tmp.setMaximumSize(new Dimension(550, 500));
+            tmp.setAlignmentX(Component.CENTER_ALIGNMENT);
+            ConfirmBGPane.add(tmp);
+        }
+
         javax.swing.GroupLayout ConfirmBGPaneLayout = new javax.swing.GroupLayout(ConfirmBGPane);
         ConfirmBGPane.setLayout(ConfirmBGPaneLayout);
         ConfirmBGPaneLayout.setHorizontalGroup(
@@ -510,7 +517,7 @@ public class ConfirmationFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (check()) {
             // logic needed here
-            
+
             // and yatta
             ConfirmCard.setVisible(false);
             DoneCard.setVisible(true);
