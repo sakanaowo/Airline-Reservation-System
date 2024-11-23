@@ -1,0 +1,175 @@
+
+// Method to create User Management Panel
+    /*private static JPanel createUserManagementPanel() {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(new Color(240, 248, 255)); // Alice Blue color
+
+        // Create a table to display user information
+        String[] columnNames = {"User ID", "Username", "Email", "Role", "Status"};
+        Object[][] data = {}; // Replace with actual user data
+
+        JTable table = new JTable(data, columnNames);
+        JScrollPane tableScrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+        panel.add(tableScrollPane, BorderLayout.CENTER);
+
+        // Button panel for user management
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(5, 1, 10, 10));
+        buttonPanel.setBackground(new Color(240, 248, 255));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JButton addUserButton = new JButton("Add User");
+        JButton editUserButton = new JButton("Edit User");
+        JButton removeUserButton = new JButton("Remove User");
+        JButton searchUserButton = new JButton("Search User");
+        JButton refreshUserButton = new JButton("Refresh List");
+
+        styleButton(addUserButton);
+        styleButton(editUserButton);
+        styleButton(removeUserButton);
+        styleButton(searchUserButton);
+        styleButton(refreshUserButton);
+
+        buttonPanel.add(addUserButton);
+        buttonPanel.add(editUserButton);
+        buttonPanel.add(removeUserButton);
+        buttonPanel.add(searchUserButton);
+        buttonPanel.add(refreshUserButton);
+
+        // Text Area for user details
+        JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
+        textArea.setWrapStyleWord(true);
+        textArea.setLineWrap(true);
+        textArea.setFont(new Font("Arial", Font.PLAIN, 14));
+        JScrollPane textAreaScrollPane = new JScrollPane(textArea);
+        textAreaScrollPane.setBorder(BorderFactory.createTitledBorder("Details"));
+
+        panel.add(textAreaScrollPane, BorderLayout.SOUTH);
+        textAreaScrollPane.setPreferredSize(new Dimension(600, 200));
+        panel.add(buttonPanel, BorderLayout.EAST);
+
+        // Action listeners for user buttons
+        addUserButton.addActionListener(e -> handleAddUser());
+        editUserButton.addActionListener(e -> handleEditUser());
+        removeUserButton.addActionListener(e -> handleRemoveUser());
+        searchUserButton.addActionListener(e -> handleSearchUser());
+        refreshUserButton.addActionListener(e -> handleRefreshUserList());
+
+        return panel;
+    }
+    
+    // Event handling methods
+    private static void handleAddUser() {
+        System.out.println("Add Flight button clicked");
+        // Implement add flight functionality
+    }
+
+    private static void handleEditUser() {
+        System.out.println("Edit Flight button clicked");
+        // Implement edit flight functionality
+    }
+
+    private static void handleRemoveUser() {
+        System.out.println("Remove Flight button clicked");
+        // Implement remove flight functionality
+    }
+
+    private static void handleSearchUser() {
+        System.out.println("Search Flight button clicked");
+        // Implement search flight functionality
+    }
+
+    private static void handleRefreshUserList() {
+        System.out.println("Refresh List button clicked");
+        // Implement refresh list functionality
+    }
+
+    // Method to create Ticket Management Panel
+    private static JPanel createTicketManagementPanel() {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(new Color(240, 248, 255)); // Alice Blue color
+
+        // Create a table to display ticket information
+        String[] columnNames = {"Ticket ID", "Passenger Name", "Flight", "Date", "Price"};
+        Object[][] data = {}; // Replace with actual ticket data
+
+        JTable table = new JTable(data, columnNames);
+        JScrollPane tableScrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+        panel.add(tableScrollPane, BorderLayout.CENTER);
+
+        // Button panel for ticket management
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(5, 1, 10, 10));
+        buttonPanel.setBackground(new Color(240, 248, 255));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JButton addTicketButton = new JButton("Add Ticket");
+        JButton editTicketButton = new JButton("Edit Ticket");
+        JButton removeTicketButton = new JButton("Remove Ticket");
+        JButton searchTicketButton = new JButton("Search Ticket");
+        JButton refreshTicketButton = new JButton("Refresh List");
+
+        styleButton(addTicketButton);
+        styleButton(editTicketButton);
+        styleButton(removeTicketButton);
+        styleButton(searchTicketButton);
+        styleButton(refreshTicketButton);
+
+        buttonPanel.add(addTicketButton);
+        buttonPanel.add(editTicketButton);
+        buttonPanel.add(removeTicketButton);
+        buttonPanel.add(searchTicketButton);
+        buttonPanel.add(refreshTicketButton);
+
+        // Text Area for ticket details
+        JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
+        textArea.setWrapStyleWord(true);
+        textArea.setLineWrap(true);
+        textArea.setFont(new Font("Arial", Font.PLAIN, 14));
+        JScrollPane textAreaScrollPane = new JScrollPane(textArea);
+        textAreaScrollPane.setBorder(BorderFactory.createTitledBorder("Details"));
+
+        panel.add(textAreaScrollPane, BorderLayout.SOUTH);
+        textAreaScrollPane.setPreferredSize(new Dimension(600, 200));
+        panel.add(buttonPanel, BorderLayout.EAST);
+
+        // Action listeners for ticket buttons
+        addTicketButton.addActionListener(e -> handleAddTicket());
+        editTicketButton.addActionListener(e -> handleEditTicket());
+        removeTicketButton.addActionListener(e -> handleRemoveTicket());
+        searchTicketButton.addActionListener(e -> handleSearchTicket());
+        refreshTicketButton.addActionListener(e -> handleRefreshTicketList());
+
+        return panel;
+    }
+    
+    // Event handling methods
+    private static void handleAddTicket() {
+        System.out.println("Add Flight button clicked");
+        // Implement add flight functionality
+    }
+
+    private static void handleEditTicket() {
+        System.out.println("Edit Flight button clicked");
+        // Implement edit flight functionality
+    }
+
+    private static void handleRemoveTicket() {
+        System.out.println("Remove Flight button clicked");
+        // Implement remove flight functionality
+    }
+
+    private static void handleSearchTicket() {
+        System.out.println("Search Flight button clicked");
+        // Implement search flight functionality
+    }
+
+    private static void handleRefreshTicketList() {
+        System.out.println("Refresh List button clicked");
+        // Implement refresh list functionality
+    }
+     */
