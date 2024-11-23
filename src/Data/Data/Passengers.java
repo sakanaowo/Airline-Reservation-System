@@ -1,13 +1,14 @@
 package Data.Data;
 
 public class Passengers {
-    public boolean insertPassenger(String firstName, String lastName, String phoneNumber, String cccd, int userId) {
+
+    public int insertPassenger(String firstName, String lastName, String phoneNumber, String cccd, int userId) {
         String insertSQL = "INSERT INTO airline.passengers (FirstName, LastName, PhoneNumber, CCCD, UserID) " +
                 "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME,
                 CommonConstants.DB_PASSWORD);
-             PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS)) {
 
             preparedStatement.setString(1, firstName);
             preparedStatement.setString(2, lastName);
@@ -17,13 +18,18 @@ public class Passengers {
 
             int rowsAffected = preparedStatement.executeUpdate();
 
-            return rowsAffected > 0;
-
+            if (rowsAffected > 0) {
+                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        return generatedKeys.getInt(1);
+                    }
+                }
+            }
         } catch (SQLException e) {
             System.err.println("Error inserting passenger: " + e.getMessage());
             e.printStackTrace();
-            return false;
         }
+        return -1;
     }
 
     public ArrayList<ArrayList<Object>> viewPassenger(int userId) {
@@ -57,7 +63,7 @@ public class Passengers {
         return passengerList;
     }
 
-    public boolean deletePassenger(int passengerId) {
+    public static boolean deletePassenger(int passengerId) {
         String deleteSQL = "DELETE FROM airline.passengers WHERE PassengerID = ?";
 
         try (Connection connection = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
