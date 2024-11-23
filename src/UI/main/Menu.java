@@ -76,6 +76,7 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        mat_khau_field = new javax.swing.JTextField();
         pnContainer = new javax.swing.JPanel();
         thanh_menu = new javax.swing.JPanel();
         lbl_menu = new javax.swing.JLabel();
@@ -97,48 +98,98 @@ public class Menu extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         cardDatVe = new javax.swing.JPanel();
         pnContainer1 = new javax.swing.JPanel();
-        khung_tim_chuyen_bay = new javax.swing.JPanel();
-        mot_chieu = new javax.swing.JRadioButton();
-        diem_den = new javax.swing.JComboBox<>();
-        nut_tim_chuyen_bay = new javax.swing.JButton();
-        diem_khoi_hanh = new javax.swing.JComboBox<>();
-        label_ngay_di = new javax.swing.JLabel();
-        label_khoi_hanh = new javax.swing.JLabel();
-        label_diem_den = new javax.swing.JLabel();
-        ngay_di = new com.toedter.calendar.JDateChooser();
+        pn_tim_kiem_chuyen_bay = new javax.swing.JPanel();
+        radiobutton_1_chieu = new javax.swing.JRadioButton();
+        lbl_diem_den = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        lbl_diem_khoi_hanh = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        lbl_so_luong_hanh_khach = new javax.swing.JLabel();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        lbl_ngay_bay = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        btn_tim_chuyen_bay = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        table_thong_tin_ve = new javax.swing.JTable();
+        jTable2 = new javax.swing.JTable();
         btn_tiep_tuc = new javax.swing.JButton();
-        cardHoSo = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel17 = new javax.swing.JLabel();
         cardVeCuaToi = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
+        pnContainer2 = new javax.swing.JPanel();
+        pnTitle2 = new javax.swing.JPanel();
+        lbl_ve_cua_toi = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        pnTicket = new javax.swing.JPanel();
+        jSeparator2 = new javax.swing.JSeparator();
+        pnTitle = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        pnBorder = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        lbl_passenger_name = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lbl_from = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        lbl_to = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        lbl_date = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        lbl_flight = new javax.swing.JLabel();
+        lbl_board_till = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        lbl_to1 = new javax.swing.JLabel();
+        lbl_seat = new javax.swing.JLabel();
+        lbl_gate = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        lbl_time = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        lbl_gate1 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        lbl_from1 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        lbl_passenger_name1 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        lbl_date1 = new javax.swing.JLabel();
+        lbl_time1 = new javax.swing.JLabel();
+        lbl_flight1 = new javax.swing.JLabel();
+        lbl_seat1 = new javax.swing.JLabel();
+        cardHoSo = new javax.swing.JPanel();
+        pnContainer3 = new javax.swing.JPanel();
+        pnTitle1 = new javax.swing.JPanel();
+        lbl_ho_so = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lbl_so_dien_thoai = new javax.swing.JLabel();
+        lbl_email = new javax.swing.JLabel();
+        lbl_cmnd = new javax.swing.JLabel();
+        lbl_ho_va_ten = new javax.swing.JLabel();
+        lbl_gioi_tinh = new javax.swing.JLabel();
+        lbl_mat_khau = new javax.swing.JLabel();
+        cmnd_field = new javax.swing.JTextField();
+        ho_va_ten_field = new javax.swing.JTextField();
+        so_dien_thoai_field = new javax.swing.JTextField();
+        gioi_tinh_field = new javax.swing.JTextField();
+        email_field = new javax.swing.JTextField();
+        ten_dang_nhap_field = new javax.swing.JTextField();
+        btn_doi_mat_khau = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+
+        mat_khau_field.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mat_khau_fieldActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1200, 800));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -165,14 +216,14 @@ public class Menu extends javax.swing.JFrame {
             thanh_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(thanh_menuLayout.createSequentialGroup()
                 .addComponent(lbl_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1150, Short.MAX_VALUE))
+                .addGap(0, 1111, Short.MAX_VALUE))
         );
         thanh_menuLayout.setVerticalGroup(
             thanh_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lbl_menu)
         );
 
-        pnContainer.add(thanh_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        pnContainer.add(thanh_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, -1));
 
         jplSlideMenu.setBackground(new java.awt.Color(255, 255, 255));
         jplSlideMenu.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -332,170 +383,161 @@ public class Menu extends javax.swing.JFrame {
         pnContainer1.setBackground(new java.awt.Color(255, 255, 255));
         pnContainer1.setMinimumSize(new java.awt.Dimension(1200, 750));
         pnContainer1.setPreferredSize(new java.awt.Dimension(1200, 750));
-        pnContainer1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        khung_tim_chuyen_bay.setBackground(new java.awt.Color(204, 0, 0));
-        khung_tim_chuyen_bay.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        khung_tim_chuyen_bay.setPreferredSize(new java.awt.Dimension(1200, 200));
+        pn_tim_kiem_chuyen_bay.setBackground(new java.awt.Color(204, 0, 0));
 
-        mot_chieu.setBackground(new java.awt.Color(204, 0, 0));
-        mot_chieu.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        mot_chieu.setForeground(new java.awt.Color(255, 255, 255));
-        mot_chieu.setText("Một chiều");
-        mot_chieu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mot_chieuActionPerformed(evt);
-            }
-        });
+        radiobutton_1_chieu.setBackground(new java.awt.Color(204, 0, 0));
+        radiobutton_1_chieu.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        radiobutton_1_chieu.setForeground(new java.awt.Color(255, 255, 255));
+        radiobutton_1_chieu.setText("Một chiều");
 
-        diem_den.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        diem_den.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hà Nội (HAN), Việt Nam", "Tp. Hồ Chí Minh (SGN), Việt Nam", "Đà Nẵng (DAD), Việt Nam", "Phú Quốc (PQC), Việt Nam", "Nha Trang (CXR), Việt Nam", "Buôn Ma Thuột (BMV), Việt Nam", "Cà Mau (CAH), Việt Nam", "Cần Thơ (VCA), Việt Nam", "Chu Lai (VCL), Việt Nam", "Côn Đảo (VCS), Việt Nam", "Đà Lạt (DLI), Việt Nam", "Điện Biên (DIN), Việt Nam", "Đồng Hới (VDH), Việt Nam", "Hải Phòng (HPH), Việt Nam", "Huế (HUI), Việt Nam", "Pleiku (PXU), Việt Nam", "Quy Nhơn (UIH), Việt Nam", "Rạch Giá (VKG), Việt Nam", "Thanh Hóa (THD), Việt Nam", "Tuy Hòa (TBB), Việt Nam", "Vân Đồn (VDO), Việt Nam", "Vinh (VII), Việt Nam", " " }));
-        diem_den.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                diem_denActionPerformed(evt);
-            }
-        });
+        lbl_diem_den.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        lbl_diem_den.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_diem_den.setText("Điểm đến:");
 
-        nut_tim_chuyen_bay.setBackground(new java.awt.Color(255, 255, 0));
-        nut_tim_chuyen_bay.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        nut_tim_chuyen_bay.setText("Tìm chuyến bay");
-        nut_tim_chuyen_bay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nut_tim_chuyen_bayActionPerformed(evt);
-            }
-        });
+        jComboBox1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hà Nội (HAN), Việt Nam", "Tp. Hồ Chí Minh (SGN), Việt Nam", "Đà Nẵng (DAD), Việt Nam", "Phú Quốc (PQC), Việt Nam", "Nha Trang (CXR), Việt Nam", "Buôn Ma Thuột (BMV), Việt Nam", "Cà Mau (CAH), Việt Nam", "Cần Thơ (VCA), Việt Nam", "Chu Lai (VCL), Việt Nam", "Côn Đảo (VCS), Việt Nam", "Đà Lạt (DLI), Việt Nam", "Điện Biên (DIN), Việt Nam", "Đồng Hới (VDH), Việt Nam", "Hải Phòng (HPH), Việt Nam", "Huế (HUI), Việt Nam", "Pleiku (PXU), Việt Nam", "Quy Nhơn (UIH), Việt Nam", "Rạch Giá (VKG), Việt Nam", "Thanh Hóa (THD), Việt Nam", "Tuy Hòa (TBB), Việt Nam", "Vân Đồn (VDO), Việt Nam", "Vinh (VII), Việt Nam" }));
 
-        diem_khoi_hanh.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        diem_khoi_hanh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hà Nội (HAN), Việt Nam", "Tp. Hồ Chí Minh (SGN), Việt Nam", "Đà Nẵng (DAD), Việt Nam", "Phú Quốc (PQC), Việt Nam", "Nha Trang (CXR), Việt Nam", "Buôn Ma Thuột (BMV), Việt Nam", "Cà Mau (CAH), Việt Nam", "Cần Thơ (VCA), Việt Nam", "Chu Lai (VCL), Việt Nam", "Côn Đảo (VCS), Việt Nam", "Đà Lạt (DLI), Việt Nam", "Điện Biên (DIN), Việt Nam", "Đồng Hới (VDH), Việt Nam", "Hải Phòng (HPH), Việt Nam", "Huế (HUI), Việt Nam", "Pleiku (PXU), Việt Nam", "Quy Nhơn (UIH), Việt Nam", "Rạch Giá (VKG), Việt Nam", "Thanh Hóa (THD), Việt Nam", "Tuy Hòa (TBB), Việt Nam", "Vân Đồn (VDO), Việt Nam", "Vinh (VII), Việt Nam", " " }));
-        diem_khoi_hanh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                diem_khoi_hanhActionPerformed(evt);
-            }
-        });
+        lbl_diem_khoi_hanh.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        lbl_diem_khoi_hanh.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_diem_khoi_hanh.setText("Điểm khởi hành:");
 
-        label_ngay_di.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        label_ngay_di.setForeground(new java.awt.Color(255, 255, 255));
-        label_ngay_di.setText("Ngày đi:");
+        jComboBox2.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hà Nội (HAN), Việt Nam", "Tp. Hồ Chí Minh (SGN), Việt Nam", "Đà Nẵng (DAD), Việt Nam", "Phú Quốc (PQC), Việt Nam", "Nha Trang (CXR), Việt Nam", "Buôn Ma Thuột (BMV), Việt Nam", "Cà Mau (CAH), Việt Nam", "Cần Thơ (VCA), Việt Nam", "Chu Lai (VCL), Việt Nam", "Côn Đảo (VCS), Việt Nam", "Đà Lạt (DLI), Việt Nam", "Điện Biên (DIN), Việt Nam", "Đồng Hới (VDH), Việt Nam", "Hải Phòng (HPH), Việt Nam", "Huế (HUI), Việt Nam", "Pleiku (PXU), Việt Nam", "Quy Nhơn (UIH), Việt Nam", "Rạch Giá (VKG), Việt Nam", "Thanh Hóa (THD), Việt Nam", "Tuy Hòa (TBB), Việt Nam", "Vân Đồn (VDO), Việt Nam", "Vinh (VII), Việt Nam", " " }));
 
-        label_khoi_hanh.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        label_khoi_hanh.setForeground(new java.awt.Color(255, 255, 255));
-        label_khoi_hanh.setText("Điểm khởi hành:");
+        lbl_so_luong_hanh_khach.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        lbl_so_luong_hanh_khach.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_so_luong_hanh_khach.setText("Số lượng hành khách:");
 
-        label_diem_den.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        label_diem_den.setForeground(new java.awt.Color(255, 255, 255));
-        label_diem_den.setText("Điểm đến:");
+        jComboBox3.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
 
-        ngay_di.setDateFormatString("dd/MM/yyyy");
-        ngay_di.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        lbl_ngay_bay.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        lbl_ngay_bay.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_ngay_bay.setText("Ngày bay:");
 
-        javax.swing.GroupLayout khung_tim_chuyen_bayLayout = new javax.swing.GroupLayout(khung_tim_chuyen_bay);
-        khung_tim_chuyen_bay.setLayout(khung_tim_chuyen_bayLayout);
-        khung_tim_chuyen_bayLayout.setHorizontalGroup(
-            khung_tim_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(khung_tim_chuyen_bayLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(khung_tim_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(mot_chieu)
-                    .addGroup(khung_tim_chuyen_bayLayout.createSequentialGroup()
-                        .addGroup(khung_tim_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label_khoi_hanh)
-                            .addComponent(diem_khoi_hanh, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addGroup(khung_tim_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(diem_den, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label_diem_den))
-                        .addGap(146, 146, 146)
-                        .addGroup(khung_tim_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ngay_di, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label_ngay_di))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(khung_tim_chuyen_bayLayout.createSequentialGroup()
-                .addGap(485, 485, 485)
-                .addComponent(nut_tim_chuyen_bay)
-                .addGap(0, 0, Short.MAX_VALUE))
+        jDateChooser1.setDateFormatString("dd/MM/yyyy\n");
+        jDateChooser1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+
+        btn_tim_chuyen_bay.setBackground(new java.awt.Color(255, 255, 0));
+        btn_tim_chuyen_bay.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        btn_tim_chuyen_bay.setText("Tìm chuyến bay");
+
+        javax.swing.GroupLayout pn_tim_kiem_chuyen_bayLayout = new javax.swing.GroupLayout(pn_tim_kiem_chuyen_bay);
+        pn_tim_kiem_chuyen_bay.setLayout(pn_tim_kiem_chuyen_bayLayout);
+        pn_tim_kiem_chuyen_bayLayout.setHorizontalGroup(
+            pn_tim_kiem_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pn_tim_kiem_chuyen_bayLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(pn_tim_kiem_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pn_tim_kiem_chuyen_bayLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btn_tim_chuyen_bay)
+                        .addGap(528, 528, 528))
+                    .addGroup(pn_tim_kiem_chuyen_bayLayout.createSequentialGroup()
+                        .addGroup(pn_tim_kiem_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(radiobutton_1_chieu)
+                            .addGroup(pn_tim_kiem_chuyen_bayLayout.createSequentialGroup()
+                                .addGroup(pn_tim_kiem_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_diem_khoi_hanh, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(80, 80, 80)
+                                .addGroup(pn_tim_kiem_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_diem_den, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(80, 80, 80)
+                                .addGroup(pn_tim_kiem_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lbl_so_luong_hanh_khach)
+                                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(80, 80, 80)
+                                .addGroup(pn_tim_kiem_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_ngay_bay)
+                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(16, Short.MAX_VALUE))))
         );
-        khung_tim_chuyen_bayLayout.setVerticalGroup(
-            khung_tim_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(khung_tim_chuyen_bayLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(mot_chieu, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(khung_tim_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label_ngay_di, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(khung_tim_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(label_khoi_hanh, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(label_diem_den)))
+        pn_tim_kiem_chuyen_bayLayout.setVerticalGroup(
+            pn_tim_kiem_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pn_tim_kiem_chuyen_bayLayout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addComponent(radiobutton_1_chieu)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(khung_tim_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(khung_tim_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(diem_khoi_hanh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(diem_den, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(ngay_di, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addComponent(nut_tim_chuyen_bay, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(pn_tim_kiem_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pn_tim_kiem_chuyen_bayLayout.createSequentialGroup()
+                        .addComponent(lbl_ngay_bay)
+                        .addGap(18, 18, 18)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3))
+                    .addGroup(pn_tim_kiem_chuyen_bayLayout.createSequentialGroup()
+                        .addGroup(pn_tim_kiem_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_diem_den, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_so_luong_hanh_khach)
+                            .addComponent(lbl_diem_khoi_hanh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pn_tim_kiem_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pn_tim_kiem_chuyen_bayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(btn_tim_chuyen_bay, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
 
-        pnContainer1.add(khung_tim_chuyen_bay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 190));
-
-        table_thong_tin_ve.setBackground(new java.awt.Color(204, 204, 204));
-        table_thong_tin_ve.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        table_thong_tin_ve.setModel(new DefaultTableModel(
+        jTable2.setBackground(new java.awt.Color(204, 204, 204));
+        jTable2.setModel(new DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã vé", "Điểm khởi hành", "Điểm đến", "Ngày đi", "Thời gian bay"
+                "Mã vé", "Điểm khởi hành", "Điểm đến", "Ngày bay", "Thời gian bay", "Số lượng hành khách"
             }
         ));
-        table_thong_tin_ve.setGridColor(new java.awt.Color(204, 204, 204));
-        table_thong_tin_ve.setSelectionBackground(new java.awt.Color(0, 153, 153));
-        table_thong_tin_ve.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                table_thong_tin_veMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(table_thong_tin_ve);
-
-        pnContainer1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 1190, 470));
+        jTable2.setSelectionBackground(new java.awt.Color(0, 153, 153));
+        jScrollPane1.setViewportView(jTable2);
 
         btn_tiep_tuc.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        btn_tiep_tuc.setText("TIẾP TỤC");
-        btn_tiep_tuc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_tiep_tucActionPerformed(evt);
-            }
-        });
-        pnContainer1.add(btn_tiep_tuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 670, 120, 40));
+        btn_tiep_tuc.setText("Tiếp tục");
+
+        javax.swing.GroupLayout pnContainer1Layout = new javax.swing.GroupLayout(pnContainer1);
+        pnContainer1.setLayout(pnContainer1Layout);
+        pnContainer1Layout.setHorizontalGroup(
+            pnContainer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pn_tim_kiem_chuyen_bay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnContainer1Layout.createSequentialGroup()
+                .addGap(544, 544, 544)
+                .addComponent(btn_tiep_tuc)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
+        );
+        pnContainer1Layout.setVerticalGroup(
+            pnContainer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnContainer1Layout.createSequentialGroup()
+                .addComponent(pn_tim_kiem_chuyen_bay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_tiep_tuc, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout cardDatVeLayout = new javax.swing.GroupLayout(cardDatVe);
         cardDatVe.setLayout(cardDatVeLayout);
@@ -505,169 +547,447 @@ public class Menu extends javax.swing.JFrame {
         );
         cardDatVeLayout.setVerticalGroup(
             cardDatVeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cardDatVeLayout.createSequentialGroup()
-                .addComponent(pnContainer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(pnContainer1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jplMain.add(cardDatVe, "card4");
 
-        cardHoSo.setPreferredSize(new java.awt.Dimension(1200, 750));
+        cardVeCuaToi.setPreferredSize(new java.awt.Dimension(1200, 750));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setPreferredSize(new java.awt.Dimension(1200, 750));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnContainer2.setBackground(new java.awt.Color(255, 255, 255));
+        pnContainer2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        pnContainer2.setPreferredSize(new java.awt.Dimension(1200, 750));
 
-        jPanel3.setBackground(new java.awt.Color(204, 0, 0));
+        pnTitle2.setBackground(new java.awt.Color(204, 0, 0));
+        pnTitle2.setPreferredSize(new java.awt.Dimension(1200, 100));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("HỒ SƠ");
+        lbl_ve_cua_toi.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
+        lbl_ve_cua_toi.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_ve_cua_toi.setText("VÉ CỦA TÔI");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(534, 534, 534)
-                .addComponent(jLabel5)
-                .addContainerGap(550, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(26, 26, 26))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UI/Icon/ticket.png"))); // NOI18N
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 110));
-
-        jLabel13.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jLabel13.setText("SỐ ĐIỆN THOẠI:");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, -1));
-
-        jLabel14.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jLabel14.setText("EMAIL:");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, 70, -1));
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jLabel8.setText("CMND:");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jLabel9.setText("HỌ VÀ TÊN:");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, -1, -1));
-
-        jLabel15.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jLabel15.setText("GIỚI TÍNH:");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jLabel6.setText("MẬT KHẨU:");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 630, -1, -1));
-        jPanel2.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 200, 40));
-        jPanel2.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 200, 40));
-        jPanel2.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, 200, 40));
-        jPanel2.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 450, 200, 40));
-        jPanel2.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 370, 200, 40));
-        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 540, 200, 40));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jLabel7.setText("TÊN ĐĂNG NHẬP:");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 540, -1, 40));
-        jPanel2.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 620, 200, 40));
-
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("SỬA");
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 550, 100, 30));
-
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setText("ĐỔI MẬT KHẨU");
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 630, 140, 30));
-
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UI/Icon/ava.png"))); // NOI18N
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 220, -1, -1));
-
-        javax.swing.GroupLayout cardHoSoLayout = new javax.swing.GroupLayout(cardHoSo);
-        cardHoSo.setLayout(cardHoSoLayout);
-        cardHoSoLayout.setHorizontalGroup(
-            cardHoSoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        cardHoSoLayout.setVerticalGroup(
-            cardHoSoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        jplMain.add(cardHoSo, "card5");
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        jPanel4.setBackground(new java.awt.Color(204, 0, 0));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("VÉ CỦA TÔI");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(501, Short.MAX_VALUE)
+        javax.swing.GroupLayout pnTitle2Layout = new javax.swing.GroupLayout(pnTitle2);
+        pnTitle2.setLayout(pnTitle2Layout);
+        pnTitle2Layout.setHorizontalGroup(
+            pnTitle2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnTitle2Layout.createSequentialGroup()
+                .addGap(387, 387, 387)
                 .addComponent(jLabel1)
-                .addGap(494, 494, 494))
+                .addGap(18, 18, 18)
+                .addComponent(lbl_ve_cua_toi)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+        pnTitle2Layout.setVerticalGroup(
+            pnTitle2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnTitle2Layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGap(0, 5, Short.MAX_VALUE))
+            .addGroup(pnTitle2Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(lbl_ve_cua_toi)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setBackground(new java.awt.Color(204, 204, 204));
-        jTable1.setModel(new DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Mã vé", "Điểm khởi hành", "Điểm đến", "Ngày đặt vé", "Ngày đi", "Thời gian bay", "Số ghế", "Hạng ghế", "Tổng tiền", "Thuế"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
+        pnTicket.setBackground(new java.awt.Color(255, 255, 255));
+        pnTicket.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jSeparator2.setForeground(new java.awt.Color(204, 204, 204));
+        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        pnTicket.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(838, 1, 10, 300));
+
+        pnTitle.setBackground(new java.awt.Color(204, 0, 0));
+
+        jLabel27.setFont(new java.awt.Font("Segoe UI Historic", 0, 30)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setText("CLC04 AirLines");
+
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UI/Icon/logoticket.png"))); // NOI18N
+
+        jLabel28.setFont(new java.awt.Font("Segoe UI Historic", 0, 20)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel28.setText("Boarding pass");
+
+        jLabel30.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel30.setText("ECONOMY");
+
+        jLabel31.setFont(new java.awt.Font("Segoe UI Historic", 0, 20)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel31.setText("Boarding pass");
+
+        jLabel32.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel32.setText("ECONOMY");
+
+        javax.swing.GroupLayout pnTitleLayout = new javax.swing.GroupLayout(pnTitle);
+        pnTitle.setLayout(pnTitleLayout);
+        pnTitleLayout.setHorizontalGroup(
+            pnTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnTitleLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 368, Short.MAX_VALUE)
+                .addGroup(pnTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(231, 231, 231)
+                .addGroup(pnTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel31)
+                    .addComponent(jLabel30))
+                .addGap(19, 19, 19))
+        );
+        pnTitleLayout.setVerticalGroup(
+            pnTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnTitleLayout.createSequentialGroup()
+                .addGroup(pnTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnTitleLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(pnTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel28)
+                            .addComponent(jLabel31))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel30)
+                            .addComponent(jLabel32)))
+                    .addComponent(jLabel29)
+                    .addGroup(pnTitleLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel27)))
+                .addContainerGap())
+        );
+
+        pnTicket.add(pnTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 100));
+
+        pnBorder.setBackground(new java.awt.Color(204, 0, 0));
+
+        javax.swing.GroupLayout pnBorderLayout = new javax.swing.GroupLayout(pnBorder);
+        pnBorder.setLayout(pnBorderLayout);
+        pnBorderLayout.setHorizontalGroup(
+            pnBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnBorderLayout.setVerticalGroup(
+            pnBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
+
+        pnTicket.add(pnBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 283, 1200, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel3.setText("Passenger name:");
+        pnTicket.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 130, -1, -1));
+
+        lbl_passenger_name.setText("jLabel6");
+        pnTicket.add(lbl_passenger_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(189, 153, 118, -1));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel7.setText("From:");
+        pnTicket.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 170, 55, 20));
+
+        lbl_from.setText("jLabel6");
+        pnTicket.add(lbl_from, new org.netbeans.lib.awtextra.AbsoluteConstraints(189, 200, 118, -1));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel9.setText("To:");
+        pnTicket.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 220, 49, -1));
+
+        lbl_to.setText("jLabel6");
+        pnTicket.add(lbl_to, new org.netbeans.lib.awtextra.AbsoluteConstraints(189, 247, 118, -1));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel14.setText("Date:");
+        pnTicket.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 130, 43, -1));
+
+        lbl_date.setText("jLabel6");
+        pnTicket.add(lbl_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, 153, 135, -1));
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel16.setText("Flight:");
+        pnTicket.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 170, -1, -1));
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel18.setText("Gate:");
+        pnTicket.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 220, -1, -1));
+
+        lbl_flight.setText("jLabel6");
+        pnTicket.add(lbl_flight, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, 200, 135, -1));
+
+        lbl_board_till.setText("jLabel6");
+        pnTicket.add(lbl_board_till, new org.netbeans.lib.awtextra.AbsoluteConstraints(704, 247, 131, -1));
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel21.setText("Seat:");
+        pnTicket.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 170, 43, -1));
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel22.setText("Time:");
+        pnTicket.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 130, 43, -1));
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel23.setText("Board till:");
+        pnTicket.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(704, 222, -1, -1));
+
+        lbl_to1.setText("jLabel6");
+        pnTicket.add(lbl_to1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 240, 131, 20));
+
+        lbl_seat.setText("jLabel6");
+        pnTicket.add(lbl_seat, new org.netbeans.lib.awtextra.AbsoluteConstraints(704, 200, 131, -1));
+
+        lbl_gate.setText("jLabel6");
+        pnTicket.add(lbl_gate, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, 247, 135, -1));
+
+        jLabel33.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel33.setText("Passenger name:");
+        pnTicket.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(189, 128, -1, -1));
+
+        lbl_time.setText("jLabel6");
+        pnTicket.add(lbl_time, new org.netbeans.lib.awtextra.AbsoluteConstraints(704, 153, 131, -1));
+
+        jLabel35.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel35.setText("From:");
+        pnTicket.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(189, 175, 55, -1));
+
+        lbl_gate1.setText("jLabel6");
+        pnTicket.add(lbl_gate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 240, 50, -1));
+
+        jLabel37.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel37.setText("To:");
+        pnTicket.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(189, 222, 49, -1));
+
+        lbl_from1.setText("jLabel6");
+        pnTicket.add(lbl_from1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 200, 131, -1));
+
+        jLabel39.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel39.setText("Date:");
+        pnTicket.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, 128, 43, -1));
+
+        jLabel40.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel40.setText("Time:");
+        pnTicket.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(704, 128, 43, -1));
+
+        jLabel41.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel41.setText("Flight:");
+        pnTicket.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, 175, -1, -1));
+
+        jLabel42.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel42.setText("Seat:");
+        pnTicket.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(704, 175, 43, -1));
+
+        jLabel43.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel43.setText("Gate:");
+        pnTicket.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, 222, -1, -1));
+
+        lbl_passenger_name1.setText("jLabel6");
+        pnTicket.add(lbl_passenger_name1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 150, 120, -1));
+
+        jLabel45.setText("jLabel6");
+        pnTicket.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 150, 131, -1));
+
+        lbl_date1.setText("jLabel6");
+        pnTicket.add(lbl_date1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 150, 50, -1));
+
+        lbl_time1.setText("jLabel6");
+        pnTicket.add(lbl_time1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 150, 50, -1));
+
+        lbl_flight1.setText("jLabel6");
+        pnTicket.add(lbl_flight1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 200, 50, -1));
+
+        lbl_seat1.setText("jLabel6");
+        pnTicket.add(lbl_seat1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 190, 50, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnTicket, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(pnTicket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(308, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout pnContainer2Layout = new javax.swing.GroupLayout(pnContainer2);
+        pnContainer2.setLayout(pnContainer2Layout);
+        pnContainer2Layout.setHorizontalGroup(
+            pnContainer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnTitle2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        pnContainer2Layout.setVerticalGroup(
+            pnContainer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnContainer2Layout.createSequentialGroup()
+                .addComponent(pnTitle2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout cardVeCuaToiLayout = new javax.swing.GroupLayout(cardVeCuaToi);
         cardVeCuaToi.setLayout(cardVeCuaToiLayout);
         cardVeCuaToiLayout.setHorizontalGroup(
             cardVeCuaToiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnContainer2, javax.swing.GroupLayout.DEFAULT_SIZE, 1202, Short.MAX_VALUE)
         );
         cardVeCuaToiLayout.setVerticalGroup(
             cardVeCuaToiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnContainer2, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
         );
 
         jplMain.add(cardVeCuaToi, "card5");
+
+        cardHoSo.setPreferredSize(new java.awt.Dimension(1200, 750));
+
+        pnContainer3.setBackground(new java.awt.Color(255, 255, 255));
+        pnContainer3.setPreferredSize(new java.awt.Dimension(1200, 750));
+
+        pnTitle1.setBackground(new java.awt.Color(204, 0, 0));
+
+        lbl_ho_so.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
+        lbl_ho_so.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_ho_so.setText("HỒ SƠ");
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UI/Icon/hoso.png"))); // NOI18N
+
+        javax.swing.GroupLayout pnTitle1Layout = new javax.swing.GroupLayout(pnTitle1);
+        pnTitle1.setLayout(pnTitle1Layout);
+        pnTitle1Layout.setHorizontalGroup(
+            pnTitle1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnTitle1Layout.createSequentialGroup()
+                .addGap(444, 444, 444)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_ho_so)
+                .addContainerGap(538, Short.MAX_VALUE))
+        );
+        pnTitle1Layout.setVerticalGroup(
+            pnTitle1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnTitle1Layout.createSequentialGroup()
+                .addGroup(pnTitle1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnTitle1Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(lbl_ho_so))
+                    .addGroup(pnTitle1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel5)))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        lbl_so_dien_thoai.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        lbl_so_dien_thoai.setText("SỐ ĐIỆN THOẠI:");
+
+        lbl_email.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        lbl_email.setText("EMAIL:");
+
+        lbl_cmnd.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        lbl_cmnd.setText("CMND:");
+
+        lbl_ho_va_ten.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        lbl_ho_va_ten.setText("HỌ VÀ TÊN:");
+
+        lbl_gioi_tinh.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        lbl_gioi_tinh.setText("GIỚI TÍNH:");
+
+        lbl_mat_khau.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        lbl_mat_khau.setText("MẬT KHẨU:");
+
+        btn_doi_mat_khau.setBackground(new java.awt.Color(204, 0, 51));
+        btn_doi_mat_khau.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        btn_doi_mat_khau.setForeground(new java.awt.Color(255, 255, 255));
+        btn_doi_mat_khau.setText("ĐỔI THÔNG TIN");
+
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UI/Icon/ava.png"))); // NOI18N
+
+        javax.swing.GroupLayout pnContainer3Layout = new javax.swing.GroupLayout(pnContainer3);
+        pnContainer3.setLayout(pnContainer3Layout);
+        pnContainer3Layout.setHorizontalGroup(
+            pnContainer3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(pnContainer3Layout.createSequentialGroup()
+                .addGap(75, 75, 75)
+                .addGroup(pnContainer3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_ho_va_ten)
+                    .addComponent(lbl_so_dien_thoai)
+                    .addComponent(lbl_email, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_gioi_tinh)
+                    .addComponent(lbl_mat_khau)
+                    .addComponent(lbl_cmnd))
+                .addGap(60, 60, 60)
+                .addGroup(pnContainer3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnContainer3Layout.createSequentialGroup()
+                        .addComponent(cmnd_field, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnContainer3Layout.createSequentialGroup()
+                        .addGroup(pnContainer3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnContainer3Layout.createSequentialGroup()
+                                .addGroup(pnContainer3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(gioi_tinh_field)
+                                    .addComponent(ten_dang_nhap_field)
+                                    .addComponent(email_field, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
+                                .addGap(51, 51, 51)
+                                .addComponent(btn_doi_mat_khau)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(pnContainer3Layout.createSequentialGroup()
+                                .addGroup(pnContainer3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(so_dien_thoai_field, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ho_va_ten_field))
+                                .addGap(242, 242, 242)))
+                        .addComponent(jLabel17)))
+                .addGap(28, 28, 28))
+        );
+        pnContainer3Layout.setVerticalGroup(
+            pnContainer3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnContainer3Layout.createSequentialGroup()
+                .addComponent(pnTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80)
+                .addGroup(pnContainer3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbl_cmnd)
+                    .addComponent(cmnd_field, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(pnContainer3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnContainer3Layout.createSequentialGroup()
+                        .addGroup(pnContainer3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(ho_va_ten_field, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_ho_va_ten))
+                        .addGap(35, 35, 35)
+                        .addGroup(pnContainer3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbl_so_dien_thoai)
+                            .addComponent(so_dien_thoai_field, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addGroup(pnContainer3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbl_email)
+                            .addComponent(email_field, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addGroup(pnContainer3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(gioi_tinh_field, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_gioi_tinh))
+                        .addGap(35, 35, 35)
+                        .addGroup(pnContainer3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbl_mat_khau)
+                            .addGroup(pnContainer3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(ten_dang_nhap_field, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_doi_mat_khau, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel17))
+                .addContainerGap(130, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout cardHoSoLayout = new javax.swing.GroupLayout(cardHoSo);
+        cardHoSo.setLayout(cardHoSoLayout);
+        cardHoSoLayout.setHorizontalGroup(
+            cardHoSoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnContainer3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        cardHoSoLayout.setVerticalGroup(
+            cardHoSoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnContainer3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jplMain.add(cardHoSo, "card5");
 
         pnContainer.add(jplMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, -1, -1));
 
@@ -679,7 +999,7 @@ public class Menu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -709,71 +1029,6 @@ public class Menu extends javax.swing.JFrame {
         cardHoSo.setVisible(false);
     }//GEN-LAST:event_lblDatVeMouseClicked
 
-    private void mot_chieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mot_chieuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mot_chieuActionPerformed
-
-    private void diem_khoi_hanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diem_khoi_hanhActionPerformed
-       
-    }//GEN-LAST:event_diem_khoi_hanhActionPerformed
-
-    private void diem_denActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diem_denActionPerformed
-        
-    }//GEN-LAST:event_diem_denActionPerformed
-
-    private void nut_tim_chuyen_bayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nut_tim_chuyen_bayActionPerformed
-        // 1. Lấy thông tin từ giao diện
-        String diemKhoiHanh = diem_khoi_hanh.getSelectedItem().toString();
-        String diemDen = diem_den.getSelectedItem().toString();
-        Date ngayDi = ngay_di.getDate(); // Lấy ngày từ JCalendar
-        
-
-        // 2. Xử lý logic lấy danh sách vé (giả lập dữ liệu ở đây)
-        ArrayList danhSachVe = new ArrayList();
-        if (diemKhoiHanh.equals("Hà Nội (HAN), Việt Nam") && diemDen.equals("Tp. Hồ Chí Minh (SGN), Việt Nam")) {
-            danhSachVe.add(new String[]{"VE001", "Hà Nội (HAN), Việt Nam", "Tp. Hồ Chí Minh (SGN), Việt Nam", "2024-11-20", "9:00"});
-            danhSachVe.add(new String[]{"VE002", "Hà Nội (HAN), Việt Nam", "Tp. Hồ Chí Minh (SGN), Việt Nam", "2024-11-21", "20:00"});
-        } else {
-            danhSachVe.add(new String[]{"VE003", diemKhoiHanh, diemDen, "2024-11-22", "21:00"});
-        }
-
-       
-
-        // 3. Hiển thị dữ liệu lên JTable
-        DefaultTableModel model = (DefaultTableModel) table_thong_tin_ve.getModel();
-        model.setRowCount(0);
-        for (Object obj : danhSachVe) {
-            String[] ve = (String[]) obj; // Ép kiểu sang String[]
-            model.addRow(ve);
-        }
-    }//GEN-LAST:event_nut_tim_chuyen_bayActionPerformed
-
-    private void btn_tiep_tucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tiep_tucActionPerformed
-        int selectedRow = table_thong_tin_ve.getSelectedRow();
-        if (selectedRow != -1) {
-            // Lấy thông tin vé từ JTable
-            String maVe = table_thong_tin_ve.getValueAt(selectedRow, 0).toString();
-            String diemKhoiHanh = table_thong_tin_ve.getValueAt(selectedRow, 1).toString();
-            String diemDen = table_thong_tin_ve.getValueAt(selectedRow, 2).toString();
-            String ngayDi = table_thong_tin_ve.getValueAt(selectedRow, 3).toString();
-            String thoiGianBay = table_thong_tin_ve.getValueAt(selectedRow, 4).toString();
-
-            // Chuyển sang giao diện xác nhận
-            XacNhan xacNhanFrame = new XacNhan();
-            xacNhanFrame.setDiemKhoiHanh(diemKhoiHanh);
-            xacNhanFrame.setDiemDen(diemDen);
-            xacNhanFrame.setNgayBay(ngayDi);
-            xacNhanFrame.setThoiGianBay(thoiGianBay);
-            xacNhanFrame.setVisible(true);
-            pack();
-            xacNhanFrame.setLocationRelativeTo(null);
-        }
-    }//GEN-LAST:event_btn_tiep_tucActionPerformed
-
-    private void table_thong_tin_veMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_thong_tin_veMouseClicked
-
-    }//GEN-LAST:event_table_thong_tin_veMouseClicked
-
     private void lblVeCuaToiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVeCuaToiMouseClicked
         cardTrangChu.setVisible(false);
         cardVeCuaToi.setVisible(true);
@@ -799,6 +1054,10 @@ public class Menu extends javax.swing.JFrame {
         l.pack();
         l.setLocationRelativeTo(null);
     }//GEN-LAST:event_label_dang_xuatMouseClicked
+
+    private void mat_khau_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mat_khau_fieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mat_khau_fieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -836,65 +1095,111 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_doi_mat_khau;
     private javax.swing.JButton btn_tiep_tuc;
+    private javax.swing.JButton btn_tim_chuyen_bay;
     private javax.swing.JPanel cardDatVe;
     private javax.swing.JPanel cardHoSo;
     private javax.swing.JPanel cardTrangChu;
     private javax.swing.JPanel cardVeCuaToi;
+    private javax.swing.JTextField cmnd_field;
     private javax.swing.JPanel container_avatar_close;
-    private javax.swing.JComboBox<String> diem_den;
-    private javax.swing.JComboBox<String> diem_khoi_hanh;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JTextField email_field;
+    private javax.swing.JTextField gioi_tinh_field;
+    private javax.swing.JTextField ho_va_ten_field;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTable jTable2;
     private javax.swing.JPanel jplMain;
     private javax.swing.JPanel jplSlideMenu;
-    private javax.swing.JPanel khung_tim_chuyen_bay;
     private javax.swing.JLabel label_dang_xuat;
-    private javax.swing.JLabel label_diem_den;
-    private javax.swing.JLabel label_khoi_hanh;
-    private javax.swing.JLabel label_ngay_di;
     private javax.swing.JLabel lblCloseMenu;
     private javax.swing.JLabel lblDatVe;
     private javax.swing.JLabel lblHoSo;
     private javax.swing.JLabel lblTrangChu;
     private javax.swing.JLabel lblVeCuaToi;
+    private javax.swing.JLabel lbl_board_till;
+    private javax.swing.JLabel lbl_cmnd;
+    private javax.swing.JLabel lbl_date;
+    private javax.swing.JLabel lbl_date1;
+    private javax.swing.JLabel lbl_diem_den;
+    private javax.swing.JLabel lbl_diem_khoi_hanh;
+    private javax.swing.JLabel lbl_email;
+    private javax.swing.JLabel lbl_flight;
+    private javax.swing.JLabel lbl_flight1;
+    private javax.swing.JLabel lbl_from;
+    private javax.swing.JLabel lbl_from1;
+    private javax.swing.JLabel lbl_gate;
+    private javax.swing.JLabel lbl_gate1;
+    private javax.swing.JLabel lbl_gioi_tinh;
+    private javax.swing.JLabel lbl_ho_so;
+    private javax.swing.JLabel lbl_ho_va_ten;
+    private javax.swing.JLabel lbl_mat_khau;
     private javax.swing.JLabel lbl_menu;
-    private javax.swing.JRadioButton mot_chieu;
-    private com.toedter.calendar.JDateChooser ngay_di;
-    private javax.swing.JButton nut_tim_chuyen_bay;
+    private javax.swing.JLabel lbl_ngay_bay;
+    private javax.swing.JLabel lbl_passenger_name;
+    private javax.swing.JLabel lbl_passenger_name1;
+    private javax.swing.JLabel lbl_seat;
+    private javax.swing.JLabel lbl_seat1;
+    private javax.swing.JLabel lbl_so_dien_thoai;
+    private javax.swing.JLabel lbl_so_luong_hanh_khach;
+    private javax.swing.JLabel lbl_time;
+    private javax.swing.JLabel lbl_time1;
+    private javax.swing.JLabel lbl_to;
+    private javax.swing.JLabel lbl_to1;
+    private javax.swing.JLabel lbl_ve_cua_toi;
+    private javax.swing.JTextField mat_khau_field;
+    private javax.swing.JPanel pnBorder;
     private javax.swing.JPanel pnContainer;
     private javax.swing.JPanel pnContainer1;
-    private javax.swing.JTable table_thong_tin_ve;
+    private javax.swing.JPanel pnContainer2;
+    private javax.swing.JPanel pnContainer3;
+    private javax.swing.JPanel pnTicket;
+    private javax.swing.JPanel pnTitle;
+    private javax.swing.JPanel pnTitle1;
+    private javax.swing.JPanel pnTitle2;
+    private javax.swing.JPanel pn_tim_kiem_chuyen_bay;
+    private javax.swing.JRadioButton radiobutton_1_chieu;
+    private javax.swing.JTextField so_dien_thoai_field;
+    private javax.swing.JTextField ten_dang_nhap_field;
     private javax.swing.JPanel thanh_menu;
     // End of variables declaration//GEN-END:variables
 }
