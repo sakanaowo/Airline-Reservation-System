@@ -766,6 +766,10 @@ public class Menu extends javax.swing.JFrame {
 
     private void nut_tim_chuyen_bayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nut_tim_chuyen_bayActionPerformed
 
+        FlightFoundedPane.removeAll();
+        FlightFoundedPane.revalidate();
+        FlightFoundedPane.repaint();
+
         String DerpatureAirport = diem_khoi_hanh.getSelectedItem().toString();
         String ArrivalAirport = diem_den.getSelectedItem().toString();
         Date DerpartureTime = ngay_di.getDate();
@@ -774,9 +778,9 @@ public class Menu extends javax.swing.JFrame {
         ArrayList<Flightxtended> flightFounded = manager.flightManager.UserFindFlight(DerpartureTime, DerpatureAirport, ArrivalAirport, PassengerNumber);
         FlightFoundedPane.setLayout(new BoxLayout(FlightFoundedPane, BoxLayout.Y_AXIS));
         for (Flightxtended flight : flightFounded) {
-            FlightTemplate tmp = new FlightTemplate(flight, PassengerNumber,userID);
-            tmp.setPreferredSize(new Dimension(930, 230));
-            tmp.setMaximumSize(new Dimension(1180, 230));
+            FlightTemplate tmp = new FlightTemplate(flight, PassengerNumber, userID);
+            tmp.setPreferredSize(new Dimension(930, 240));
+            tmp.setMaximumSize(new Dimension(1180, 240));
             tmp.setAlignmentX(Component.LEFT_ALIGNMENT); // Căn trái
             FlightFoundedPane.add(tmp);
         }

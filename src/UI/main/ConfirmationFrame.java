@@ -14,7 +14,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-// notyet finished
+
 /**
  * @author Sakana
  */
@@ -39,6 +39,7 @@ public class ConfirmationFrame extends javax.swing.JFrame {
         this.passengerNumber = passengerNumber;
         this.seatClass = seatClass;
         loadInfor();
+        loadSCroll();
     }
 
     private void loadInfor() {
@@ -56,7 +57,7 @@ public class ConfirmationFrame extends javax.swing.JFrame {
 
         DEPAirportName.setText(flight.getDepartureAirport().getAirportName());
 
-        ArrTimeAndCity.setText(timeHandle.getTDMY(flight.getArrivalTime()) + " " + flight.getArrivalAirport().getCity());
+        ArrTimeAndCity.setText(timeHandle.getHour(flight.getArrivalTime()) + " " + flight.getArrivalAirport().getCity());
 
         ArrAirportName.setText(flight.getArrivalAirport().getAirportName());
 
@@ -109,7 +110,10 @@ public class ConfirmationFrame extends javax.swing.JFrame {
         ConfirmBGPane = new javax.swing.JPanel();
         ConfirmInfoButton = new javax.swing.JButton();
         Cancel = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
+        DoneCard = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -200,20 +204,22 @@ public class ConfirmationFrame extends javax.swing.JFrame {
                                                 .addGroup(InforPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(InforPaneLayout.createSequentialGroup()
                                                                 .addGap(86, 86, 86)
-                                                                .addGroup(InforPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                        .addGroup(InforPaneLayout.createSequentialGroup()
-                                                                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addGap(18, 18, 18)
-                                                                                .addGroup(InforPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(DepTimeAndCity, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                        .addComponent(DEPAirportName, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                                .addGroup(InforPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addGroup(InforPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(jSeparator1)
+                                                                                .addGroup(InforPaneLayout.createSequentialGroup()
+                                                                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                        .addGap(18, 18, 18)
+                                                                                        .addGroup(InforPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                                .addComponent(DEPAirportName, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                .addComponent(DepTimeAndCity, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                        .addGap(15, 15, 15)))
                                                                         .addGroup(InforPaneLayout.createSequentialGroup()
                                                                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                 .addGap(18, 18, 18)
                                                                                 .addGroup(InforPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                                         .addComponent(ArrAirportName, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                        .addComponent(ArrTimeAndCity, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                                        .addComponent(jSeparator1)))
+                                                                                        .addComponent(ArrTimeAndCity, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                                         .addGroup(InforPaneLayout.createSequentialGroup()
                                                                 .addContainerGap()
                                                                 .addGroup(InforPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -222,7 +228,7 @@ public class ConfirmationFrame extends javax.swing.JFrame {
                                                                                 .addComponent(jLabel9)
                                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                                                 .addComponent(PlaneCode, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                                .addGap(0, 152, Short.MAX_VALUE)))
+                                                .addGap(0, 92, Short.MAX_VALUE)))
                                 .addContainerGap())
                         .addGroup(InforPaneLayout.createSequentialGroup()
                                 .addContainerGap()
@@ -288,7 +294,7 @@ public class ConfirmationFrame extends javax.swing.JFrame {
         InformationCardLayout.setHorizontalGroup(
                 InformationCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(InformationCardLayout.createSequentialGroup()
-                                .addContainerGap(100, Short.MAX_VALUE)
+                                .addContainerGap(122, Short.MAX_VALUE)
                                 .addGroup(InformationCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InformationCardLayout.createSequentialGroup()
                                                 .addComponent(ConfirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -404,18 +410,54 @@ public class ConfirmationFrame extends javax.swing.JFrame {
 
         BackGroundPane.add(ConfirmCard, "card2");
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 724, Short.MAX_VALUE)
+        DoneCard.setBackground(new java.awt.Color(183, 233, 246));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UI/Icon/yatta.png"))); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(204, 0, 204));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Đặt Vé Thành Công");
+
+        jButton1.setText("Yatta");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout DoneCardLayout = new javax.swing.GroupLayout(DoneCard);
+        DoneCard.setLayout(DoneCardLayout);
+        DoneCardLayout.setHorizontalGroup(
+                DoneCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(DoneCardLayout.createSequentialGroup()
+                                .addGroup(DoneCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(DoneCardLayout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(DoneCardLayout.createSequentialGroup()
+                                                .addGap(153, 153, 153)
+                                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 155, Short.MAX_VALUE)))
+                                .addContainerGap())
+                        .addGroup(DoneCardLayout.createSequentialGroup()
+                                .addGap(322, 322, 322)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 617, Short.MAX_VALUE)
+        DoneCardLayout.setVerticalGroup(
+                DoneCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(DoneCardLayout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40))
         );
 
-        BackGroundPane.add(jPanel4, "card3");
+        BackGroundPane.add(DoneCard, "card3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -441,14 +483,12 @@ public class ConfirmationFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         InformationCard.setVisible(false);
         ConfirmCard.setVisible(true);
-
-        loadSCroll();
-
+//        loadSCroll();
     }//GEN-LAST:event_ConfirmButtonActionPerformed
 
     private void loadSCroll() {
         ConfirmBGPane.setLayout(new BoxLayout(ConfirmBGPane, BoxLayout.Y_AXIS));
-        for (int i = 0; i < passengerNumber; i++) {
+        for (int i = 0; i < this.passengerNumber; i++) {
             ConfirmTemplate tmp = new ConfirmTemplate(i + 1);
             tmp.setMaximumSize(new Dimension(550, 500));
             tmp.setPreferredSize(new Dimension(550, 500));
@@ -464,7 +504,7 @@ public class ConfirmationFrame extends javax.swing.JFrame {
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_CancelButtonActionPerformed
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
@@ -475,11 +515,29 @@ public class ConfirmationFrame extends javax.swing.JFrame {
 
     private void ConfirmInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmInfoButtonActionPerformed
         // TODO add your handling code here:
-//        for (ConfirmTemplate tmp :confirmTemplateList){
-//            if(!tmp.isFullFill())
-//                JOptionPane.showMessageDialog(null,"Vui lòng điền đầy đủ thông tin","Alert!!!",JOptionPane.WARNING_MESSAGE);
-//        }
+        if (check()) {
+            // logic needed here
+
+            // and yatta
+            ConfirmCard.setVisible(false);
+            DoneCard.setVisible(true);
+        }
     }//GEN-LAST:event_ConfirmInfoButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private boolean check() {
+        for (ConfirmTemplate tmp : confirmTemplateList) {
+            if (!tmp.isFullFill()) {
+                JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin", "Alert!!!", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * @param args the command line arguments
@@ -537,20 +595,23 @@ public class ConfirmationFrame extends javax.swing.JFrame {
     private javax.swing.JLabel DateDep;
     private javax.swing.JLabel DepAndArrCity;
     private javax.swing.JLabel DepTimeAndCity;
+    private javax.swing.JPanel DoneCard;
     private javax.swing.JLabel FlightTime;
     private javax.swing.JPanel InforPane;
     private javax.swing.JPanel InformationCard;
     private javax.swing.JLabel PlaneCode;
     private javax.swing.JLabel PlaneModel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

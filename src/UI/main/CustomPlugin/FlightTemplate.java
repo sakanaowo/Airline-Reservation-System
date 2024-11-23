@@ -355,12 +355,16 @@ public class FlightTemplate extends javax.swing.JPanel {
 
     private void BusinessClassPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BusinessClassPaneMouseClicked
         // TODO add your handling code here:
-        new ConfirmationFrame(flight, passengerNumber, "BusinessClass", userID).setVisible(true);
+        ConfirmationFrame confirmationFrame = new ConfirmationFrame(flight, passengerNumber, "BusinessClass", userID);
+        confirmationFrame.setLocationRelativeTo(null);
+        confirmationFrame.setVisible(true);
     }//GEN-LAST:event_BusinessClassPaneMouseClicked
 
     private void economyClassPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_economyClassPaneMouseClicked
         // TODO add your handling code here:
-        new ConfirmationFrame(flight, passengerNumber, "EconomyClass", userID);
+        ConfirmationFrame confirmationFrame = new ConfirmationFrame(flight, passengerNumber, "EconomyClass", userID);
+        confirmationFrame.setLocationRelativeTo(null);
+        confirmationFrame.setVisible(true);
     }//GEN-LAST:event_economyClassPaneMouseClicked
 
 
