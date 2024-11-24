@@ -13,7 +13,7 @@ public class MainFrame {
         JPanel mainPanel = new JPanel(new CardLayout());
 
         // Vertical Navigation Menu
-        JPanel menuPanel = new JPanel(new GridLayout(6, 1));
+        JPanel menuPanel = new JPanel(new GridLayout(8, 1)); // Increased to 8 rows
 
         // Load the logo image for the button
         ImageIcon logoIcon = new ImageIcon(MainFrame.class.getResource("/airport.jpg"));
@@ -35,6 +35,8 @@ public class MainFrame {
 
         // Other buttons
         JButton flightsButton = new JButton("Flight Management");
+        JButton planesButton = new JButton("Plane Management"); // New button for planes
+        JButton seatsButton = new JButton("Seat Management"); // New button for seats
         JButton usersButton = new JButton("User Management");
         JButton ticketsButton = new JButton("Ticket Management");
         JButton airportsButton = new JButton("Airport Management");
@@ -43,6 +45,8 @@ public class MainFrame {
         // Style buttons
         AdminInterface.styleButton(dashboardButton);
         AdminInterface.styleButton(flightsButton);
+        AdminInterface.styleButton(planesButton);
+        AdminInterface.styleButton(seatsButton);
         AdminInterface.styleButton(usersButton);
         AdminInterface.styleButton(ticketsButton);
         AdminInterface.styleButton(airportsButton);
@@ -50,6 +54,8 @@ public class MainFrame {
 
         menuPanel.add(dashboardButton);
         menuPanel.add(flightsButton);
+        menuPanel.add(planesButton); // Add to menu
+        menuPanel.add(seatsButton); // Add to menu
         menuPanel.add(usersButton);
         menuPanel.add(ticketsButton);
         menuPanel.add(airportsButton);
@@ -58,12 +64,16 @@ public class MainFrame {
         // Panels for different sections
         JPanel dashboardPanel = AdminInterface.createDashboardPanel();
         JPanel flightsPanel = FlightsManagementPanel.createFlightsManagementPanel();
+        JPanel planesPanel = PlaneManagementPanel.createPlanesManagementPanel(); // New panel for planes
+        JPanel seatsPanel = SeatsManagementPanel.createSeatsManagementPanel(); // New panel for seats
         JPanel usersPanel = UsersManagementPanel.createUserManagementPanel();
         JPanel ticketsPanel = TicketsManagementPanel.createTicketManagementPanel();
         JPanel airportsPanel = AirportsManagementPanel.createAirportManagementPanel();
 
         mainPanel.add(dashboardPanel, "Dashboard");
         mainPanel.add(flightsPanel, "FlightsManagement");
+        mainPanel.add(planesPanel, "PlanesManagement"); // Add to main panel
+        mainPanel.add(seatsPanel, "SeatsManagement"); // Add to main panel
         mainPanel.add(usersPanel, "UsersManagement");
         mainPanel.add(ticketsPanel, "TicketsManagement");
         mainPanel.add(airportsPanel, "AirportsManagement");
@@ -71,6 +81,8 @@ public class MainFrame {
         // Action Listeners for navigation
         dashboardButton.addActionListener(e -> AdminInterface.showPanel(mainPanel, "Dashboard"));
         flightsButton.addActionListener(e -> AdminInterface.showPanel(mainPanel, "FlightsManagement"));
+        planesButton.addActionListener(e -> AdminInterface.showPanel(mainPanel, "PlanesManagement")); // Action for planes
+        seatsButton.addActionListener(e -> AdminInterface.showPanel(mainPanel, "SeatsManagement")); // Action for seats
         usersButton.addActionListener(e -> AdminInterface.showPanel(mainPanel, "UsersManagement"));
         ticketsButton.addActionListener(e -> AdminInterface.showPanel(mainPanel, "TicketsManagement"));
         airportsButton.addActionListener(e -> AdminInterface.showPanel(mainPanel, "AirportsManagement"));
