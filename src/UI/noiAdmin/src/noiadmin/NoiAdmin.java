@@ -9,43 +9,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import noiadmin.API.Flights;
+import noiadmin.API.Planes;
 import noiadmin.Plugin.*;
+import noiadmin.view;
+import noiadmin.refresh;
 
 public class NoiAdmin {
-
-    public static void viewFlights(JPanel panel) {
-        // Xóa tất cả các thành phần hiện có trong panel để tránh chồng lặp
-        panel.removeAll();
-
-        // Định nghĩa tên cột cho bảng
-        String[] columnNames = {"Flight ID", "Departure time", "Arrival time", "Plane ID", "Departure airport", "Arrival airport", "Departure city", "Arrival city"};
-
-        // Lấy dữ liệu chuyến bay từ phương thức viewFlight của lớp Flights
-        ArrayList<ArrayList<Object>> flightData = Flights.viewFlight("", "", "", "", "");
-
-        // Tạo DefaultTableModel để quản lý dữ liệu bảng
-        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-
-        // Thêm dữ liệu vào model
-        for (ArrayList<Object> flight : flightData) {
-            model.addRow(flight.toArray());
-        }
-
-        // Tạo JTable từ model
-        JTable table = new JTable(model);
-
-        // Thêm JTable vào JScrollPane
-        JScrollPane tableScrollPane = new JScrollPane(table);
-        table.setFillsViewportHeight(true);
-
-        // Thêm JScrollPane chứa bảng vào panel
-        panel.setLayout(new BorderLayout());
-        panel.add(tableScrollPane, BorderLayout.CENTER);
-
-        // Làm mới giao diện sau khi thêm bảng mới vào panel
-        panel.revalidate();
-        panel.repaint();
-    }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Admin Interface - Airline System");
@@ -77,37 +46,38 @@ public class NoiAdmin {
 
         // Other buttons
         JButton flightsButton = new JButton("Flight Management");
-        JButton usersButton = new JButton("User Management");
+        JButton planesButton = new JButton("Plane Management");
         JButton logoutButton = new JButton("Log Out");
         JButton airportsButton = new JButton("Airport Management");
         // Style buttons
         styleButton(dashboardButton);
         styleButton(flightsButton);
-        //styleButton(usersButton);
+        styleButton(planesButton);
         styleButton(airportsButton);
         styleButton(logoutButton);
 
         menuPanel.add(dashboardButton);
         menuPanel.add(flightsButton);
-        //menuPanel.add(usersButton);
+        menuPanel.add(planesButton);
         menuPanel.add(airportsButton);
         menuPanel.add(logoutButton);
 
         // Panels for different sections
         JPanel dashboardPanel = createDashboardPanel();
         JPanel flightsPanel = createFlightsManagementPanel();
-        //JPanel usersPanel = createUserManagementPanel();
+        JPanel planesPanel = createPlaneManagementPanel();
         //JPanel ticketsPanel = createTicketManagementPanel();
         JPanel airportsPanel = createAirportManagementPanel();
 
         mainPanel.add(dashboardPanel, "Dashboard");
         mainPanel.add(flightsPanel, "FlightsManagement");
         mainPanel.add(airportsPanel, "AirportsManagement");
-
+        mainPanel.add(planesPanel, "PlanesManagement");
+        
         // Action Listeners for navigation
         dashboardButton.addActionListener(e -> showPanel(mainPanel, "Dashboard"));
         flightsButton.addActionListener(e -> showPanel(mainPanel, "FlightsManagement"));
-        //usersButton.addActionListener(e -> showPanel(mainPanel, "UsersManagement"));
+        planesButton.addActionListener(e -> showPanel(mainPanel, "PlanesManagement"));
         airportsButton.addActionListener(e -> showPanel(mainPanel, "AirportsManagement"));
         logoutButton.addActionListener(e -> handleLogout(frame));
 
@@ -162,12 +132,12 @@ public class NoiAdmin {
     // Method to create Flights Management Panel
     private static JPanel createFlightsManagementPanel() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(240, 248, 255)); // Alice Blue color
+        panel.setBackground(new Color(240, 248, 255)); 
 
-        viewFlights(panel);
+        view.viewFlights(panel);
         JPanel centerPanel = new JPanel(new BorderLayout());
         centerPanel.setBackground(new Color(240, 248, 255));
-        viewFlights(centerPanel); // Hiển thị bảng ban đầu
+        view.viewFlights(centerPanel); // Hiển thị bảng ban đầu
 
         // Button panel
         JPanel buttonPanel = new JPanel();
@@ -213,7 +183,7 @@ public class NoiAdmin {
         editFlightButton.addActionListener(e -> handleEditFlight());
         removeFlightButton.addActionListener(e -> handleRemoveFlight());
         searchFlightButton.addActionListener(e -> handleSearchFlight());
-        refreshButton.addActionListener(e -> handleRefreshList(panel));
+        refreshButton.addActionListener(e -> refresh.handleRefreshList(panel));
 
         return panel;
     }
@@ -254,35 +224,6 @@ public class NoiAdmin {
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         });
-    }
-
-    private static void handleRefreshList(JPanel flightsPanel) {
-        try {
-            // Lấy JScrollPane chứa bảng từ panel
-            JScrollPane scrollPane = (JScrollPane) flightsPanel.getComponent(0); // Giả định JScrollPane nằm ở vị trí đầu tiên
-            JTable table = (JTable) scrollPane.getViewport().getView();
-
-            // Lấy DefaultTableModel của bảng
-            DefaultTableModel model = (DefaultTableModel) table.getModel();
-
-            // Xóa tất cả dữ liệu cũ trong model
-            model.setRowCount(0);
-
-            // Lấy dữ liệu chuyến bay mới từ lớp Flights
-            ArrayList<ArrayList<Object>> flightData = Flights.viewFlight("", "", "", "", "");
-
-            // Thêm dữ liệu mới vào model
-            for (ArrayList<Object> flight : flightData) {
-                model.addRow(flight.toArray());
-            }
-
-            // Làm mới bảng
-            flightsPanel.revalidate();
-            flightsPanel.repaint();
-        } catch (Exception e) {
-            // Xử lý trường hợp không tìm thấy bảng hoặc lỗi bất ngờ
-            System.err.println("Cannot refresh list: " + e.getMessage());
-        }
     }
 
     // Method to create Airport Management Panel
@@ -372,4 +313,94 @@ public class NoiAdmin {
         // Implement refresh list functionality
     }
 
+    private static JPanel createPlaneManagementPanel() {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(new Color(240, 248, 255)); // Alice Blue color
+
+        view.viewPlanes(panel);
+        
+        // Button panel for plane management
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(5, 1, 10, 10));
+        buttonPanel.setBackground(new Color(240, 248, 255));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JButton addPlaneButton = new JButton("Add Plane");
+        JButton editPlaneButton = new JButton("Edit Plane");
+        JButton removePlaneButton = new JButton("Remove Plane");
+        JButton searchPlaneButton = new JButton("Search Plane");
+        JButton refreshPlaneButton = new JButton("Refresh List");
+
+        styleButton(addPlaneButton);
+        styleButton(editPlaneButton);
+        styleButton(removePlaneButton);
+        styleButton(searchPlaneButton);
+        styleButton(refreshPlaneButton);
+
+        buttonPanel.add(addPlaneButton);
+        buttonPanel.add(editPlaneButton);
+        buttonPanel.add(removePlaneButton);
+        buttonPanel.add(searchPlaneButton);
+        buttonPanel.add(refreshPlaneButton);
+
+        // Text Area for plane details
+        /*JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
+        textArea.setWrapStyleWord(true);
+        textArea.setLineWrap(true);
+        textArea.setFont(new Font("Arial", Font.PLAIN, 14));
+        JScrollPane textAreaScrollPane = new JScrollPane(textArea);
+        textAreaScrollPane.setBorder(BorderFactory.createTitledBorder("Details"));
+
+        panel.add(textAreaScrollPane, BorderLayout.SOUTH);
+        textAreaScrollPane.setPreferredSize(new Dimension(600, 200));*/
+        
+        panel.add(buttonPanel, BorderLayout.EAST);
+
+        // Action listeners for plane buttons
+        addPlaneButton.addActionListener(e -> handleAddPlane());
+        editPlaneButton.addActionListener(e -> handleEditPlane());
+        removePlaneButton.addActionListener(e -> handleRemovePlane());
+        searchPlaneButton.addActionListener(e -> handleSearchPlane());
+        refreshPlaneButton.addActionListener(e -> refresh.handleRefreshPlaneList(panel));
+
+        return panel;
+    }
+
+    private static void handleAddPlane() {
+        SwingUtilities.invokeLater(() -> {
+            addPlane frame = new addPlane();
+            frame.setVisible(true);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        });
+    }
+
+    private static void handleEditPlane() {
+        SwingUtilities.invokeLater(() -> {
+            editPlane frame = new editPlane();
+            frame.setVisible(true);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        });
+    }
+
+    private static void handleRemovePlane() {
+        SwingUtilities.invokeLater(() -> {
+            deletePlane frame = new deletePlane();
+            frame.setVisible(true);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        });
+    }
+
+    private static void handleSearchPlane() {
+        SwingUtilities.invokeLater(() -> {
+            searchPlane frame = new searchPlane();
+            frame.setVisible(true);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        });
+    }
+    
 }

@@ -62,7 +62,7 @@ public class Planes {
     }
 
 
-    public static boolean modifyPlane(int planeID, String model, int seats, String locationAirport, String updatedBy) {
+    public static boolean modifyPlane(int planeID, String model, int seats, String locationAirport, String updatedBy, java.util.Date updatedDate) {
         String modifyPlaneSQL = "UPDATE " + CommonConstants.DB_PLANES_TABLE +
                 " SET Model = ?, Seats = ?, LocationID = ?, UpdatedBy = ?, UpdatedDate = ? WHERE PlaneID = ?";
 
