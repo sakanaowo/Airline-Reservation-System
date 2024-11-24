@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import noiadmin.API.Flights;
+import noiadmin.Plugin.*;
 
 public class NoiAdmin {
 
@@ -58,7 +59,7 @@ public class NoiAdmin {
         JPanel menuPanel = new JPanel(new GridLayout(6, 1));
 
         // Load the logo image for the button
-        ImageIcon logoIcon = new ImageIcon(NoiAdmin.class.getResource("airport.jpg"));
+        ImageIcon logoIcon = new ImageIcon(NoiAdmin.class.getResource("Icon\\airport.jpg"));
         // Resize the image to fit the button (optional)
         Image scaledImage = logoIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH); // Adjust size as needed
         ImageIcon scaledLogoIcon = new ImageIcon(scaledImage);
@@ -238,13 +239,21 @@ public class NoiAdmin {
     }
 
     private static void handleRemoveFlight() {
-        System.out.println("Remove Flight button clicked");
-        // Implement remove flight functionality
+        SwingUtilities.invokeLater(() -> {
+            deleteFlight frame = new deleteFlight();
+            frame.setVisible(true);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        });
     }
 
     private static void handleSearchFlight() {
-        System.out.println("Search Flight button clicked");
-        // Implement search flight functionality
+        SwingUtilities.invokeLater(() -> {
+            searchFlight frame = new searchFlight();
+            frame.setVisible(true);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        });
     }
 
     private static void handleRefreshList(JPanel flightsPanel) {

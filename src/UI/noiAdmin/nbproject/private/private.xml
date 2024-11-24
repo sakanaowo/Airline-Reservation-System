@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/user/Airline-Reservation-System/noiAdmin/src/noiadmin/API/Planes.java</file>
-            <file>file:/D:/user/Airline-Reservation-System/noiAdmin/src/noiadmin/Plugin/insertFlight.java</file>
-            <file>file:/D:/user/Airline-Reservation-System/noiAdmin/src/noiadmin/API/Flights.java</file>
-            <file>file:/D:/user/Airline-Reservation-System/noiAdmin/src/noiadmin/Plugin/genEditFlight.java</file>
-            <file>file:/D:/user/Airline-Reservation-System/noiAdmin/src/noiadmin/NoiAdmin.java</file>
-            <file>file:/D:/user/Airline-Reservation-System/noiAdmin/src/noiadmin/Plugin/editFlight.java</file>
+            <file>file:/D:/user/Airline-Reservation-System/src/UI/noiAdmin/src/noiadmin/NoiAdmin.java</file>
+            <file>file:/D:/user/Airline-Reservation-System/src/UI/noiAdmin/src/noiadmin/API/Flights.java</file>
+            <file>file:/D:/user/Airline-Reservation-System/src/UI/noiAdmin/src/noiadmin/Plugin/genInsertFlight.java</file>
+            <file>file:/D:/user/Airline-Reservation-System/src/UI/noiAdmin/src/noiadmin/Plugin/searchFlight.java</file>
         </group>
     </open-files>
 </project-private>
