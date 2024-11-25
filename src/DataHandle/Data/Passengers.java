@@ -63,7 +63,7 @@ public class Passengers {
         return passengerList;
     }
 
-    public boolean deletePassenger(int passengerId) {
+    public static boolean deletePassenger(int passengerId) {
         String deleteSQL = "DELETE FROM airline.passengers WHERE PassengerID = ?";
 
         try (Connection connection = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
