@@ -36,7 +36,7 @@ public class Flights {
             {105, 100, 110, 120, 100, 90, 110, -1, -1, -1, 105, 130, 155, 95, 110, 95, 110, 145, 100, 105, 0} // HPH
     };
     public static boolean insertFlight(Timestamp departureTime, int planeID,
-                                       String departureCity, String arrivalCity, String updatedName) {
+                                       String arrivalCity, String updatedName) {
         String insertFlightSQL = "INSERT INTO " + CommonConstants.DB_FLIGHTS_TABLE +
                 " (DepartureTime, ArrivalTime, PlaneID, DepartureAirportID, ArrivalAirportID, UpdatedBy, UpdatedDate) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -47,8 +47,7 @@ public class Flights {
                      "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?");
              PreparedStatement departureAirportStmt = connection.prepareStatement(
                      "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " a " +
-                             "JOIN " + CommonConstants.DB_PLANES_TABLE + " p ON p.LocationID = a.AirportID " +
-                             "WHERE a.City = ?");
+                             "JOIN " + CommonConstants.DB_PLANES_TABLE + " p ON p.LocationID = a.AirportID ");
 
              PreparedStatement arrivalAirportStmt = connection.prepareStatement(
                      "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?");
@@ -64,7 +63,6 @@ public class Flights {
                 return false;
             }
 
-            departureAirportStmt.setString(1, departureCity);
             ResultSet departureResultSet = departureAirportStmt.executeQuery();
             int departureAirportID = -1;
             if (departureResultSet.next()) {
@@ -90,7 +88,7 @@ public class Flights {
 
             int travelTime = travelTimes[departureAirportID-1][arrivalAirportID-1];
             if (travelTime == -1 || travelTime == 0) {
-                System.err.println("No direct route available between " + departureCity + " and " + arrivalCity);
+                System.err.println("No direct route available between " + " and " + arrivalCity);
                 return false;
             }
 
@@ -206,8 +204,7 @@ public class Flights {
     }
 
     public static boolean modifyFlight(int flightID, Timestamp newDepartureTime,
-                                       int newPlaneID, String newDepartureCity,
-                                       String newArrivalCity, String updatedBy) {
+                                       int newPlaneID, String newArrivalCity, String updatedBy) {
         String modifyFlightSQL = "UPDATE " + CommonConstants.DB_FLIGHTS_TABLE +
                 " SET DepartureTime = ?, ArrivalTime = ?, PlaneID = ?, DepartureAirportID = ?, " +
                 "ArrivalAirportID = ?, UpdatedBy = ?, UpdatedDate = ? WHERE FlightID = ?";
@@ -216,8 +213,11 @@ public class Flights {
                 CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
              PreparedStatement adminIDStmt = connection.prepareStatement(
                      "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?");
+
              PreparedStatement departureAirportStmt = connection.prepareStatement(
-                     "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?");
+                     "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " a " +
+                             "JOIN " + CommonConstants.DB_PLANES_TABLE + " p ON p.LocationID = a.AirportID ");
+
              PreparedStatement arrivalAirportStmt = connection.prepareStatement(
                      "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?");
              PreparedStatement modifyFlightStmt = connection.prepareStatement(modifyFlightSQL)) {
@@ -232,7 +232,6 @@ public class Flights {
                 return false;
             }
 
-            departureAirportStmt.setString(1, newDepartureCity);
             ResultSet departureResultSet = departureAirportStmt.executeQuery();
             int departureAirportID = -1;
             if (departureResultSet.next()) {
@@ -259,7 +258,7 @@ public class Flights {
 
             int travelTime = travelTimes[departureAirportID - 1][arrivalAirportID - 1];
             if (travelTime == -1 || travelTime == 0) {
-                System.err.println("No direct route available between " + newDepartureCity + " and " + newArrivalCity);
+                System.err.println("No direct route available between "  + " and " + newArrivalCity);
                 return false;
             }
 
@@ -286,4 +285,5 @@ public class Flights {
             return false;
         }
     }
+
 }
