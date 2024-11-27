@@ -4,8 +4,10 @@
  */
 package UI.main.CustomPlugin;
 
-
-import javax.swing.*;
+/**
+ * Warning:
+ * Không được đụng đến file này
+ * */
 import java.awt.*;
 
 /**
