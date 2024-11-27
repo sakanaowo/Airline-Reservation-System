@@ -4,43 +4,40 @@
  */
 package UI.main.testFolder;
 
-import UI.main.CustomPlugin.ConfirmTemplate;
+import UI.main.CustomPlugin.TicketTemplate;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Sakana
  */
 public class testScroll extends javax.swing.JFrame {
-    List<ConfirmTemplate> confirmTemplates = new ArrayList<>();
-
     /**
      * Creates new form testScroll
      */
     public testScroll() {
         initComponents();
         setLocationRelativeTo(null);
-        load();
+        loading();
     }
 
-    private void load() {
-        jScrollPane1.setViewportView(jPanel1);
-        jPanel1.setLayout(new BoxLayout(jPanel1, BoxLayout.Y_AXIS));
-        for (int i = 1; i < 3; i++) {
-            ConfirmTemplate tmp = new ConfirmTemplate(i);
-            tmp.setPreferredSize(new Dimension(550, 500));
-            tmp.setMaximumSize(new Dimension(550, 500));
-            tmp.setAlignmentX(Component.CENTER_ALIGNMENT);
-            jPanel1.add(tmp);
-            confirmTemplates.add(tmp);
+    private void loading() {
+        jScrollPane1.setViewportView(jPanel3);
+        jPanel3.setLayout(new BoxLayout(jPanel3, BoxLayout.Y_AXIS));
+        for (int i = 1; i < 4; i++) {
+            TicketTemplate t = new TicketTemplate();
+            t.setPreferredSize(new Dimension(1190, 390));
+            t.setMaximumSize(new Dimension(1190, 390));
+            t.setAlignmentX(Component.LEFT_ALIGNMENT);
+            jPanel3.add(t);
+            jPanel3.add(Box.createRigidArea(new Dimension(0,10)));
         }
-        jScrollPane1.getVerticalScrollBar().setUnitIncrement(15);
-        jPanel1.revalidate();
-        jPanel1.repaint();
+        jScrollPane1.getVerticalScrollBar().setUnitIncrement(10);
+        jPanel3.revalidate();
+        jPanel3.repaint();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,87 +48,38 @@ public class testScroll extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel1 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(219, 243, 250));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 761, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 1003, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 483, Short.MAX_VALUE)
+        jPanel3Layout.setVerticalGroup(
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 409, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(jPanel1);
-
-        jButton2.setText("jButton2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(308, 308, 308)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 52, Short.MAX_VALUE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jScrollPane1.setViewportView(jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1009, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        if (!check()) {
-            JOptionPane.showMessageDialog(null,"","",JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        for (ConfirmTemplate tmp : confirmTemplates) {
-            System.out.println(tmp.getData());
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    public boolean check() {
-        for (ConfirmTemplate tmp : confirmTemplates) {
-            if (!tmp.isFullFill()) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     /**
      * @param args the command line arguments
@@ -169,9 +117,7 @@ public class testScroll extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 

@@ -5,8 +5,13 @@
 package DataHandle.Data;
 
 
+import Models.Flight;
+
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import static DataHandle.Data.Flights.viewFlight;
 
 /**
  * @author DELL
