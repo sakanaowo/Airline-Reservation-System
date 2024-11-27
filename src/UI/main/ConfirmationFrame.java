@@ -115,7 +115,7 @@ public class ConfirmationFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         BackGroundPane.setLayout(new java.awt.CardLayout());
 
@@ -510,6 +510,10 @@ public class ConfirmationFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (check()) {
             // logic needed here
+            
+            // create passenger
+            
+            // create ticket
 
             // and yatta
             ConfirmCard.setVisible(false);
