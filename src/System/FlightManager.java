@@ -91,8 +91,9 @@ public class FlightManager {
 
 //    public static void main(String[] a) {
 //        ArrayList<ArrayList<Object>> flightData = Seats
-//                .viewSeatAvailableForPassenger("2024-11-21", "Quang Nam",
+//                .viewSeatAvailableForPassenger("2024-11-26", "Quang Nam",
 //                        "Thanh Hoa", 2);
+//        System.out.println(flightData.size());
 //        for (ArrayList<Object> row : flightData) {
 //            System.out.println(row.get(0));
 //            System.out.println(row.get(1));
@@ -103,7 +104,6 @@ public class FlightManager {
 //            System.out.println(row.get(6));
 //            System.out.println(row.get(7));
 //            System.out.println(row.get(8));
-//            System.out.println(row.get(9));
 //        }
 //    }
 
