@@ -12,7 +12,7 @@ import java.time.*;
  * @author DELL
  */
 public class Seats {
-        public static boolean deleteSeats(int flightID) {
+    public static boolean deleteSeats(int flightID) {
         String deleteSeatsSQL = "DELETE FROM " + CommonConstants.DB_SEATS_TABLE + " WHERE FlightID = ?";
 
         try (Connection connection = DriverManager.getConnection(

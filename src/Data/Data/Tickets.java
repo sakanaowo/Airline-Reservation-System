@@ -1,10 +1,12 @@
 package Data.Data;
 import static Data.Passengers.*;
+import java.sql.*;
+import constants.CommonConstants;
 
 public class Tickets {
     public boolean insertTicket(int passengerId, int seatId, String ticketCode) {
-        String insertTicketSQL = "INSERT INTO airline.tickets (PassengerID, SeatID, Status, TicketCode, ReservationDate) " +
-                "VALUES (?, ?, ?, ?, ?)";
+        String insertTicketSQL = "INSERT INTO airline.tickets (PassengerID, SeatID, TicketCode, ReservationDate) " +
+                "VALUES (?, ?, ?, ?)";
 
         String updateSeatSQL = "UPDATE airline.seats SET Available = 0 WHERE SeatID = ?";
 
@@ -19,9 +21,8 @@ public class Tickets {
 
                 insertTicketStmt.setInt(1, passengerId);
                 insertTicketStmt.setInt(2, seatId);
-                insertTicketStmt.setString(3, "Active");
-                insertTicketStmt.setString(4, ticketCode);
-                insertTicketStmt.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
+                insertTicketStmt.setString(3, ticketCode);
+                insertTicketStmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
 
                 updateSeatStmt.setInt(1, seatId);
 
@@ -49,7 +50,6 @@ public class Tickets {
             return false;
         }
     }
-
     public boolean deleteTicket(int passengerId) {
         String deleteTicketSQL = "DELETE FROM airline.tickets WHERE PassengerID = ?";
         String updateSeatSQL = "UPDATE airline.seats SET Available = 1 WHERE SeatID = (SELECT SeatID FROM airline.tickets WHERE PassengerID = ?)";
@@ -80,35 +80,7 @@ public class Tickets {
     }
 
     public List<Object> viewTicket(int passengerId) {
-        String viewTicketSQL = "SELECT TicketID, SeatID, Status, TicketCode, ReservationDate FROM airline.tickets WHERE PassengerID = ?";
-        List<String> tickets = new ArrayList<>();
-
-        try (Connection connection = DriverManager.getConnection(CommonConstants.DB_URL,
-                CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-             PreparedStatement preparedStatement = connection.prepareStatement(viewTicketSQL)) {
-
-            preparedStatement.setInt(1, passengerId);
-
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    ticket.aresultSet.getInt("TicketID");
-                    int seatId = resultSet.getInt("SeatID");
-                    String status = resultSet.getString("Status");
-                    String ticketCode = resultSet.getString("TicketCode");
-                    Timestamp reservationDate = resultSet.getTimestamp("ReservationDate");
-                }
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Error viewing tickets: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        return tickets;
-    }
-
-    public List<Object> viewTicket(int passengerId) {
-        String viewTicketSQL = "SELECT TicketID, SeatID, Status, TicketCode, ReservationDate FROM airline.tickets WHERE PassengerID = ?";
+        String viewTicketSQL = "SELECT TicketID, SeatID, TicketCode, ReservationDate FROM airline.tickets WHERE PassengerID = ?";
         List<Object> tickets = new ArrayList<>();
 
         try (Connection connection = DriverManager.getConnection(CommonConstants.DB_URL,
@@ -121,7 +93,6 @@ public class Tickets {
                 while (resultSet.next()) {
                     tickets.add(resultSet.getInt("TicketID"));
                     tickets.add(resultSet.getInt("SeatID"));
-                    tickets.add(resultSet.getString("Status"));
                     tickets.add(resultSet.getString("TicketCode"));
                     tickets.add(resultSet.getTimestamp("ReservationDate"));
                 }
