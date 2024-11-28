@@ -119,7 +119,6 @@ CREATE TABLE `airline`.`tickets` (
   `TicketID` INT NOT NULL AUTO_INCREMENT,
   `PassengerID` INT NOT NULL,
   `SeatID` INT NOT NULL,
-  `Status` VARCHAR(45) NOT NULL,
   `TicketCode` VARCHAR(45) NOT NULL,
   `ReservationDate` DATETIME NOT NULL,
   PRIMARY KEY (`TicketID`),
