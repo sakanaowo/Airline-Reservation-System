@@ -1,26 +1,24 @@
-
 package noiadmin.API;
 
 import constants.CommonConstants;
 import java.sql.*;
 import java.util.*;
 import java.time.*;
+
 /**
  *
  * @author DELL
  */
 public class Planes {
+
     public static boolean insertPlane(String model, int seats, String locationAirport, String updatedBy) {
-        String insertPlaneSQL = "INSERT INTO " + CommonConstants.DB_PLANES_TABLE +
-                " (Model, Seats, LocationID, UpdatedBy, UpdatedDate) VALUES (?, ?, ?, ?, ?)";
+        String insertPlaneSQL = "INSERT INTO " + CommonConstants.DB_PLANES_TABLE
+                + " (Model, Seats, LocationID, UpdatedBy, UpdatedDate) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(
-                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-             PreparedStatement adminIDStmt = connection.prepareStatement(
-                     "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?");
-             PreparedStatement locationIDStmt = connection.prepareStatement(
-                     "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE AirportName = ?");
-             PreparedStatement insertPlaneStmt = connection.prepareStatement(insertPlaneSQL)) {
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD); PreparedStatement adminIDStmt = connection.prepareStatement(
+                        "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?"); PreparedStatement locationIDStmt = connection.prepareStatement(
+                        "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE AirportName = ?"); PreparedStatement insertPlaneStmt = connection.prepareStatement(insertPlaneSQL)) {
 
             adminIDStmt.setString(1, updatedBy);
             ResultSet adminResultSet = adminIDStmt.executeQuery();
@@ -61,18 +59,14 @@ public class Planes {
         }
     }
 
-
     public static boolean modifyPlane(int planeID, String model, int seats, String locationAirport, String updatedBy, java.util.Date updatedDate) {
-        String modifyPlaneSQL = "UPDATE " + CommonConstants.DB_PLANES_TABLE +
-                " SET Model = ?, Seats = ?, LocationID = ?, UpdatedBy = ?, UpdatedDate = ? WHERE PlaneID = ?";
+        String modifyPlaneSQL = "UPDATE " + CommonConstants.DB_PLANES_TABLE
+                + " SET Model = ?, Seats = ?, LocationID = ?, UpdatedBy = ?, UpdatedDate = ? WHERE PlaneID = ?";
 
         try (Connection connection = DriverManager.getConnection(
-                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-             PreparedStatement adminIDStmt = connection.prepareStatement(
-                     "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?");
-             PreparedStatement locationIDStmt = connection.prepareStatement(
-                     "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE AirportName = ?");
-             PreparedStatement modifyPlaneStmt = connection.prepareStatement(modifyPlaneSQL)) {
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD); PreparedStatement adminIDStmt = connection.prepareStatement(
+                        "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?"); PreparedStatement locationIDStmt = connection.prepareStatement(
+                        "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE AirportName = ?"); PreparedStatement modifyPlaneStmt = connection.prepareStatement(modifyPlaneSQL)) {
 
             adminIDStmt.setString(1, updatedBy);
             ResultSet adminResultSet = adminIDStmt.executeQuery();
@@ -112,13 +106,11 @@ public class Planes {
         }
     }
 
-
     public static boolean deletePlane(int planeID) {
         String deletePlaneSQL = "DELETE FROM " + CommonConstants.DB_PLANES_TABLE + " WHERE PlaneID = ?";
 
         try (Connection connection = DriverManager.getConnection(
-                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-             PreparedStatement deletePlaneStmt = connection.prepareStatement(deletePlaneSQL)) {
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD); PreparedStatement deletePlaneStmt = connection.prepareStatement(deletePlaneSQL)) {
 
             deletePlaneStmt.setInt(1, planeID);
             int rowsAffected = deletePlaneStmt.executeUpdate();
@@ -132,10 +124,10 @@ public class Planes {
 
     public static ArrayList<ArrayList<Object>> viewPlane(String model, String locationAirport, String updatedBy) {
         StringBuilder viewPlaneSQL = new StringBuilder(
-                "SELECT p.PlaneID, p.Model, p.Seats, p.LocationID, a.AirportName AS LocationAirport, " +
-                        "p.UpdatedBy, p.UpdatedDate " +
-                        "FROM " + CommonConstants.DB_PLANES_TABLE + " p " +
-                        "JOIN " + CommonConstants.DB_AIRPORTS_TABLE + " a ON p.LocationID = a.AirportID WHERE 1=1"
+                "SELECT p.PlaneID, p.Model, p.Seats, p.LocationID, a.AirportName AS LocationAirport, "
+                + "p.UpdatedBy, p.UpdatedDate "
+                + "FROM " + CommonConstants.DB_PLANES_TABLE + " p "
+                + "JOIN " + CommonConstants.DB_AIRPORTS_TABLE + " a ON p.LocationID = a.AirportID WHERE 1=1"
         );
 
         ArrayList<ArrayList<Object>> planesList = new ArrayList<>();
@@ -155,8 +147,7 @@ public class Planes {
         }
 
         try (Connection connection = DriverManager.getConnection(
-                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-             PreparedStatement viewPlanesStmt = connection.prepareStatement(viewPlaneSQL.toString())) {
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD); PreparedStatement viewPlanesStmt = connection.prepareStatement(viewPlaneSQL.toString())) {
 
             for (int i = 0; i < parameters.size(); i++) {
                 viewPlanesStmt.setObject(i + 1, parameters.get(i));
@@ -181,16 +172,53 @@ public class Planes {
 
         return planesList;
     }
+
     public static void updatePlaneBaseOnFlight() {
-        String updateSQL = "UPDATE airline.planes p "+
-                "JOIN airline.flights f ON p.planeID = f.planeID " +
-                "SET p.LocationID = f.ArrivalAiportID " +
-                "WHERE CURRENT_TIME() >= f.ArrivalTime";
+        String updatePlanesSQL = """
+            UPDATE airline.planes p
+            JOIN airline.flights f ON p.planeID = f.planeID
+            SET p.LocationID = f.ArrivalAirportID
+            WHERE CURRENT_TIME() >= f.ArrivalTime
+            """;
+
+        String deleteTicketsSQL = """
+            DELETE t
+            FROM airline.tickets t
+            JOIN airline.seats s ON t.SeatID = s.SeatID
+            JOIN airline.flights f ON s.FlightID = f.FlightID
+            WHERE CURRENT_TIME() >= f.ArrivalTime
+            """;
+
+        String deletePassengersSQL = """
+            DELETE p
+            FROM airline.passengers p
+            WHERE NOT EXISTS (
+                SELECT 1
+                FROM airline.tickets t
+                WHERE t.PassengerID = p.PassengerID
+            )
+            """;
+
+        String deleteFlightsSQL = """
+            DELETE FROM airline.flights
+            WHERE CURRENT_TIME() >= ArrivalTime
+        """;
+
         try (Connection connection = DriverManager.getConnection(
-                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-             PreparedStatement updateStmt = connection.prepareStatement(updateSQL)) {
-            int rowsUpdated = updateStmt.executeUpdate();
-            System.out.println(rowsUpdated +"may bay duoc update location trong table planes");
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD); PreparedStatement updatePlanesStmt = connection.prepareStatement(updatePlanesSQL); PreparedStatement deleteTicketsStmt = connection.prepareStatement(deleteTicketsSQL); PreparedStatement deletePassengersStmt = connection.prepareStatement(deletePassengersSQL); PreparedStatement deleteFlightsStmt = connection.prepareStatement(deleteFlightsSQL)) {
+
+            int planesUpdated = updatePlanesStmt.executeUpdate();
+            System.out.println(planesUpdated + " planes updated in the 'planes' table.");
+
+            int ticketsDeleted = deleteTicketsStmt.executeUpdate();
+            System.out.println(ticketsDeleted + " tickets deleted from the 'tickets' table.");
+
+            int passengersDeleted = deletePassengersStmt.executeUpdate();
+            System.out.println(passengersDeleted + " passengers deleted from the 'passengers' table.");
+
+            int flightsDeleted = deleteFlightsStmt.executeUpdate();
+            System.out.println(flightsDeleted + " flights deleted from the 'flights' table.");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
