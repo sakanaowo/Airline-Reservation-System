@@ -79,7 +79,7 @@ public class Tickets {
         }
     }
 
-    public List<String> viewTicket(int passengerId) {
+    public List<Object> viewTicket(int passengerId) {
         String viewTicketSQL = "SELECT TicketID, SeatID, Status, TicketCode, ReservationDate FROM airline.tickets WHERE PassengerID = ?";
         List<String> tickets = new ArrayList<>();
 
@@ -91,15 +91,11 @@ public class Tickets {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    int ticketId = resultSet.getInt("TicketID");
+                    ticket.aresultSet.getInt("TicketID");
                     int seatId = resultSet.getInt("SeatID");
                     String status = resultSet.getString("Status");
                     String ticketCode = resultSet.getString("TicketCode");
                     Timestamp reservationDate = resultSet.getTimestamp("ReservationDate");
-
-                    String ticketInfo = String.format("TicketID: %d, SeatID: %d, Status: %s, TicketCode: %s, ReservationDate: %s",
-                            ticketId, seatId, status, ticketCode, reservationDate.toString());
-                    tickets.add(ticketInfo);
                 }
             }
 
@@ -111,4 +107,31 @@ public class Tickets {
         return tickets;
     }
 
+    public List<Object> viewTicket(int passengerId) {
+        String viewTicketSQL = "SELECT TicketID, SeatID, Status, TicketCode, ReservationDate FROM airline.tickets WHERE PassengerID = ?";
+        List<Object> tickets = new ArrayList<>();
+
+        try (Connection connection = DriverManager.getConnection(CommonConstants.DB_URL,
+                CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(viewTicketSQL)) {
+
+            preparedStatement.setInt(1, passengerId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    tickets.add(resultSet.getInt("TicketID"));
+                    tickets.add(resultSet.getInt("SeatID"));
+                    tickets.add(resultSet.getString("Status"));
+                    tickets.add(resultSet.getString("TicketCode"));
+                    tickets.add(resultSet.getTimestamp("ReservationDate"));
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error viewing tickets: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return tickets;
+    }
 }
