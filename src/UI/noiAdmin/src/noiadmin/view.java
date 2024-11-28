@@ -48,7 +48,7 @@ public class view {
     public static void viewPlanes(JPanel panel){
         panel.removeAll();
         // Định nghĩa tên cột cho bảng
-        String[] columnNames = {"Plane ID", "Model", "Seats", "Location", "UpdatedBy", "UpdatedDate"};
+        String[] columnNames = {"Plane ID", "Model", "Seats", "Location ID", "Location", "UpdatedBy", "UpdatedDate"};
         
         ArrayList<ArrayList<Object>> planeData = Planes.viewPlane("", "", "");
 
@@ -73,9 +73,9 @@ public class view {
     public static void viewAirports(JPanel panel){
         panel.removeAll();
         // modiify
-        String[] columnNames = {"Airport ID", "Airport Name", "Location"};
+        String[] columnNames = {"Airport ID", "Airport Name", "Location", "Airport Code", "Number Planes"};
         
-        ArrayList<ArrayList<Object>> airportData = Airports.viewAirports("", "", "");
+        ArrayList<ArrayList<Object>> airportData = Airports.viewAirportCity("", "");
 
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 

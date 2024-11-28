@@ -75,52 +75,50 @@ public class Airports {
         }
     }
 
-    public static ArrayList<ArrayList<Object>> viewAirports(String airportName, String cityName, String airportCode) {
-        String viewAirportsSQL = "SELECT AirportID, AirportName, City, AirportCode "
-                + "FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE 1=1 ";
+    public static ArrayList<ArrayList<Object>> viewAirportCity(String AirportName, String City) {
+        String viewAirportSQL
+                = "SELECT a.AirportID, a.AirportName, a.City, a.AirportCode, COUNT(p.PlaneID) AS NumberPlanes "
+                + "FROM " + CommonConstants.DB_PLANES_TABLE + " p "
+                + "JOIN " + CommonConstants.DB_AIRPORTS_TABLE + " a ON p.LocationID = a.AirportID "
+                + "WHERE 1=1";
 
-        ArrayList<ArrayList<Object>> airportsList = new ArrayList<>();
+        ArrayList<ArrayList<Object>> airportlist = new ArrayList<>();
 
-        if (!airportName.isEmpty()) {
-            viewAirportsSQL += " AND AirportName LIKE ? ";
+        if (!AirportName.isEmpty()) {
+            viewAirportSQL += " AND a.AirportName = ? ";
         }
-        if (!cityName.isEmpty()) {
-            viewAirportsSQL += " AND City LIKE ? ";
+        if (!City.isEmpty()) {
+            viewAirportSQL += " AND a.City = ? ";
         }
-        if (!airportCode.isEmpty()) {
-            viewAirportsSQL += " AND AirportCode LIKE ? ";
-        }
+
+        viewAirportSQL += " GROUP BY a.AirportID";
 
         try (Connection connection = DriverManager.getConnection(
-                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD); PreparedStatement viewAirportsStmt = connection.prepareStatement(viewAirportsSQL)) {
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD); PreparedStatement viewAirportsStmt = connection.prepareStatement(viewAirportSQL)) {
 
             int index = 1;
-
-            if (!airportName.isEmpty()) {
-                viewAirportsStmt.setString(index++, "%" + airportName + "%");
+            if (!AirportName.isEmpty()) {
+                viewAirportsStmt.setString(index++, AirportName);
             }
-            if (!cityName.isEmpty()) {
-                viewAirportsStmt.setString(index++, "%" + cityName + "%");
-            }
-            if (!airportCode.isEmpty()) {
-                viewAirportsStmt.setString(index++, "%" + airportCode + "%");
+            if (!City.isEmpty()) {
+                viewAirportsStmt.setString(index++, City);
             }
 
-            ResultSet resultSet = viewAirportsStmt.executeQuery();
-            while (resultSet.next()) {
-                ArrayList<Object> airportData = new ArrayList<>();
-                airportData.add(resultSet.getInt("AirportID"));       
-                airportData.add(resultSet.getString("AirportName")); 
-                airportData.add(resultSet.getString("City"));     
-                airportData.add(resultSet.getString("AirportCode"));
-                airportsList.add(airportData);
+            try (ResultSet resultSet = viewAirportsStmt.executeQuery()) {
+                while (resultSet.next()) {
+                    ArrayList<Object> AirportData = new ArrayList<>();
+                    AirportData.add(resultSet.getInt("AirportID"));
+                    AirportData.add(resultSet.getString("AirportName"));
+                    AirportData.add(resultSet.getString("City"));
+                    AirportData.add(resultSet.getString("AirportCode")); // Added missing AirportCode
+                    AirportData.add(resultSet.getInt("NumberPlanes"));
+                    airportlist.add(AirportData);
+                }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return airportsList;
+        return airportlist;
     }
-
 }
+

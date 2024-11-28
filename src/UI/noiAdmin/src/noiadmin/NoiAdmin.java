@@ -183,7 +183,7 @@ public class NoiAdmin {
     // Event handling methods
     private static void handleAddFlight() {
         SwingUtilities.invokeLater(() -> {
-            insertFlight frame = new insertFlight();
+            addFlight frame = new addFlight();
             frame.setVisible(true);
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

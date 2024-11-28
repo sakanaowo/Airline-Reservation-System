@@ -83,7 +83,7 @@ public class refresh {
             // Xóa tất cả dữ liệu cũ trong model
             model.setRowCount(0);
 
-            ArrayList<ArrayList<Object>> airportData = Airports.viewAirports("", "", "");
+            ArrayList<ArrayList<Object>> airportData = Airports.viewAirportCity("", "");
                     
             // Thêm dữ liệu mới vào model
             for (ArrayList<Object> airport : airportData) {

@@ -132,7 +132,7 @@ public class Planes {
 
     public static ArrayList<ArrayList<Object>> viewPlane(String model, String locationAirport, String updatedBy) {
         StringBuilder viewPlaneSQL = new StringBuilder(
-                "SELECT p.PlaneID, p.Model, p.Seats, a.AirportName AS LocationAirport, " +
+                "SELECT p.PlaneID, p.Model, p.Seats, p.LocationID, a.AirportName AS LocationAirport, " +
                         "p.UpdatedBy, p.UpdatedDate " +
                         "FROM " + CommonConstants.DB_PLANES_TABLE + " p " +
                         "JOIN " + CommonConstants.DB_AIRPORTS_TABLE + " a ON p.LocationID = a.AirportID WHERE 1=1"
@@ -168,6 +168,7 @@ public class Planes {
                 planeData.add(resultSet.getInt("PlaneID"));
                 planeData.add(resultSet.getString("Model"));
                 planeData.add(resultSet.getInt("Seats"));
+                planeData.add(resultSet.getString("LocationID"));
                 planeData.add(resultSet.getString("LocationAirport"));
                 planeData.add(resultSet.getObject("UpdatedBy"));
                 planeData.add(resultSet.getDate("UpdatedDate"));
