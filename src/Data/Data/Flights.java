@@ -1,16 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package Data;
-import constants.CommonConstants;
-import java.sql.*;
-import java.util.*;
-import java.time.*;
-/**
- *
- * @author DELL
- */
 public class Flights {
     static int[][] travelTimes = {
             {0, 60, 120, -1, 75, 90, 100, -1, -1, -1, 95, 140, -1, 85, 115, -1, -1, 130, 100, 110, 105}, //VCL
@@ -35,6 +22,10 @@ public class Flights {
             {110, 115, 120, 135, 115, 100, 115, 95, 110, 120, 120, 145, 170, 110, 120, 115, 125, 160, 95, 0, 105}, // UIH
             {105, 100, 110, 120, 100, 90, 110, -1, -1, -1, 105, 130, 155, 95, 110, 95, 110, 145, 100, 105, 0} // HPH
     };
+
+    static String[] cities = {"VCL", "THD", "VDH", "DIN", "TBB", "PXU", "BMV", "VKG", "CAH", "VCS",
+            "HAN", "SGN", "PQC", "DAD", "CXR", "HUI", "VDO", "VCA", "VII", "UIH", "HPH"};
+
     public static boolean insertFlight(Timestamp departureTime, int planeID,
                                        String arrivalCity, String updatedName) {
         String insertFlightSQL = "INSERT INTO " + CommonConstants.DB_FLIGHTS_TABLE +
@@ -43,14 +34,16 @@ public class Flights {
 
         try (Connection connection = DriverManager.getConnection(
                 CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+
              PreparedStatement adminIDStmt = connection.prepareStatement(
                      "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?");
+
              PreparedStatement departureAirportStmt = connection.prepareStatement(
-                     "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " a " +
+                     "SELECT a.AirportID, a.AirportCode FROM " + CommonConstants.DB_AIRPORTS_TABLE + " a " +
                              "JOIN " + CommonConstants.DB_PLANES_TABLE + " p ON p.LocationID = a.AirportID ");
 
              PreparedStatement arrivalAirportStmt = connection.prepareStatement(
-                     "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?");
+                     "SELECT AirportID, AirportCode FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?");
              PreparedStatement insertFlightStmt = connection.prepareStatement(insertFlightSQL)) {
 
             adminIDStmt.setString(1, updatedName);
@@ -65,8 +58,10 @@ public class Flights {
 
             ResultSet departureResultSet = departureAirportStmt.executeQuery();
             int departureAirportID = -1;
+            String departureAirportCode = "";
             if (departureResultSet.next()) {
                 departureAirportID = departureResultSet.getInt("AirportID");
+                departureAirportCode = departureResultSet.getString("AirportCode");
             } else {
                 System.err.println("Departure airport not found");
                 return false;
@@ -75,20 +70,30 @@ public class Flights {
             arrivalAirportStmt.setString(1, arrivalCity);
             ResultSet arrivalResultSet = arrivalAirportStmt.executeQuery();
             int arrivalAirportID = -1;
+            String arrivalAirportCode = "";
             if (arrivalResultSet.next()) {
                 arrivalAirportID = arrivalResultSet.getInt("AirportID");
+                arrivalAirportCode = arrivalResultSet.getString("AirportCode");
             } else {
                 System.err.println("Arrival airport not found");
                 return false;
             }
-            if (departureAirportID == -1 ||  arrivalAirportID == -1) {
+            int x = -1, y = -1;
+            for (int i=0; i<cities.length; i++) {
+                if (departureAirportCode.equals(cities[i])) x = i;
+            }
+            for (int i=0; i<cities.length; i++) {
+                if (arrivalAirportCode.equals(cities[i])) y = i;
+            }
+
+            if (x == -1 ||  y == -1) {
                 System.err.println("City not found in travelTimes");
                 return false;
             }
 
-            int travelTime = travelTimes[departureAirportID-1][arrivalAirportID-1];
+            int travelTime = travelTimes[x][y];
             if (travelTime == -1 || travelTime == 0) {
-                System.err.println("No direct route available between " + " and " + arrivalCity);
+                System.err.println("No direct route available between ");
                 return false;
             }
 
@@ -209,17 +214,20 @@ public class Flights {
                 " SET DepartureTime = ?, ArrivalTime = ?, PlaneID = ?, DepartureAirportID = ?, " +
                 "ArrivalAirportID = ?, UpdatedBy = ?, UpdatedDate = ? WHERE FlightID = ?";
 
+
+
         try (Connection connection = DriverManager.getConnection(
                 CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
              PreparedStatement adminIDStmt = connection.prepareStatement(
                      "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?");
 
              PreparedStatement departureAirportStmt = connection.prepareStatement(
-                     "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " a " +
+                     "SELECT a.AirportID, a.AirportCode FROM " + CommonConstants.DB_AIRPORTS_TABLE + " a " +
                              "JOIN " + CommonConstants.DB_PLANES_TABLE + " p ON p.LocationID = a.AirportID ");
 
              PreparedStatement arrivalAirportStmt = connection.prepareStatement(
-                     "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?");
+                     "SELECT AirportID, AirportCode FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?");
+
              PreparedStatement modifyFlightStmt = connection.prepareStatement(modifyFlightSQL)) {
 
             adminIDStmt.setString(1, updatedBy);
@@ -234,8 +242,10 @@ public class Flights {
 
             ResultSet departureResultSet = departureAirportStmt.executeQuery();
             int departureAirportID = -1;
+            String departureAirportCode = "";
             if (departureResultSet.next()) {
                 departureAirportID = departureResultSet.getInt("AirportID");
+                departureAirportCode = departureResultSet.getString("AirportCode");
             } else {
                 System.err.println("Departure airport not found");
                 return false;
@@ -244,21 +254,31 @@ public class Flights {
             arrivalAirportStmt.setString(1, newArrivalCity);
             ResultSet arrivalResultSet = arrivalAirportStmt.executeQuery();
             int arrivalAirportID = -1;
+            String arrivalAirportCode = "";
             if (arrivalResultSet.next()) {
                 arrivalAirportID = arrivalResultSet.getInt("AirportID");
+                arrivalAirportCode = arrivalResultSet.getString("AirportCode");
             } else {
                 System.err.println("Arrival airport not found");
                 return false;
             }
 
-            if (departureAirportID == -1 || arrivalAirportID == -1) {
+            int x = -1, y = -1;
+            for (int i=0; i<cities.length; i++) {
+                if (departureAirportCode.equals(cities[i])) x = i;
+            }
+            for (int i=0; i<cities.length; i++) {
+                if (arrivalAirportCode.equals(cities[i])) y = i;
+            }
+
+            if (x == -1 ||  y == -1) {
                 System.err.println("City not found in travelTimes");
                 return false;
             }
 
-            int travelTime = travelTimes[departureAirportID - 1][arrivalAirportID - 1];
+            int travelTime = travelTimes[x][y];
             if (travelTime == -1 || travelTime == 0) {
-                System.err.println("No direct route available between "  + " and " + newArrivalCity);
+                System.err.println("No direct route available between ");
                 return false;
             }
 
