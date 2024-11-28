@@ -49,22 +49,50 @@ public class Airports {
             e.printStackTrace();
         }
     }
+    public ArrayList<ArrayList<Object>> viewAirportCity(String AirportName, String City) {
+        String viewAirportSQL =
+                "SELECT a.AirportID, a.AirportName, a.City, a.AirportCode, COUNT(p.PlaneID) AS NumberPlanes " +
+                        "FROM " + CommonConstants.DB_PLANES_TABLE + " p " +
+                        "JOIN " + CommonConstants.DB_AIRPORTS_TABLE + " a ON p.LocationID = a.AirportID " +
+                        "WHERE 1=1";
 
-    public void modifyAirportCity(int airportID, String newCity) {
-        String query = "UPDATE airports SET City = ? WHERE AirportID = ?";
-        try (Connection conn = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setString(1, newCity);
-            pstmt.setInt(2, airportID);
-            int rowsAffected = pstmt.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Airport city updated successfully!");
-            } else {
-                System.out.println("No airport found with the given ID.");
+        ArrayList<ArrayList<Object>> airportlist = new ArrayList<>();
+
+        if (!AirportName.isEmpty()) {
+            viewAirportSQL += " AND a.AirportName = ? ";
+        }
+        if (!City.isEmpty()) {
+            viewAirportSQL += " AND a.City = ? ";
+        }
+
+        viewAirportSQL += " GROUP BY a.AirportID";
+
+        try (Connection connection = DriverManager.getConnection(
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+             PreparedStatement viewAirportsStmt = connection.prepareStatement(viewAirportSQL)) {
+
+            int index = 1;
+            if (!AirportName.isEmpty()) {
+                viewAirportsStmt.setString(index++, AirportName);
+            }
+            if (!City.isEmpty()) {
+                viewAirportsStmt.setString(index++, City);
+            }
+
+            try (ResultSet resultSet = viewAirportsStmt.executeQuery()) {
+                while (resultSet.next()) {
+                    ArrayList<Object> AirportData = new ArrayList<>();
+                    AirportData.add(resultSet.getInt("AirportID"));
+                    AirportData.add(resultSet.getString("AirportName"));
+                    AirportData.add(resultSet.getString("City"));
+                    AirportData.add(resultSet.getString("AirportCode")); // Added missing AirportCode
+                    AirportData.add(resultSet.getInt("NumberPlanes"));
+                    airportlist.add(AirportData);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return airportlist;
     }
-
 }
