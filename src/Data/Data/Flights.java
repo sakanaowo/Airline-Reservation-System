@@ -32,8 +32,18 @@ public class Flights {
                 " (DepartureTime, ArrivalTime, PlaneID, DepartureAirportID, ArrivalAirportID, UpdatedBy, UpdatedDate) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
+        String checkQuery = """
+            SELECT 1
+            FROM airline.flights
+            WHERE PlaneID = ?
+              AND DATE(DepartureTime) = DATE(?);
+        """;
+
+
         try (Connection connection = DriverManager.getConnection(
                 CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+
+             PreparedStatement checkStmt = connection.prepareStatement(checkQuery);
 
              PreparedStatement adminIDStmt = connection.prepareStatement(
                      "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?");
@@ -45,6 +55,14 @@ public class Flights {
              PreparedStatement arrivalAirportStmt = connection.prepareStatement(
                      "SELECT AirportID, AirportCode FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?");
              PreparedStatement insertFlightStmt = connection.prepareStatement(insertFlightSQL)) {
+
+            checkStmt.setInt(1, planeID);
+            checkStmt.setTimestamp(2, departureTime);
+            ResultSet rs = checkStmt.executeQuery();
+
+            if (rs.next()) {
+                return false;
+            }
 
             adminIDStmt.setString(1, updatedName);
             ResultSet adminResultSet = adminIDStmt.executeQuery();
