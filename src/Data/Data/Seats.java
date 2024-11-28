@@ -280,15 +280,17 @@ public class Seats {
             return false;
         }
     }
-    public static int getMinAvailableSeatIDByClass(String seatClass) {
-        String query = "SELECT MIN(SeatID) AS MinAvailableSeatID " +
-                "FROM airline.seats " +
-                "WHERE Available = 1 AND Class = ?";
+
+    public static int getMinAvailableSeatIDByClass(String seatClass, int FlightID) {
+        String query = "SELECT MIN(s.SeatID) AS MinAvailableSeatID " +
+                "FROM airline.seats s " +
+                "WHERE Available = 1 AND Class = ? AND FlightID = ?";
 
         try (Connection connection = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, seatClass);
+            preparedStatement.setInt(2, FlightID);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
