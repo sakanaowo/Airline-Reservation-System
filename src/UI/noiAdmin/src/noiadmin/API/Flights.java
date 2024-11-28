@@ -16,15 +16,15 @@ public class Flights {
 
         try (Connection connection = DriverManager.getConnection(
                 CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-             PreparedStatement adminIDStmt = connection.prepareStatement(
+            PreparedStatement adminIDStmt = connection.prepareStatement(
                      "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?");
-             PreparedStatement departureAirportStmt = connection.prepareStatement(
+            PreparedStatement departureAirportStmt = connection.prepareStatement(
                      "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " a " +
                              "JOIN " + CommonConstants.DB_PLANES_TABLE + " p ON p.LocationID = a.AirportID " +
                              "WHERE a.City = ?");
-             PreparedStatement arrivalAirportStmt = connection.prepareStatement(
+            PreparedStatement arrivalAirportStmt = connection.prepareStatement(
                      "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?");
-             PreparedStatement insertFlightStmt = connection.prepareStatement(insertFlightSQL)) {
+            PreparedStatement insertFlightStmt = connection.prepareStatement(insertFlightSQL)) {
 
             adminIDStmt.setString(1, updatedName);
             ResultSet adminResultSet = adminIDStmt.executeQuery();

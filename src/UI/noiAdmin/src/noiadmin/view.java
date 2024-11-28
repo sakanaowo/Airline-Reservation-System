@@ -69,4 +69,29 @@ public class view {
         panel.revalidate();
         panel.repaint();
     }
+    
+    public static void viewAirports(JPanel panel){
+        panel.removeAll();
+        // modiify
+        String[] columnNames = {"Airport ID", "Airport Name", "Location"};
+        
+        ArrayList<ArrayList<Object>> airportData = Airports.viewAirports("", "", "");
+
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        for (ArrayList<Object> airport : airportData) {
+            model.addRow(airport.toArray());
+        }
+
+        JTable table = new JTable(model);
+
+        JScrollPane tableScrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+
+        panel.setLayout(new BorderLayout());
+        panel.add(tableScrollPane, BorderLayout.CENTER);
+
+        panel.revalidate();
+        panel.repaint();
+    }
 }

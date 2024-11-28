@@ -1,15 +1,7 @@
 package noiadmin;
 
-import noiadmin.Plugin.insertFlight;
-import noiadmin.Plugin.editFlight;
 import java.awt.*;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
-import noiadmin.API.Flights;
-import noiadmin.API.Planes;
 import noiadmin.Plugin.*;
 import noiadmin.view;
 import noiadmin.refresh;
@@ -231,15 +223,7 @@ public class NoiAdmin {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(new Color(240, 248, 255)); // Alice Blue color
 
-        // Create a table to display airport information
-        String[] columnNames = {"Airport ID", "Airport Name", "Location", "Capacity"};
-        Object[][] data = {}; // Replace with actual airport data
-
-        JTable table = new JTable(data, columnNames);
-        JScrollPane tableScrollPane = new JScrollPane(table);
-        table.setFillsViewportHeight(true);
-        panel.add(tableScrollPane, BorderLayout.CENTER);
-
+        view.viewAirports(panel);
         // Button panel for airport management
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(5, 1, 10, 10));
@@ -265,7 +249,7 @@ public class NoiAdmin {
         buttonPanel.add(refreshAirportButton);
 
         // Text Area for airport details
-        JTextArea textArea = new JTextArea();
+        /*JTextArea textArea = new JTextArea();
         textArea.setEditable(false);
         textArea.setWrapStyleWord(true);
         textArea.setLineWrap(true);
@@ -274,7 +258,7 @@ public class NoiAdmin {
         textAreaScrollPane.setBorder(BorderFactory.createTitledBorder("Details"));
 
         panel.add(textAreaScrollPane, BorderLayout.SOUTH);
-        textAreaScrollPane.setPreferredSize(new Dimension(600, 200));
+        textAreaScrollPane.setPreferredSize(new Dimension(600, 200)); */
         panel.add(buttonPanel, BorderLayout.EAST);
 
         // Action listeners for airport buttons
@@ -282,35 +266,46 @@ public class NoiAdmin {
         editAirportButton.addActionListener(e -> handleEditAirport());
         removeAirportButton.addActionListener(e -> handleRemoveAirport());
         searchAirportButton.addActionListener(e -> handleSearchAirport());
-        refreshAirportButton.addActionListener(e -> handleRefreshAirportList());
+        refreshAirportButton.addActionListener(e -> refresh.handleRefreshAirportsList(panel));
 
         return panel;
     }
 
     // Event handling methods
     private static void handleAddAirport() {
-        System.out.println("Add Flight button clicked");
-        // Implement add flight functionality
+        SwingUtilities.invokeLater(() -> {
+            addAirport frame = new addAirport();
+            frame.setVisible(true);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        });
     }
 
     private static void handleEditAirport() {
-        System.out.println("Edit Flight button clicked");
-        // Implement edit flight functionality
+        SwingUtilities.invokeLater(() -> {
+            editAirport frame = new editAirport();
+            frame.setVisible(true);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        });
     }
 
     private static void handleRemoveAirport() {
-        System.out.println("Remove Flight button clicked");
-        // Implement remove flight functionality
+        SwingUtilities.invokeLater(() -> {
+            deleteAirport frame = new deleteAirport();
+            frame.setVisible(true);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        });
     }
 
     private static void handleSearchAirport() {
-        System.out.println("Search Flight button clicked");
-        // Implement search flight functionality
-    }
-
-    private static void handleRefreshAirportList() {
-        System.out.println("Refresh List button clicked");
-        // Implement refresh list functionality
+        SwingUtilities.invokeLater(() -> {
+            searchAirport frame = new searchAirport();
+            frame.setVisible(true);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        });
     }
 
     private static JPanel createPlaneManagementPanel() {
