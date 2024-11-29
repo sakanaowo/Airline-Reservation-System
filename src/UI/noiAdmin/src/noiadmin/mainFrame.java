@@ -8,7 +8,7 @@ import noiadmin.refresh;
 
 public class mainFrame {
 
-    public static JPanel mainAdmin(JFrame parentFrame){
+    public static JPanel mainAdmin(JFrame parentFrame) {
         // Main panel with CardLayout
         JPanel mainPanel = new JPanel(new CardLayout());
 
@@ -61,7 +61,7 @@ public class mainFrame {
         mainPanel.add(flightsPanel, "FlightsManagement");
         mainPanel.add(airportsPanel, "AirportsManagement");
         mainPanel.add(planesPanel, "PlanesManagement");
-        
+
         // Action Listeners for navigation
         dashboardButton.addActionListener(e -> showPanel(mainPanel, "Dashboard"));
         flightsButton.addActionListener(e -> showPanel(mainPanel, "FlightsManagement"));
@@ -120,7 +120,7 @@ public class mainFrame {
     // Method to create Flights Management Panel
     private static JPanel createFlightsManagementPanel() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(240, 248, 255)); 
+        panel.setBackground(new Color(240, 248, 255));
 
         view.viewFlights(panel);
         JPanel centerPanel = new JPanel(new BorderLayout());
@@ -309,7 +309,7 @@ public class mainFrame {
         panel.setBackground(new Color(240, 248, 255)); // Alice Blue color
 
         view.viewPlanes(panel);
-        
+
         // Button panel for plane management
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(5, 1, 10, 10));
@@ -345,7 +345,6 @@ public class mainFrame {
 
         panel.add(textAreaScrollPane, BorderLayout.SOUTH);
         textAreaScrollPane.setPreferredSize(new Dimension(600, 200));*/
-        
         panel.add(buttonPanel, BorderLayout.EAST);
 
         // Action listeners for plane buttons
@@ -393,5 +392,29 @@ public class mainFrame {
             frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         });
     }
+    // Khoi tao de goi sau khi login thanh cong de view lai cap nhat
+    private static JPanel planesPanel;
+    private static JPanel flightsPanel;
+    private static JPanel airportsPanel;
     
+    public static JPanel getPlanesPanel() {
+        if(planesPanel == null){
+            planesPanel = createPlaneManagementPanel();
+        }
+        return planesPanel;
+    }
+
+    public static JPanel getFlightsPanel() {
+        if(flightsPanel == null){
+            flightsPanel = createFlightsManagementPanel();
+        }
+        return flightsPanel;
+    }
+
+    public static JPanel getAirportsPanel() {
+        if(airportsPanel == null){
+            airportsPanel = createAirportManagementPanel();
+        }
+        return airportsPanel;
+    }
 }

@@ -5,7 +5,9 @@
         <group>
             <file>file:/D:/user/Airline-Reservation-System/src/UI/noiAdmin/src/noiadmin/mainFrame.java</file>
             <file>file:/D:/user/Airline-Reservation-System/src/UI/noiAdmin/src/noiadmin/API/Planes.java</file>
+            <file>file:/D:/user/Airline-Reservation-System/src/UI/noiAdmin/src/noiadmin/view.java</file>
             <file>file:/D:/user/Airline-Reservation-System/src/UI/noiAdmin/src/noiadmin/API/Admin.java</file>
+            <file>file:/D:/user/Airline-Reservation-System/src/UI/noiAdmin/src/noiadmin/refresh.java</file>
             <file>file:/D:/user/Airline-Reservation-System/src/UI/noiAdmin/src/noiadmin/backupMain.java</file>
             <file>file:/D:/user/Airline-Reservation-System/src/UI/noiAdmin/src/main/LoginAdmin.java</file>
         </group>

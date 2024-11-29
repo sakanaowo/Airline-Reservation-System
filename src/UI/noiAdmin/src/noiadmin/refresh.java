@@ -16,7 +16,7 @@ public class refresh {
     public static void handleRefreshPlaneList(JPanel planesPanel) {
         try {
             // Lấy JScrollPane chứa bảng từ panel
-            JScrollPane scrollPane = (JScrollPane) planesPanel.getComponent(0); // Giả định JScrollPane nằm ở vị trí đầu tiên
+            JScrollPane scrollPane = (JScrollPane) planesPanel.getComponent(0); 
             JTable table = (JTable) scrollPane.getViewport().getView();
 
             // Lấy DefaultTableModel của bảng
@@ -36,7 +36,6 @@ public class refresh {
             planesPanel.revalidate();
             planesPanel.repaint();
         } catch (Exception e) {
-            // Xử lý trường hợp không tìm thấy bảng hoặc lỗi bất ngờ
             System.err.println("Cannot refresh list: " + e.getMessage());
         }
     }

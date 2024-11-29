@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import noiadmin.API.Admin;
 import noiadmin.API.Planes;
 import noiadmin.mainFrame;
+import noiadmin.refresh;
+import noiadmin.view;
 
 /**
  *
@@ -134,7 +136,18 @@ public class LoginAdmin extends javax.swing.JFrame {
 
                 boolean authen = Admin.checkAdminLogin(getEmail, getAdminPassword);
                 if (authen) {
+                    // Tu update va view lai 
+                    Planes.updatePlaneBaseOnFlight();
+                    refresh.handleRefreshAirportsList(mainFrame.getAirportsPanel());
+                    refresh.handleRefreshList(mainFrame.getFlightsPanel());
+                    refresh.handleRefreshPlaneList(mainFrame.getPlanesPanel());
+                    
+                    view.viewAirports(mainFrame.getAirportsPanel());
+                    view.viewFlights(mainFrame.getFlightsPanel());
+                    view.viewPlanes(mainFrame.getFlightsPanel());
                     JFrame frame = new JFrame("Admin");
+                    
+                    
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     frame.setSize(1400, 750);
 
@@ -144,8 +157,6 @@ public class LoginAdmin extends javax.swing.JFrame {
                     frame.add(adminPanel);
                     frame.setLocationRelativeTo(null);
 
-                    //Quan trong
-                    Planes.updatePlaneBaseOnFlight();
                     frame.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Admin email or password is wrong!", "Failed", JOptionPane.ERROR_MESSAGE);
