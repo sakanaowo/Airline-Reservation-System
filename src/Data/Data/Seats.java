@@ -12,6 +12,43 @@ import java.time.*;
  * @author DELL
  */
 public class Seats {
+
+    public static ArrayList<Object> viewSeatPrice(int FlightID) {
+        ArrayList<Object> ls = new ArrayList<>();
+        String viewSeatSQL1 = "SELECT Price AS EconomyPrice FROM airline.seats WHERE flightID = ? AND Class = 'Economy'";
+        String viewSeatSQL2 = "SELECT Price AS BusinessPrice FROM airline.seats WHERE flightID = ? AND Class = 'Business'";
+
+        try (Connection connection = DriverManager.getConnection(
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+             PreparedStatement viewSeatSQL1Stmt = connection.prepareStatement(viewSeatSQL1);
+             PreparedStatement viewSeatSQL2Stmt = connection.prepareStatement(viewSeatSQL2)) {
+
+            viewSeatSQL1Stmt.setInt(1, FlightID);
+            viewSeatSQL2Stmt.setInt(1, FlightID);
+
+            try (ResultSet resultSet1 = viewSeatSQL1Stmt.executeQuery()) {
+                if (resultSet1.next()) {
+                    ls.add(resultSet1.getDouble("EconomyPrice"));
+                } else {
+                    ls.add(null);
+                }
+            }
+
+            try (ResultSet resultSet2 = viewSeatSQL2Stmt.executeQuery()) {
+                if (resultSet2.next()) {
+                    ls.add(resultSet2.getDouble("BusinessPrice"));
+                } else {
+                    ls.add(null);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ls;
+    }
+
+
     public static boolean deleteSeats(int flightID) {
         String deleteSeatsSQL = "DELETE FROM " + CommonConstants.DB_SEATS_TABLE + " WHERE FlightID = ?";
 
