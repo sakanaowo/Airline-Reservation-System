@@ -52,28 +52,46 @@ public class Tickets {
     }
     public boolean deleteTicket(int passengerId) {
         String deleteTicketSQL = "DELETE FROM airline.tickets WHERE PassengerID = ?";
-        String updateSeatSQL = "UPDATE airline.seats SET Available = 1 WHERE SeatID = (SELECT SeatID FROM airline.tickets WHERE PassengerID = ?)";
+        String updateSeatSQL = "UPDATE airline.seats " +
+                "SET Available = 1 " +
+                "WHERE SeatID = (SELECT SeatID FROM airline.tickets WHERE PassengerID = ?)";
+        String deletePassengerSQL = "DELETE FROM airline.passengers WHERE PassengerID = ?";
 
-        try (Connection connection = DriverManager.getConnection(CommonConstants.DB_URL,
-                CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-             PreparedStatement updateSeatStatement = connection.prepareStatement(updateSeatSQL);
-             PreparedStatement deleteTicketStatement = connection.prepareStatement(deleteTicketSQL)) {
+        try (Connection connection = DriverManager.getConnection(
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD)) {
 
-            updateSeatStatement.setInt(1, passengerId);
-            updateSeatStatement.executeUpdate();
+            connection.setAutoCommit(false);
 
-            deleteTicketStatement.setInt(1, passengerId);
-            int rowsAffected = deleteTicketStatement.executeUpdate();
+            try (PreparedStatement updateSeatStatement = connection.prepareStatement(updateSeatSQL);
+                 PreparedStatement deleteTicketStatement = connection.prepareStatement(deleteTicketSQL);
+                 PreparedStatement deletePassengerStatement = connection.prepareStatement(deletePassengerSQL)) {
 
-            if (rowsAffected > 0) {
-                boolean deletePassenger = Passengers.deletePassenger(passengerId);
-                return true;
+                updateSeatStatement.setInt(1, passengerId);
+                updateSeatStatement.executeUpdate();
+
+                deleteTicketStatement.setInt(1, passengerId);
+                int rowsAffected = deleteTicketStatement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    deletePassengerStatement.setInt(1, passengerId);
+                    deletePassengerStatement.executeUpdate();
+
+                    connection.commit();
+                    return true;
+                } else {
+                    connection.rollback();
+                    return false;
+                }
+            } catch (SQLException e) {
+                connection.rollback();
+                System.err.println("Error deleting tickets: " + e.getMessage());
+                e.printStackTrace();
+                return false;
+            } finally {
+                connection.setAutoCommit(true);
             }
-
-            return false;
-
         } catch (SQLException e) {
-            System.err.println("Error deleting tickets: " + e.getMessage());
+            System.err.println("Error establishing database connection: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
