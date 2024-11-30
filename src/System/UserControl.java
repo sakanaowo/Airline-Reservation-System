@@ -38,5 +38,8 @@ public class UserControl {
         else return false;
     }
 
+    public boolean resetPassword(String username, String email) throws SQLException {
+        return Users.resetPWD(username, email);
+    }
 }
 

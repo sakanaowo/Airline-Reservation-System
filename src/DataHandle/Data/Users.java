@@ -184,4 +184,21 @@ public class Users {
         ResultSet rs = getPassword.executeQuery();
         return rs.next() ? rs.getString("Password") : null;
     }
+
+    public static boolean resetPWD(String username, String email) throws SQLException {
+        conn = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+        String resetQ = "SELECT UserID,email FROM " + CommonConstants.DB_USER_TABLE + " WHERE UserName = ?";
+        PreparedStatement resetPwd = conn.prepareStatement(resetQ);
+        resetPwd.setString(1, username);
+        ResultSet rs = resetPwd.executeQuery();
+        if (rs.next()) {
+            int tmp1 = rs.getInt("UserID");
+            String tmp2 = rs.getString("email");
+            if (tmp2.equals(email)) {
+                updateUserPassword(tmp1, "1");
+                return true;
+            } else return false;
+        }
+        return false;
+    }
 }
