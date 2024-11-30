@@ -435,7 +435,7 @@ public class TicketTemplate extends javax.swing.JPanel {
         //xoave
         int key = JOptionPane.showConfirmDialog(
                 null,
-                "Bạn có chắc chắn muốn xóa chuyến bay này không?",
+                "Bạn có chắc chắn muốn hủy chuyến bay này không?",
                 "Confirmation",
                 JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE
@@ -443,7 +443,7 @@ public class TicketTemplate extends javax.swing.JPanel {
         if (key == JOptionPane.OK_OPTION) {
             boolean cancelled = ReservationControl.CancelTicket(ticket.getPassenger().getPassengerID());
             if (cancelled) {
-                JOptionPane.showMessageDialog(null, "Đã Xóa Chuyến: " + ticket.getTicketCode(), "Xóa Thành Công", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Đã Hủy Chuyến: " + ticket.getTicketCode(), "Xóa Thành Công", JOptionPane.INFORMATION_MESSAGE);
                 Container parent = this.getParent();
                 if (parent instanceof JPanel) {
                     JPanel panel = (JPanel) parent;
