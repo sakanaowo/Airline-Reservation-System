@@ -26,7 +26,6 @@ The **Airline Reservation System** is a Java-based application designed to simpl
 - **Libraries/Frameworks**:
     - Java Standard Edition (Java SE)
     - Java Swing (for GUI, if applicable)
-    - File I/O (for persistent data storage)
     - JDBC (for database integration)
 
 ## Project Structure
