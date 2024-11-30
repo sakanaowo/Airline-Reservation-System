@@ -153,6 +153,12 @@ public class ChangePasswordDialog extends javax.swing.JDialog {
             try {
                 Users.updateUserPassword(userID, confirm);
                 this.PWDlength = confirm.length();
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Đổi mật khẩu thành công",
+                        "Thông Báo",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Lỗi khi đổi mật khẩu: " + e.getMessage(), "Thông Báo", JOptionPane.ERROR_MESSAGE);
             }

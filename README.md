@@ -135,13 +135,13 @@ src
 2. **Compile the Source Code**:  
    Navigate to the `src` directory and compile the source code:
    ```bash
-   javac main/Main.java
+   javac src/main.java
    ```
 
 3. **Run the Application**:  
    Run the application after successful compilation:
    ```bash
-   java main.Main
+   java src/main.java
    ```
 
 4. **Database Setup**:  
