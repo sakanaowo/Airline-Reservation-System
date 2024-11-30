@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/mysql-connector-j-9.1.0.jar!/" />
@@ -16,8 +16,8 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="jcalendar-1.4" level="project" />
-    <orderEntry type="library" name="swing-layout-1.0.4" level="project" />
-    <orderEntry type="library" name="AbsoluteLayout-RELEASE220" level="project" />
+    <orderEntry type="library" exported="" name="jcalendar-1.4" level="project" />
+    <orderEntry type="library" exported="" name="swing-layout-1.0.4" level="project" />
+    <orderEntry type="library" exported="" name="AbsoluteLayout-RELEASE220" level="project" />
   </component>
 </module>
