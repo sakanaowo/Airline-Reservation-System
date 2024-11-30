@@ -40,7 +40,6 @@ src
 │   ├── Admin.java         # Represents the admin entity
 │   ├── Airport.java       # Represents an airport with relevant attributes
 │   ├── Flight.java        # Represents a flight entity
-│   ├── FlightExtended.java # Extends flight functionalities
 │   ├── Passenger.java     # Represents a passenger entity
 │   ├── Plane.java         # Represents an airplane entity
 │   ├── Seat.java          # Represents seating information
