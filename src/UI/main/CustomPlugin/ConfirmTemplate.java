@@ -72,16 +72,16 @@ public class ConfirmTemplate extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(220, 226, 252));
 
-        FirstNameField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FirstNameField.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         FirstNameField.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Họ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 0, 14))); // NOI18N
 
-        CCCDField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        CCCDField.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         CCCDField.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Căn Cước Công Dân", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 0, 14))); // NOI18N
 
-        LastNameField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        LastNameField1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         LastNameField1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tên", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 0, 14))); // NOI18N
 
-        PhoneNumberField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        PhoneNumberField1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         PhoneNumberField1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Số Điện Thoại ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 0, 14))); // NOI18N
 
         PassNo.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N

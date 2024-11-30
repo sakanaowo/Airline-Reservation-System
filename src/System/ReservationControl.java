@@ -14,7 +14,7 @@ public class ReservationControl {
 
     public static void makeTicket(String seatClass, Passenger passenger, Flightxtended flight) {
         int seatID = Seats.getMinAvailableSeatIDByClass(seatClass, flight.getFlightID());
-        String ticketCode = String.valueOf(flight.getFlightID() + "-" + seatID);
+        String ticketCode = String.valueOf(seatClass.substring(0,1).toUpperCase()+flight.getFlightID() + "-" + seatID);
         System.out.println(
                 "PassID: " + passenger.getPassengerID() + '\n' +
                         "SeatID: " + seatID + '\n' +
