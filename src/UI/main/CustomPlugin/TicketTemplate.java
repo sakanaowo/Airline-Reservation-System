@@ -432,7 +432,6 @@ public class TicketTemplate extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblCancelTicketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCancelTicketMouseClicked
-        // TODO add your handling code here:
         //xoave
         int key = JOptionPane.showConfirmDialog(
                 null,

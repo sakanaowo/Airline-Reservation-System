@@ -134,7 +134,7 @@ public class ChangePasswordDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_confirmPWDActionPerformed
 
     private void ChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangeActionPerformed
-        // TODO add your handling code here:
+
         String pwsd;
         try {
             pwsd=Users.getPasswordByID(userID);
@@ -161,7 +161,7 @@ public class ChangePasswordDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_ChangeActionPerformed
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
-        // TODO add your handling code here:
+
         dispose();
     }//GEN-LAST:event_CancelActionPerformed
 

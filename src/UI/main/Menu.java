@@ -899,7 +899,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_label_dang_xuatMouseClicked
 
     private void ChangeMailButtonActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_ChangeMailButtonActionPerformed
-        // TODO add your handling code here:
+
         ChangeEmail e = new ChangeEmail(this, gmailField.getText(), userID);
         e.setLocationRelativeTo(null);
         e.setVisible(true);
@@ -907,7 +907,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_ChangeMailButtonActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+
         String password = showDeleteAccountDialog();
         if (password != null) {
             if (manager.userControl.deleteUser(userID, password)) {
@@ -924,7 +924,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void ChangePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangePasswordButtonActionPerformed
-        // TODO add your handling code here:
+
         ChangePasswordDialog P = new ChangePasswordDialog(this, userID);
         P.setLocationRelativeTo(null);
         P.setVisible(true);

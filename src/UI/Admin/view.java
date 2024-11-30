@@ -1,13 +1,12 @@
 
 package UI.Admin;
 
-import java.awt.BorderLayout;
-import java.util.ArrayList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import UI.Admin.Plugin.*;
+import DataHandle.Data.*;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import UI.Admin.API.*;
+import java.awt.*;
+import java.util.ArrayList;
 
 
 public class view {

@@ -1,18 +1,12 @@
 package UI.Admin;
 
-import java.awt.*;
-import javax.swing.*;
 import UI.Admin.Plugin.*;
-import UI.Admin.view;
-import UI.Admin.refresh;
+import javax.swing.*;
+import java.awt.*;
 
-public class NoiAdmin {
+public class mainFrame {
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Admin Interface - Airline System");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1400, 750);
-
+    public static JPanel mainAdmin(JFrame parentFrame) {
         // Main panel with CardLayout
         JPanel mainPanel = new JPanel(new CardLayout());
 
@@ -20,7 +14,7 @@ public class NoiAdmin {
         JPanel menuPanel = new JPanel(new GridLayout(6, 1));
 
         // Load the logo image for the button
-        ImageIcon logoIcon = new ImageIcon(NoiAdmin.class.getResource("Icon\\airport.jpg"));
+        ImageIcon logoIcon = new ImageIcon(backupMain.class.getResource("Icon\\airport.jpg"));
         // Resize the image to fit the button (optional)
         Image scaledImage = logoIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH); // Adjust size as needed
         ImageIcon scaledLogoIcon = new ImageIcon(scaledImage);
@@ -29,7 +23,7 @@ public class NoiAdmin {
         JButton dashboardButton = new JButton(scaledLogoIcon);
 
         // Set background color to light blue
-        dashboardButton.setBackground(new Color(173, 216, 230)); // Light Blue (RGB values)
+        dashboardButton.setBackground(new Color(100, 149, 237)); // Light Blue (RGB values)
         dashboardButton.setOpaque(true);
         dashboardButton.setContentAreaFilled(true);
         dashboardButton.setBorderPainted(false);
@@ -65,20 +59,20 @@ public class NoiAdmin {
         mainPanel.add(flightsPanel, "FlightsManagement");
         mainPanel.add(airportsPanel, "AirportsManagement");
         mainPanel.add(planesPanel, "PlanesManagement");
-        
+
         // Action Listeners for navigation
         dashboardButton.addActionListener(e -> showPanel(mainPanel, "Dashboard"));
         flightsButton.addActionListener(e -> showPanel(mainPanel, "FlightsManagement"));
         planesButton.addActionListener(e -> showPanel(mainPanel, "PlanesManagement"));
         airportsButton.addActionListener(e -> showPanel(mainPanel, "AirportsManagement"));
-        logoutButton.addActionListener(e -> handleLogout(frame));
+        logoutButton.addActionListener(e -> handleLogout(parentFrame));
 
         // Frame Layout
-        frame.setLayout(new BorderLayout());
-        frame.add(menuPanel, BorderLayout.WEST);
-        frame.add(mainPanel, BorderLayout.CENTER);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        JPanel wrapperPanel = new JPanel(new BorderLayout());
+        wrapperPanel.add(menuPanel, BorderLayout.WEST);
+        wrapperPanel.add(mainPanel, BorderLayout.CENTER);
+
+        return wrapperPanel;
     }
 
     // Method to switch panels based on button click
@@ -124,7 +118,7 @@ public class NoiAdmin {
     // Method to create Flights Management Panel
     private static JPanel createFlightsManagementPanel() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(240, 248, 255)); 
+        panel.setBackground(new Color(240, 248, 255));
 
         view.viewFlights(panel);
         JPanel centerPanel = new JPanel(new BorderLayout());
@@ -313,7 +307,7 @@ public class NoiAdmin {
         panel.setBackground(new Color(240, 248, 255)); // Alice Blue color
 
         view.viewPlanes(panel);
-        
+
         // Button panel for plane management
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(5, 1, 10, 10));
@@ -349,7 +343,6 @@ public class NoiAdmin {
 
         panel.add(textAreaScrollPane, BorderLayout.SOUTH);
         textAreaScrollPane.setPreferredSize(new Dimension(600, 200));*/
-        
         panel.add(buttonPanel, BorderLayout.EAST);
 
         // Action listeners for plane buttons
@@ -397,5 +390,29 @@ public class NoiAdmin {
             frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         });
     }
+    // Khoi tao de goi sau khi login thanh cong de view lai cap nhat
+    private static JPanel planesPanel;
+    private static JPanel flightsPanel;
+    private static JPanel airportsPanel;
     
+    public static JPanel getPlanesPanel() {
+        if(planesPanel == null){
+            planesPanel = createPlaneManagementPanel();
+        }
+        return planesPanel;
+    }
+
+    public static JPanel getFlightsPanel() {
+        if(flightsPanel == null){
+            flightsPanel = createFlightsManagementPanel();
+        }
+        return flightsPanel;
+    }
+
+    public static JPanel getAirportsPanel() {
+        if(airportsPanel == null){
+            airportsPanel = createAirportManagementPanel();
+        }
+        return airportsPanel;
+    }
 }

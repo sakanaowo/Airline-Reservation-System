@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DataHandle.Data;
+
 import DataHandle.constants.CommonConstants;
 import Models.Plane;
 
@@ -12,7 +13,6 @@ import java.util.*;
 import static java.sql.DriverManager.getConnection;
 
 /**
- *
  * @author DELL
  */
 public class Planes {
@@ -68,17 +68,14 @@ public class Planes {
     }
 
 
-    public static boolean modifyPlane(int planeID, String model, int seats, String locationAirport, String updatedBy) {
-        String modifyPlaneSQL = "UPDATE " + CommonConstants.DB_PLANES_TABLE +
-                " SET Model = ?, Seats = ?, LocationID = ?, UpdatedBy = ?, UpdatedDate = ? WHERE PlaneID = ?";
+    public static boolean modifyPlane(int planeID, String model, int seats, String locationAirport, String updatedBy, java.util.Date updatedDate) {
+        String modifyPlaneSQL = "UPDATE " + CommonConstants.DB_PLANES_TABLE
+                + " SET Model = ?, Seats = ?, LocationID = ?, UpdatedBy = ?, UpdatedDate = ? WHERE PlaneID = ?";
 
         try (Connection connection = DriverManager.getConnection(
-                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-             PreparedStatement adminIDStmt = connection.prepareStatement(
-                     "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?");
-             PreparedStatement locationIDStmt = connection.prepareStatement(
-                     "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE AirportName = ?");
-             PreparedStatement modifyPlaneStmt = connection.prepareStatement(modifyPlaneSQL)) {
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD); PreparedStatement adminIDStmt = connection.prepareStatement(
+                "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?"); PreparedStatement locationIDStmt = connection.prepareStatement(
+                "SELECT AirportID FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE AirportName = ?"); PreparedStatement modifyPlaneStmt = connection.prepareStatement(modifyPlaneSQL)) {
 
             adminIDStmt.setString(1, updatedBy);
             ResultSet adminResultSet = adminIDStmt.executeQuery();
@@ -188,7 +185,7 @@ public class Planes {
     }
 
     public static void updatePlaneBaseOnFlight() {
-        String updateSQL = "UPDATE airline.planes p "+
+        String updateSQL = "UPDATE airline.planes p " +
                 "JOIN airline.flights f ON p.planeID = f.planeID " +
                 "SET p.LocationID = f.ArrivalAiportID " +
                 "WHERE CURRENT_TIME() >= f.ArrivalTime";
@@ -196,7 +193,7 @@ public class Planes {
                 CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
              PreparedStatement updateStmt = connection.prepareStatement(updateSQL)) {
             int rowsUpdated = updateStmt.executeUpdate();
-            System.out.println(rowsUpdated +"may bay duoc update location trong table planes");
+            System.out.println(rowsUpdated + "may bay duoc update location trong table planes");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -230,4 +227,5 @@ public class Planes {
         }
         return null;
     }
+
 }

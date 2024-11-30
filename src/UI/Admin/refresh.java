@@ -1,12 +1,13 @@
 package UI.Admin;
 
-import java.util.ArrayList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
-import UI.Admin.API.*;
+import DataHandle.Data.Flights;
+import DataHandle.Data.Planes;
+import UI.Admin.Plugin.*;
+import DataHandle.Data.Airports;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,7 +18,7 @@ public class refresh {
     public static void handleRefreshPlaneList(JPanel planesPanel) {
         try {
             // Lấy JScrollPane chứa bảng từ panel
-            JScrollPane scrollPane = (JScrollPane) planesPanel.getComponent(0); // Giả định JScrollPane nằm ở vị trí đầu tiên
+            JScrollPane scrollPane = (JScrollPane) planesPanel.getComponent(0); 
             JTable table = (JTable) scrollPane.getViewport().getView();
 
             // Lấy DefaultTableModel của bảng
@@ -37,7 +38,6 @@ public class refresh {
             planesPanel.revalidate();
             planesPanel.repaint();
         } catch (Exception e) {
-            // Xử lý trường hợp không tìm thấy bảng hoặc lỗi bất ngờ
             System.err.println("Cannot refresh list: " + e.getMessage());
         }
     }
