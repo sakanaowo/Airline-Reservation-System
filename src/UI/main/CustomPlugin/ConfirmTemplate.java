@@ -33,7 +33,7 @@ public class ConfirmTemplate extends javax.swing.JPanel {
         LastName = LastNameField1.getText();
         PhoneNumber = PhoneNumberField1.getText();
         CCCD = CCCDField.getText();
-        if (FirstName.equals("") || LastName.equals("") || PhoneNumber.equals("") || CCCD.equals("")) {
+        if (FirstName.isEmpty() || LastName.isEmpty() || PhoneNumber.isEmpty() || CCCD.isEmpty()) {
             System.out.println("khong du thong tin");
             return false;
         }
