@@ -2,18 +2,22 @@ package DataHandle.Data;
 
 
 import DataHandle.constants.CommonConstants;
+import Models.Passenger;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Passengers {
-    public boolean insertPassenger(String firstName, String lastName, String phoneNumber, String cccd, int userId) {
+
+    public static int insertPassenger(String firstName, String lastName,
+                               String phoneNumber, String cccd, int userId) {
         String insertSQL = "INSERT INTO airline.passengers (FirstName, LastName, PhoneNumber, CCCD, UserID) " +
                 "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME,
                 CommonConstants.DB_PASSWORD);
-             PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS)) {
 
             preparedStatement.setString(1, firstName);
             preparedStatement.setString(2, lastName);
@@ -23,13 +27,18 @@ public class Passengers {
 
             int rowsAffected = preparedStatement.executeUpdate();
 
-            return rowsAffected > 0;
-
+            if (rowsAffected > 0) {
+                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        return generatedKeys.getInt(1);
+                    }
+                }
+            }
         } catch (SQLException e) {
             System.err.println("Error inserting passenger: " + e.getMessage());
             e.printStackTrace();
-            return false;
         }
+        return -1;
     }
 
     public ArrayList<ArrayList<Object>> viewPassenger(int userId) {
@@ -105,5 +114,67 @@ public class Passengers {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public static Passenger getPassengerByID(int passengerID){
+        String query = "SELECT PassengerID, FirstName, LastName, PhoneNumber, CCCD, UserID FROM passengers WHERE PassengerID = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            // Gán giá trị cho tham số passengerID
+            preparedStatement.setInt(1, passengerID);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                // Nếu tìm thấy hành khách, trả về đối tượng Passenger
+                if (resultSet.next()) {
+                    return new Passenger(
+                            resultSet.getInt("PassengerID"),
+                            resultSet.getString("FirstName"),
+                            resultSet.getString("LastName"),
+                            resultSet.getString("PhoneNumber"),
+                            resultSet.getString("CCCD"),
+                            resultSet.getInt("UserID")
+                    );
+                } else {
+                    System.out.println("No passenger found with PassengerID: " + passengerID);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null; // Nếu không tìm thấy hành khách
+    }
+
+    public static ArrayList<Integer> getPassengerIdsByUserId(int userID) {
+        String query = "SELECT PassengerID FROM passengers WHERE UserID = ?";
+        ArrayList<Integer> passengerIDs = new ArrayList<>();
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            // Gán giá trị cho tham số userID
+            preparedStatement.setInt(1, userID);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    // Thêm PassengerID vào danh sách
+                    passengerIDs.add(resultSet.getInt("PassengerID"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return passengerIDs; // Trả về danh sách PassengerID
+    }
+
+    private static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(
+                CommonConstants.DB_URL,
+                CommonConstants.DB_USERNAME,
+                CommonConstants.DB_PASSWORD
+        );
     }
 }

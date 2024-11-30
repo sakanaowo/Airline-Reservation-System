@@ -8,12 +8,19 @@ public class Seat {
     private double Price;
     Flight flight;
 
+    public Seat() {
+    }
+
     public Seat(String Class, int Available, String Position, double Price, Flight flight) {
         this.Class = Class;
         this.Available = Available;
         this.Position = Position;
         this.Price = Price;
         this.flight = flight;
+    }
+
+    public void setSeatID(int SeatID) {
+        this.SeatID = SeatID;
     }
 
     public String getPosition() {
@@ -46,5 +53,9 @@ public class Seat {
 
     public int getFlightID() {
         return flight.getFlightID();
+    }
+
+    public void setClass(String seatClass) {
+        this.Class = seatClass;
     }
 }

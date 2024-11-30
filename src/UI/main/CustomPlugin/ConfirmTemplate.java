@@ -10,7 +10,8 @@ import Models.Passenger;
  * @author Sakana
  */
 public class ConfirmTemplate extends javax.swing.JPanel {
-    String FirstName, LastName, PhoneNumber, CCCD;
+    private String FirstName, LastName, PhoneNumber, CCCD;
+    private Passenger passenger;
 
     /**
      * Creates new form ConfirmTemplate
@@ -19,21 +20,33 @@ public class ConfirmTemplate extends javax.swing.JPanel {
         initComponents();
     }
 
+    public Passenger getPassenger() {
+        return this.passenger;
+    }
+
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
+    }
+
     public boolean isFullFill() {
         FirstName = FirstNameField.getText();
         LastName = LastNameField1.getText();
         PhoneNumber = PhoneNumberField1.getText();
         CCCD = CCCDField.getText();
         if (FirstName.equals("") || LastName.equals("") || PhoneNumber.equals("") || CCCD.equals("")) {
+            System.out.println("khong du thong tin");
             return false;
         }
         return true;
     }
 
-    public String getData() {
-        return "Name:" + FirstNameField.getText() + " " + LastNameField1.getText() + '\n' +
-                "Phone: " + PhoneNumberField1.getText() + '\n' +
-                "CCCD: " + CCCDField.getText() + '\n';
+    public Passenger getData() {
+        Passenger p=new Passenger();
+        p.setFirstName(FirstName);
+        p.setLastName(LastName);
+        p.setPhoneNumber(PhoneNumber);
+        p.setCitizenID(CCCD);
+        return p;
     }
 
     public ConfirmTemplate(int index) {

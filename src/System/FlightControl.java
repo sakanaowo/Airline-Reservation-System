@@ -17,29 +17,6 @@ import static DataHandle.Data.Planes.getPlaneById;
 
 
 public class FlightControl {
-//
-//    private final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
-    // Method to add a new flight
-//    public boolean addFlight(String departureTime, String arrivalTime, int planeID,
-//                             String departureCity, String arrivalCity, String updatedBy) {
-//        try {
-//            Date depTime = formatter.parse(departureTime);
-//            Date arrTime = formatter.parse(arrivalTime);
-//
-//            return Flights.insertFlight(
-//                    new Timestamp(depTime.getTime()),
-//                    new Timestamp(arrTime.getTime()),
-//                    planeID,
-//                    departureCity,
-//                    arrivalCity,
-//                    updatedBy
-//            );
-//        } catch (ParseException e) {
-//            System.err.println("Invalid date format. Please use 'dd/MM/yyyy HH:mm'.");
-//            return false;
-//        }
-//    }
 
     // Method to view flights based on filters
     // 1 way
@@ -95,24 +72,4 @@ public class FlightControl {
         return Flights.deleteFlight(flightID);
     }
 
-//    public boolean updateFlight(int flightID, String newDepartureTime, String newArrivalTime, int newPlaneID,
-//                                String newDepartureCity, String newArrivalCity, String updatedBy) {
-//        try {
-//            Date newDepTime = formatter.parse(newDepartureTime);
-//            Date newArrTime = formatter.parse(newArrivalTime);
-//
-//            return Flights.modifyFlight(
-//                    flightID,
-//                    new Timestamp(newDepTime.getTime()),
-//                    new Timestamp(newArrTime.getTime()),
-//                    newPlaneID,
-//                    newDepartureCity,
-//                    newArrivalCity,
-//                    updatedBy
-//            );
-//        } catch (ParseException e) {
-//            System.err.println("Invalid date format. Please use 'yyyy-MM-dd HH:mm'.");
-//            return false;
-//        }
-//    }
 }

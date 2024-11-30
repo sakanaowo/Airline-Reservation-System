@@ -1,6 +1,8 @@
 package DataHandle.Data;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Objects;
 
 import DataHandle.constants.CommonConstants;
 import Models.User;
@@ -143,51 +145,6 @@ public class Users {
         }
     }
 
-    public static boolean viewTickets() throws SQLException {
-        conn = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-        String viewTicketsQuery = """
-                SELECT
-                    t.TicketID,
-                    t.TicketCode,
-                    t.ReservationDate,
-                    p.FirstName,
-                    p.LastName,
-                    s.Class,
-                    s.Position,
-                    s.Price,
-                    s.Available,
-                    s.FlightID
-                FROM """ + CommonConstants.DB_TICKETS_TABLE + " t"
-                + " JOIN " + CommonConstants.DB_PASSENGERS_TABLE + " p ON t.PassengerID = p.PassengerID"
-                + " JOIN " + CommonConstants.DB_SEATS_TABLE + " s ON t.SeatID = s.SeatID";
-
-        PreparedStatement viewTicket = conn.prepareStatement(viewTicketsQuery);
-        ResultSet rs = viewTicket.executeQuery();
-        //Kiem tra xem co ticket khong
-        boolean check = false;// Cai nay de kiem tra
-        if (rs.isBeforeFirst()) {
-            check = true;
-            System.out.printf("%-10s %-15s %-20s %-20s %-30s %-10s %-10s%n",
-                    "TicketID", "TicketCode", "ReservationDate",
-                    "PassengerName", "PassengerEmail", "SeatNumber", "FlightID");
-
-            while (rs.next()) {
-                int ticketID = rs.getInt("TicketID");
-                String ticketCode = rs.getString("TicketCode");
-                String reservationDate = rs.getString("ReservationDate");
-                String passengerName = rs.getString("PassengerName");
-                String passengerEmail = rs.getString("PassengerEmail");
-                String seatNumber = rs.getString("SeatNumber");
-                int flightID = rs.getInt("FlightID");
-
-                System.out.printf("%-10d %-15s %-20s %-20s %-30s %-10s %-10d%n",
-                        ticketID, ticketCode, reservationDate,
-                        passengerName, passengerEmail, seatNumber, flightID);
-            }
-        }
-        return check;
-    }
-
     public static User getUserByID(int userID) throws SQLException {
         String getUserQuery = "SELECT UserName, Password, Email FROM " + CommonConstants.DB_USER_TABLE + " WHERE UserID = ?";
         conn = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
@@ -216,19 +173,15 @@ public class Users {
             }
         }
     }
-//
-//    public static boolean insertTicket() {
-//        //Con xem UI nhu nao roi phat trien sau
-//        return true;
-//    }
 
-//    public static void main(String[] args) throws SQLException {
-//        conn = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-//        insertUser("meobinh", "123", "meobinh123");
-//        insertUser("binhmeo", "321", "dcmeo");
-//        System.out.println(getIDViaName("meobinh"));
-//        updateUserEmail(6, "okokokok");
-//        updateUserPassword(6, "123213");
-//        deleteUser(6);
-//    }
+
+
+    public static String getPasswordByID(int userID) throws SQLException {
+        conn = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+        String getPasswordQuery = "SELECT Password FROM " + CommonConstants.DB_USER_TABLE + " WHERE UserID = ?";
+        PreparedStatement getPassword = conn.prepareStatement(getPasswordQuery);
+        getPassword.setInt(1, userID);
+        ResultSet rs = getPassword.executeQuery();
+        return rs.next() ? rs.getString("Password") : null;
+    }
 }

@@ -12,269 +12,107 @@ import java.util.*;
  */
 public class Airports {
 
-    /**
-     * Custom exception for airport-related database operations
-     */
-    public static class AirportOperationException extends Exception {
-        public AirportOperationException(String message) {
-            super(message);
-        }
-
-        public AirportOperationException(String message, Throwable cause) {
-            super(message, cause);
-        }
-    }
-
-    /**
-     * Inserts a new airport into the database
-     *
-     * @param airport Airport object containing the data to insert
-     * @return true if insertion was successful
-     */
-    public static boolean insertAirport(Airport airport) {
-        String sql = "INSERT INTO " + CommonConstants.DB_AIRPORTS_TABLE +
-                " (AirportName, City, Country) VALUES (?, ?, ?)";
-
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
-            stmt.setString(1, airport.getAirportName());
-            stmt.setString(2, airport.getCity());
-            stmt.setString(3, airport.getAirportCode());
-
-            int affectedRows = stmt.executeUpdate();
-
-            if (affectedRows > 0) {
-                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        airport.setAirportID(generatedKeys.getInt(1));
-                        return true;
-                    }
-                }
-            }
-            return false;
+    public void insertAirport(String airportName, String city, String airportCode) {
+        String query = "INSERT INTO airports (AirportName, City, AirportCode) VALUES (?, ?, ?)";
+        try (Connection conn = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, airportName);
+            pstmt.setString(2, city);
+            pstmt.setString(3, airportCode);
+            pstmt.executeUpdate();
+            System.out.println("Airport inserted successfully!");
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
-    /**
-     * Updates an existing airport in the database
-     *
-     * @param airport Airport object containing the updated data
-     * @return true if update was successful
-     */
-    public static boolean updateAirport(Airport airport) {
-        String sql = "UPDATE " + CommonConstants.DB_AIRPORTS_TABLE +
-                " SET AirportName = ?, City = ?, Country = ? WHERE AirportID = ?";
-
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, airport.getAirportName());
-            stmt.setString(2, airport.getCity());
-            stmt.setString(3, airport.getAirportCode());
-            stmt.setInt(4, airport.getAirportID());
-
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
-     * Deletes an airport from the database
-     *
-     * @param airportID ID of the airport to delete
-     * @return true if deletion was successful
-     */
-    public static boolean deleteAirport(int airportID) {
-        // First check if the airport is used in any flights
-        String checkFlightsSql = "SELECT COUNT(*) FROM " + CommonConstants.DB_FLIGHTS_TABLE +
-                " WHERE DepartureAirportID = ? OR ArrivalAirportID = ?";
-
-        String deleteAirportSql = "DELETE FROM " + CommonConstants.DB_AIRPORTS_TABLE +
-                " WHERE AirportID = ?";
-
-        try (Connection conn = getConnection()) {
-            // Check for existing flights
-            try (PreparedStatement checkStmt = conn.prepareStatement(checkFlightsSql)) {
-                checkStmt.setInt(1, airportID);
-                checkStmt.setInt(2, airportID);
-
-                ResultSet rs = checkStmt.executeQuery();
-                if (rs.next() && rs.getInt(1) > 0) {
-                    System.err.println("Cannot delete airport: It is associated with existing flights");
-                    return false;
-                }
-            }
-
-            // If no flights found, proceed with deletion
-            try (PreparedStatement deleteStmt = conn.prepareStatement(deleteAirportSql)) {
-                deleteStmt.setInt(1, airportID);
-                return deleteStmt.executeUpdate() > 0;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
-     * Retrieves all airports from the database
-     *
-     * @return List of Airport objects
-     */
-    public static ArrayList<Airport> getAllAirports() {
-        String sql = "SELECT * FROM " + CommonConstants.DB_AIRPORTS_TABLE + " ORDER BY AirportName";
-        ArrayList<Airport> airports = new ArrayList<>();
-
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                Airport airport = new Airport();
-                airport.setAirportID(rs.getInt("AirportID"));
-                airport.setAirportName(rs.getString("AirportName"));
-                airport.setCity(rs.getString("City"));
-                airport.setAirportCode(rs.getString("Country"));
-                airports.add(airport);
+    public void deleteAirport(int airportID) {
+        String query = "DELETE FROM airports WHERE AirportID = ?";
+        try (Connection conn = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, airportID);
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Airport deleted successfully!");
+            } else {
+                System.out.println("No airport found with the given ID.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return airports;
     }
 
-    /**
-     * Retrieves a specific airport by ID
-     *
-     * @param airportID ID of the airport to retrieve
-     * @return Airport object if found, null otherwise
-     */
-    public static Airport getAirportById(int airportID) {
-        String sql = "SELECT * FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE AirportID = ?";
+    public void updateAirport(int airportID, String airportName, String city, String airportCode) {
+        String query = "UPDATE airports SET AirportName = ?, City = ?, AirportCode = ? WHERE AirportID = ?";
+        try (Connection conn = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, airportName);
+            pstmt.setString(2, city);
+            pstmt.setString(3, airportCode);
+            pstmt.setInt(4, airportID);
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Airport updated successfully!");
+            } else {
+                System.out.println("No airport found with the given ID.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public ArrayList<ArrayList<Object>> viewAirportCity(String AirportName, String City) {
+        String viewAirportSQL =
+                "SELECT a.AirportID, a.AirportName, a.City, a.AirportCode, COUNT(p.PlaneID) AS NumberPlanes " +
+                        "FROM " + CommonConstants.DB_PLANES_TABLE + " p " +
+                        "JOIN " + CommonConstants.DB_AIRPORTS_TABLE + " a ON p.LocationID = a.AirportID " +
+                        "WHERE 1=1";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        ArrayList<ArrayList<Object>> airportlist = new ArrayList<>();
 
-            stmt.setInt(1, airportID);
+        if (!AirportName.isEmpty()) {
+            viewAirportSQL += " AND a.AirportName = ? ";
+        }
+        if (!City.isEmpty()) {
+            viewAirportSQL += " AND a.City = ? ";
+        }
 
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    Airport airport = new Airport();
-                    airport.setAirportID(rs.getInt("AirportID"));
-                    airport.setAirportName(rs.getString("AirportName"));
-                    airport.setCity(rs.getString("City"));
-                    airport.setAirportCode(rs.getString("Country"));
-                    return airport;
+        viewAirportSQL += " GROUP BY a.AirportID";
+
+        try (Connection connection = DriverManager.getConnection(
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+             PreparedStatement viewAirportsStmt = connection.prepareStatement(viewAirportSQL)) {
+
+            int index = 1;
+            if (!AirportName.isEmpty()) {
+                viewAirportsStmt.setString(index++, AirportName);
+            }
+            if (!City.isEmpty()) {
+                viewAirportsStmt.setString(index++, City);
+            }
+
+            try (ResultSet resultSet = viewAirportsStmt.executeQuery()) {
+                while (resultSet.next()) {
+                    ArrayList<Object> AirportData = new ArrayList<>();
+                    AirportData.add(resultSet.getInt("AirportID"));
+                    AirportData.add(resultSet.getString("AirportName"));
+                    AirportData.add(resultSet.getString("City"));
+                    AirportData.add(resultSet.getString("AirportCode")); // Added missing AirportCode
+                    AirportData.add(resultSet.getInt("NumberPlanes"));
+                    airportlist.add(AirportData);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return airportlist;
     }
 
-    /**
-     * Searches airports based on name, city, or country
-     *
-     * @param searchTerm The search term to look for
-     * @return List of matching Airport objects
-     */
-    public static ArrayList<Airport> searchAirports(String searchTerm) {
-        String sql = "SELECT * FROM " + CommonConstants.DB_AIRPORTS_TABLE +
-                " WHERE AirportName LIKE ? OR City LIKE ? OR Country LIKE ? ORDER BY AirportName";
-        ArrayList<Airport> airports = new ArrayList<>();
-
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            String searchPattern = "%" + searchTerm + "%";
-            stmt.setString(1, searchPattern);
-            stmt.setString(2, searchPattern);
-            stmt.setString(3, searchPattern);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    Airport airport = new Airport();
-                    airport.setAirportID(rs.getInt("AirportID"));
-                    airport.setAirportName(rs.getString("AirportName"));
-                    airport.setCity(rs.getString("City"));
-                    airport.setAirportCode(rs.getString("Country"));
-                    airports.add(airport);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return airports;
-    }
-
-    /**
-     * Retrieves airports by country
-     *
-     * @param country The country to filter by
-     * @return List of Airport objects in the specified country
-     */
-/*
-    public static ArrayList<Airport> getAirportsByCountry(String country) {
-        String sql = "SELECT * FROM " + CommonConstants.DB_AIRPORTS_TABLE +
-                " WHERE Country = ? ORDER BY City, AirportName";
-        ArrayList<Airport> airports = new ArrayList<>();
-
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, country);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    Airport airport = new Airport();
-                    airport.setAirportID(rs.getInt("AirportID"));
-                    airport.setAirportName(rs.getString("AirportName"));
-                    airport.setCity(rs.getString("City"));
-                    airport.setAirportCode(rs.getString("Country"));
-                    airports.add(airport);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return airports;
-    }
-*/
-    /**
-     * Checks if an airport exists in the database
-     *
-     * @param airportID ID to check
-     * @return true if airport exists
-     */
-    public static boolean airportExists(int airportID) {
-        String sql = "SELECT 1 FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE AirportID = ?";
-
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, airportID);
-            try (ResultSet rs = stmt.executeQuery()) {
-                return rs.next();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public static Airport getAirportByCity(String city) {
-        String sql = "SELECT * FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE City = ?";
+    public static Airport getAirportByName(String AirportName) {
+        String sql = "SELECT * FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE AirportName = ?";
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)
         ) {
-            stmt.setString(1, city);
+            stmt.setString(1, AirportName);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     Airport airport = new Airport();
@@ -290,12 +128,12 @@ public class Airports {
         }
         return null;
     }
-    public static Airport getAirportByName(String AirportName) {
-        String sql = "SELECT * FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE AirportName = ?";
+    public static Airport getAirportByID(int AirportID) {
+        String sql = "SELECT * FROM " + CommonConstants.DB_AIRPORTS_TABLE + " WHERE AirportID = ?";
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)
         ) {
-            stmt.setString(1, AirportName);
+            stmt.setInt(1, AirportID);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     Airport airport = new Airport();

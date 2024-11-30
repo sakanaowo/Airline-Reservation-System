@@ -5,15 +5,49 @@
 package DataHandle.Data;
 
 import DataHandle.constants.CommonConstants;
+import Models.Seat;
 
 import java.sql.*;
 import java.util.*;
-import java.time.*;
 
 /**
  * @author DELL
  */
 public class Seats {
+    public static ArrayList<Object> viewSeatPrice(int FlightID) {
+        ArrayList<Object> ls = new ArrayList<>();
+        String viewSeatSQL1 = "SELECT Price AS EconomyPrice FROM airline.seats WHERE flightID = ? AND Class = 'Economy'";
+        String viewSeatSQL2 = "SELECT Price AS BusinessPrice FROM airline.seats WHERE flightID = ? AND Class = 'Business'";
+
+        try (Connection connection = DriverManager.getConnection(
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
+             PreparedStatement viewSeatSQL1Stmt = connection.prepareStatement(viewSeatSQL1);
+             PreparedStatement viewSeatSQL2Stmt = connection.prepareStatement(viewSeatSQL2)) {
+
+            viewSeatSQL1Stmt.setInt(1, FlightID);
+            viewSeatSQL2Stmt.setInt(1, FlightID);
+
+            try (ResultSet resultSet1 = viewSeatSQL1Stmt.executeQuery()) {
+                if (resultSet1.next()) {
+                    ls.add(resultSet1.getDouble("EconomyPrice"));
+                } else {
+                    ls.add(null);
+                }
+            }
+
+            try (ResultSet resultSet2 = viewSeatSQL2Stmt.executeQuery()) {
+                if (resultSet2.next()) {
+                    ls.add(resultSet2.getDouble("BusinessPrice"));
+                } else {
+                    ls.add(null);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ls;
+    }
+
     public static boolean deleteSeats(int flightID) {
         String deleteSeatsSQL = "DELETE FROM " + CommonConstants.DB_SEATS_TABLE + " WHERE FlightID = ?";
 
@@ -32,8 +66,8 @@ public class Seats {
     }
 
     // method for user to find flights
-    public static ArrayList<ArrayList<Object>> viewSeatAvailableForPassenger(String departureTime,String departureCityName,
-                                                                          String arrivalCityName, int seatNumber) {
+    public static ArrayList<ArrayList<Object>> viewSeatAvailableForPassenger(String departureTime, String departureCityName,
+                                                                             String arrivalCityName, int seatNumber) {
         String viewSeatSQL = "SELECT f.FlightID, f.DepartureTime, f.ArrivalTime, f.PlaneID, " +
                 "da.AirportName AS DepartureAirportName, aa.AirportName AS ArrivalAirportName, " +
                 "da.City AS DepartureCity, aa.City AS ArrivalCity, " +
@@ -81,7 +115,7 @@ public class Seats {
             ResultSet resultSet = viewSeatsStmt.executeQuery();
             while (resultSet.next()) {
                 ArrayList<Object> seatData = new ArrayList<>();
-                seatData.add(resultSet.getString("FlightID"));
+                seatData.add(resultSet.getInt("FlightID"));
                 seatData.add(resultSet.getTimestamp("DepartureTime"));
                 seatData.add(resultSet.getTimestamp("ArrivalTime"));
                 seatData.add(resultSet.getInt("PlaneID"));
@@ -283,24 +317,71 @@ public class Seats {
             return false;
         }
     }
-    public static int getMinAvailableSeatIDByClass(String seatClass) {
-        String query = "SELECT MIN(SeatID) AS MinAvailableSeatID " +
-                "FROM airline.seats " +
-                "WHERE Available = 1 AND Class = ?";
+
+    public static int getMinAvailableSeatIDByClass(String seatClass, int FlightID) {
+        String query = "SELECT MIN(s.SeatID) AS MinAvailableSeatID " +
+                "FROM airline.seats s " +
+                "WHERE Available = 1 AND Class = ? AND FlightID = ?";
+
         try (Connection connection = DriverManager.getConnection(CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
             preparedStatement.setString(1, seatClass);
+            preparedStatement.setInt(2, FlightID);
+
             ResultSet resultSet = preparedStatement.executeQuery();
+
             if (resultSet.next() && resultSet.getInt("MinAvailableSeatID") != 0) {
                 return resultSet.getInt("MinAvailableSeatID");
             } else {
                 System.out.println("No available seats found for class: " + seatClass);
                 return -1;
             }
+
         } catch (SQLException e) {
             System.err.println("Error fetching minimum available SeatID for class '" + seatClass + "': " + e.getMessage());
             e.printStackTrace();
             return -1;
         }
+    }
+
+    public static List<Object> getSeatById(int seatID) {
+        List<Object> seatDetails = new ArrayList<>();
+        String query = "SELECT SeatID, FlightID, Class, Position, Available, Price, UpdatedBy, UpdatedDate FROM seats WHERE SeatID = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            // Set the seatID parameter
+            preparedStatement.setInt(1, seatID);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                // If a seat is found, add its details to the list
+                if (resultSet.next()) {
+                    seatDetails.add(resultSet.getInt("SeatID"));
+                    seatDetails.add(resultSet.getInt("FlightID"));
+                    seatDetails.add(resultSet.getString("Class"));
+                    seatDetails.add(resultSet.getString("Position"));
+                    seatDetails.add(resultSet.getBoolean("Available"));
+                    seatDetails.add(resultSet.getDouble("Price"));
+                    seatDetails.add(resultSet.getInt("UpdatedBy")); // This can be null
+                    seatDetails.add(resultSet.getDate("UpdatedDate"));
+                } else {
+                    System.out.println("No seat found with SeatID: " + seatID);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return seatDetails;
+    }
+
+    private static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(
+                CommonConstants.DB_URL,
+                CommonConstants.DB_USERNAME,
+                CommonConstants.DB_PASSWORD
+        );
     }
 }

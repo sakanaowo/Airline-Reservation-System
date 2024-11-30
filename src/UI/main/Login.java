@@ -537,9 +537,9 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Không được để trống thông tin!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
-                if (manager.userManager.isValidUser(username, password)) {
+                if (manager.userControl.isValidUser(username, password)) {
                     new Login().dispose();
-                    int userID = manager.userManager.getIDByUserName(username);
+                    int userID = manager.userControl.getIDByUserName(username);
                     Menu MenuFrame = new Menu(userID);
                     MenuFrame.setVisible(true);
                     MenuFrame.pack();
@@ -576,11 +576,11 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Mật khẩu không khớp!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
-                if (manager.userManager.IfExists(username)) {
+                if (manager.userControl.IfExists(username)) {
                     JOptionPane.showMessageDialog(null, "Email đã tồn tại", "Lỗi!", JOptionPane.ERROR_MESSAGE);
 
                 } else {
-                    manager.userManager.addUser(username, password, email);
+                    manager.userControl.addUser(username, password, email);
                     JOptionPane.showMessageDialog(null, "Đăng kí thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                     signupUsername.setText("");
                     signupPassword.setText("");

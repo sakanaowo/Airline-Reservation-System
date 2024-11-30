@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tickets {
-    public boolean insertTicket(int passengerId, int seatId, String ticketCode) {
-        String insertTicketSQL = "INSERT INTO airline.tickets (PassengerID, SeatID, Status, TicketCode, ReservationDate) " +
-                "VALUES (?, ?, ?, ?, ?)";
+    public static boolean insertTicket(int passengerId, int seatId, String ticketCode) {
+        String insertTicketSQL = "INSERT INTO airline.tickets (PassengerID, SeatID, TicketCode, ReservationDate) " +
+                "VALUES (?, ?, ?, ?)";
 
         String updateSeatSQL = "UPDATE airline.seats SET Available = 0 WHERE SeatID = ?";
 
@@ -23,9 +23,8 @@ public class Tickets {
 
                 insertTicketStmt.setInt(1, passengerId);
                 insertTicketStmt.setInt(2, seatId);
-                insertTicketStmt.setString(3, "Active");
-                insertTicketStmt.setString(4, ticketCode);
-                insertTicketStmt.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
+                insertTicketStmt.setString(3, ticketCode);
+                insertTicketStmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
 
                 updateSeatStmt.setInt(1, seatId);
 
@@ -54,38 +53,56 @@ public class Tickets {
         }
     }
 
-    public boolean deleteTicket(int passengerId) {
+    public static boolean deleteTicket(int passengerId) {
         String deleteTicketSQL = "DELETE FROM airline.tickets WHERE PassengerID = ?";
-        String updateSeatSQL = "UPDATE airline.seats SET Available = 1 WHERE SeatID = (SELECT SeatID FROM airline.tickets WHERE PassengerID = ?)";
+        String updateSeatSQL = "UPDATE airline.seats " +
+                "SET Available = 1 " +
+                "WHERE SeatID = (SELECT SeatID FROM airline.tickets WHERE PassengerID = ?)";
+        String deletePassengerSQL = "DELETE FROM airline.passengers WHERE PassengerID = ?";
 
-        try (Connection connection = DriverManager.getConnection(CommonConstants.DB_URL,
-                CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-             PreparedStatement updateSeatStatement = connection.prepareStatement(updateSeatSQL);
-             PreparedStatement deleteTicketStatement = connection.prepareStatement(deleteTicketSQL)) {
+        try (Connection connection = DriverManager.getConnection(
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD)) {
 
-            updateSeatStatement.setInt(1, passengerId);
-            updateSeatStatement.executeUpdate();
+            connection.setAutoCommit(false);
 
-            deleteTicketStatement.setInt(1, passengerId);
-            int rowsAffected = deleteTicketStatement.executeUpdate();
+            try (PreparedStatement updateSeatStatement = connection.prepareStatement(updateSeatSQL);
+                 PreparedStatement deleteTicketStatement = connection.prepareStatement(deleteTicketSQL);
+                 PreparedStatement deletePassengerStatement = connection.prepareStatement(deletePassengerSQL)) {
 
-            if (rowsAffected > 0) {
-                boolean deletePassenger = Passengers.deletePassenger(passengerId);
-                return true;
+                updateSeatStatement.setInt(1, passengerId);
+                updateSeatStatement.executeUpdate();
+
+                deleteTicketStatement.setInt(1, passengerId);
+                int rowsAffected = deleteTicketStatement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    deletePassengerStatement.setInt(1, passengerId);
+                    deletePassengerStatement.executeUpdate();
+
+                    connection.commit();
+                    return true;
+                } else {
+                    connection.rollback();
+                    return false;
+                }
+            } catch (SQLException e) {
+                connection.rollback();
+                System.err.println("Error deleting tickets: " + e.getMessage());
+                e.printStackTrace();
+                return false;
+            } finally {
+                connection.setAutoCommit(true);
             }
-
-            return false;
-
         } catch (SQLException e) {
-            System.err.println("Error deleting tickets: " + e.getMessage());
+            System.err.println("Error establishing database connection: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
     }
 
-    public List<String> viewTicket(int passengerId) {
-        String viewTicketSQL = "SELECT TicketID, SeatID, Status, TicketCode, ReservationDate FROM airline.tickets WHERE PassengerID = ?";
-        List<String> tickets = new ArrayList<>();
+    public static ArrayList<Object> viewTicket(int passengerId) {
+        String viewTicketSQL = "SELECT TicketID, SeatID, TicketCode, ReservationDate FROM airline.tickets WHERE PassengerID = ?";
+        ArrayList<Object> tickets = new ArrayList<>();
 
         try (Connection connection = DriverManager.getConnection(CommonConstants.DB_URL,
                 CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
@@ -95,15 +112,10 @@ public class Tickets {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    int ticketId = resultSet.getInt("TicketID");
-                    int seatId = resultSet.getInt("SeatID");
-                    String status = resultSet.getString("Status");
-                    String ticketCode = resultSet.getString("TicketCode");
-                    Timestamp reservationDate = resultSet.getTimestamp("ReservationDate");
-
-                    String ticketInfo = String.format("TicketID: %d, SeatID: %d, Status: %s, TicketCode: %s, ReservationDate: %s",
-                            ticketId, seatId, status, ticketCode, reservationDate.toString());
-                    tickets.add(ticketInfo);
+                    tickets.add(resultSet.getInt("TicketID"));
+                    tickets.add(resultSet.getInt("SeatID"));
+                    tickets.add(resultSet.getString("TicketCode"));
+                    tickets.add(resultSet.getTimestamp("ReservationDate"));
                 }
             }
 
@@ -114,5 +126,4 @@ public class Tickets {
 
         return tickets;
     }
-
 }

@@ -6,8 +6,10 @@ package UI.main;
 
 
 import Models.Flightxtended;
+import Models.Passenger;
 import UI.main.CustomPlugin.ConfirmTemplate;
 import UI.main.CustomPlugin.TimeHandle;
+import System.AirlineSystem;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +23,7 @@ import java.util.List;
 public class ConfirmationFrame extends javax.swing.JFrame {
     private int userID;
     List<ConfirmTemplate> confirmTemplateList = new ArrayList<>();
+    AirlineSystem airlineSystem = new AirlineSystem();
 
     private Flightxtended flight;
     private int passengerNumber;
@@ -64,6 +67,8 @@ public class ConfirmationFrame extends javax.swing.JFrame {
         PlaneCode.setText("VN " + String.format("%03d", flight.getFlightID()));
 
         PlaneModel.setText(flight.getPlane().getModel());
+
+        SeatClass.setText("Hạng " + seatClass);
     }
 
     public ConfirmationFrame() {
@@ -101,6 +106,7 @@ public class ConfirmationFrame extends javax.swing.JFrame {
         PlaneCode = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         PlaneModel = new javax.swing.JLabel();
+        SeatClass = new javax.swing.JLabel();
         CancelButton = new javax.swing.JButton();
         ConfirmButton = new javax.swing.JButton();
         ConfirmCard = new javax.swing.JPanel();
@@ -185,6 +191,11 @@ public class ConfirmationFrame extends javax.swing.JFrame {
         PlaneModel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         PlaneModel.setText("AIRBUS A321");
 
+        SeatClass.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        SeatClass.setForeground(new java.awt.Color(204, 0, 51));
+        SeatClass.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        SeatClass.setText("Hạng Thương Gia");
+
         javax.swing.GroupLayout InforPaneLayout = new javax.swing.GroupLayout(InforPane);
         InforPane.setLayout(InforPaneLayout);
         InforPaneLayout.setHorizontalGroup(
@@ -193,13 +204,15 @@ public class ConfirmationFrame extends javax.swing.JFrame {
                                 .addGroup(InforPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(InforPaneLayout.createSequentialGroup()
                                                 .addContainerGap()
-                                                .addGroup(InforPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(DepAndArrCity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(DateDep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(InforPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(FlightTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                         .addGroup(InforPaneLayout.createSequentialGroup()
-                                                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(0, 0, Short.MAX_VALUE))
-                                                        .addComponent(FlightTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                                .addGroup(InforPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                                        .addComponent(DepAndArrCity, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(DateDep, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE))
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(SeatClass, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                         .addGroup(InforPaneLayout.createSequentialGroup()
                                                 .addGroup(InforPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(InforPaneLayout.createSequentialGroup()
@@ -239,7 +252,9 @@ public class ConfirmationFrame extends javax.swing.JFrame {
                 InforPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(InforPaneLayout.createSequentialGroup()
                                 .addGap(15, 15, 15)
-                                .addComponent(DepAndArrCity, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(InforPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(DepAndArrCity, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(SeatClass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(DateDep, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -510,11 +525,13 @@ public class ConfirmationFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (check()) {
             // logic needed here
-            
-            // create passenger
-            
-            // create ticket
-
+            // create passenger and make ticket
+            for (ConfirmTemplate tmp : confirmTemplateList) {
+                Passenger p = tmp.getPassenger();
+                int passengerID = airlineSystem.reservationControl.createPassenger(p, userID);
+                p.setPassengerID(passengerID);
+                airlineSystem.reservationControl.makeTicket(seatClass, p, flight);
+            }
             // and yatta
             ConfirmCard.setVisible(false);
             DoneCard.setVisible(true);
@@ -531,6 +548,9 @@ public class ConfirmationFrame extends javax.swing.JFrame {
             if (!tmp.isFullFill()) {
                 JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin", "Alert!!!", JOptionPane.WARNING_MESSAGE);
                 return false;
+            } else {
+                Passenger intmp = tmp.getData();
+                tmp.setPassenger(intmp);
             }
         }
         return true;
@@ -598,6 +618,7 @@ public class ConfirmationFrame extends javax.swing.JFrame {
     private javax.swing.JPanel InformationCard;
     private javax.swing.JLabel PlaneCode;
     private javax.swing.JLabel PlaneModel;
+    private javax.swing.JLabel SeatClass;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

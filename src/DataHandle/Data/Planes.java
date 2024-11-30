@@ -8,7 +8,6 @@ import Models.Plane;
 
 import java.sql.*;
 import java.util.*;
-import java.time.*;
 
 import static java.sql.DriverManager.getConnection;
 
@@ -21,7 +20,7 @@ public class Planes {
         String insertPlaneSQL = "INSERT INTO " + CommonConstants.DB_PLANES_TABLE +
                 " (Model, Seats, LocationID, UpdatedBy, UpdatedDate) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection connection = getConnection(
+        try (Connection connection = DriverManager.getConnection(
                 CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
              PreparedStatement adminIDStmt = connection.prepareStatement(
                      "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?");
@@ -73,7 +72,7 @@ public class Planes {
         String modifyPlaneSQL = "UPDATE " + CommonConstants.DB_PLANES_TABLE +
                 " SET Model = ?, Seats = ?, LocationID = ?, UpdatedBy = ?, UpdatedDate = ? WHERE PlaneID = ?";
 
-        try (Connection connection = getConnection(
+        try (Connection connection = DriverManager.getConnection(
                 CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
              PreparedStatement adminIDStmt = connection.prepareStatement(
                      "SELECT AdminID FROM " + CommonConstants.DB_ADMIN_TABLE + " WHERE AdminName = ?");
@@ -123,7 +122,7 @@ public class Planes {
     public static boolean deletePlane(int planeID) {
         String deletePlaneSQL = "DELETE FROM " + CommonConstants.DB_PLANES_TABLE + " WHERE PlaneID = ?";
 
-        try (Connection connection = getConnection(
+        try (Connection connection = DriverManager.getConnection(
                 CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
              PreparedStatement deletePlaneStmt = connection.prepareStatement(deletePlaneSQL)) {
 
@@ -161,7 +160,7 @@ public class Planes {
             parameters.add(updatedBy);
         }
 
-        try (Connection connection = getConnection(
+        try (Connection connection = DriverManager.getConnection(
                 CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
              PreparedStatement viewPlanesStmt = connection.prepareStatement(viewPlaneSQL.toString())) {
 
@@ -193,7 +192,7 @@ public class Planes {
                 "JOIN airline.flights f ON p.planeID = f.planeID " +
                 "SET p.LocationID = f.ArrivalAiportID " +
                 "WHERE CURRENT_TIME() >= f.ArrivalTime";
-        try (Connection connection = getConnection(
+        try (Connection connection = DriverManager.getConnection(
                 CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
              PreparedStatement updateStmt = connection.prepareStatement(updateSQL)) {
             int rowsUpdated = updateStmt.executeUpdate();

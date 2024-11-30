@@ -6,15 +6,17 @@
 package UI.main;
 
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.*;
 
+import DataHandle.Data.Users;
 import Models.Flightxtended;
+import Models.Ticket;
 import Models.User;
 import System.AirlineSystem;
-import UI.main.CustomPlugin.FlightTemplate;
-import UI.main.CustomPlugin.ImagePanel;
+import UI.main.CustomPlugin.*;
 
 /**
  * @author User
@@ -35,6 +37,7 @@ public class Menu extends javax.swing.JFrame {
         jplSlideMenu.setSize(300, 750);
         this.userID = userID;
     }
+
 
     public Menu() {
         initComponents();
@@ -106,8 +109,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jplMain = new javax.swing.JPanel();
         cardTrangChu = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        HomePage = new BackGroundChangedByTime();
         cardDatVe = new javax.swing.JPanel();
         pnContainer1 = new javax.swing.JPanel();
         khung_tim_chuyen_bay = new javax.swing.JPanel();
@@ -127,30 +129,25 @@ public class Menu extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel17 = new javax.swing.JLabel();
+        PasswordField = new javax.swing.JTextField();
+        ChangeMailButton = new javax.swing.JButton();
+        ChangePasswordButton = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        gmailField = new javax.swing.JLabel();
+        UserNameField = new javax.swing.JLabel();
+        profImagePane = new ImagePanel("/UI/Icon/hoso.png");
+        jPanel7 = new javax.swing.JPanel();
         cardVeCuaToi = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        MyTicketScroll = new javax.swing.JScrollPane();
+        MyTicketPane = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1200, 800));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -242,7 +239,11 @@ public class Menu extends javax.swing.JFrame {
         lblHoSo.setText("Hồ sơ");
         lblHoSo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblHoSoMouseClicked(evt);
+                try {
+                    lblHoSoMouseClicked(evt);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -336,19 +337,28 @@ public class Menu extends javax.swing.JFrame {
 
         cardTrangChu.setBackground(new java.awt.Color(255, 255, 255));
         cardTrangChu.setPreferredSize(new java.awt.Dimension(1200, 750));
-        cardTrangChu.setLayout(null);
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Chúc bạn có một chuyến bay vui vẻ !");
-        cardTrangChu.add(jLabel4);
-        jLabel4.setBounds(220, 150, 680, 50);
+        javax.swing.GroupLayout HomePageLayout = new javax.swing.GroupLayout(HomePage);
+        HomePage.setLayout(HomePageLayout);
+        HomePageLayout.setHorizontalGroup(
+            HomePageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1200, Short.MAX_VALUE)
+        );
+        HomePageLayout.setVerticalGroup(
+            HomePageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
+        );
 
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UI/Icon/bg.jpg"))); // NOI18N
-        jLabel12.setText("jLabel12");
-        jLabel12.setPreferredSize(new java.awt.Dimension(1200, 750));
-        cardTrangChu.add(jLabel12);
-        jLabel12.setBounds(0, 0, 1200, 750);
+        javax.swing.GroupLayout cardTrangChuLayout = new javax.swing.GroupLayout(cardTrangChu);
+        cardTrangChu.setLayout(cardTrangChuLayout);
+        cardTrangChuLayout.setHorizontalGroup(
+            cardTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(HomePage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        cardTrangChuLayout.setVerticalGroup(
+            cardTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(HomePage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         jplMain.add(cardTrangChu, "card2");
 
@@ -512,7 +522,6 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(1200, 750));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(new java.awt.Color(204, 0, 0));
 
@@ -537,53 +546,142 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(26, 26, 26))
         );
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 110));
-
-        jLabel13.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jLabel13.setText("SỐ ĐIỆN THOẠI:");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, -1));
-
         jLabel14.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         jLabel14.setText("EMAIL:");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, 70, -1));
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jLabel8.setText("CMND:");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jLabel9.setText("HỌ VÀ TÊN:");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, -1, -1));
-
-        jLabel15.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jLabel15.setText("GIỚI TÍNH:");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         jLabel6.setText("MẬT KHẨU:");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 630, -1, -1));
-        jPanel2.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 200, 40));
-        jPanel2.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 200, 40));
-        jPanel2.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, 200, 40));
-        jPanel2.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 450, 200, 40));
-        jPanel2.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 370, 200, 40));
-        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 540, 200, 40));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         jLabel7.setText("TÊN ĐĂNG NHẬP:");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 540, -1, 40));
-        jPanel2.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 620, 200, 40));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("SỬA");
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 550, 100, 30));
+        ChangeMailButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ChangeMailButton.setText("SỬA");
+        ChangeMailButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    ChangeMailButtonActionPerformed(evt);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setText("ĐỔI MẬT KHẨU");
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 630, 140, 30));
+        ChangePasswordButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ChangePasswordButton.setText("ĐỔI MẬT KHẨU");
+        ChangePasswordButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChangePasswordButtonActionPerformed(evt);
+            }
+        });
 
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UI/Icon/ava.png"))); // NOI18N
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 220, -1, -1));
+        jButton3.setBackground(new java.awt.Color(255, 51, 51));
+        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(51, 255, 255));
+        jButton3.setText("Xóa Tài Khoản");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton3ActionPerformed(evt);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        gmailField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        gmailField.setText("DCMINH@GMAIL.COM");
+
+        UserNameField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        UserNameField.setText("DCMINH");
+
+        javax.swing.GroupLayout profImagePaneLayout = new javax.swing.GroupLayout(profImagePane);
+        profImagePane.setLayout(profImagePaneLayout);
+        profImagePaneLayout.setHorizontalGroup(
+            profImagePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+        profImagePaneLayout.setVerticalGroup(
+            profImagePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        jPanel7.setBackground(new java.awt.Color(204, 0, 0));
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addGap(47, 47, 47)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(PasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(gmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(70, 70, 70)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(ChangePasswordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ChangeMailButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(UserNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(83, 83, 83)
+                        .addComponent(profImagePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(profImagePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(UserNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(37, 37, 37)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addGap(54, 54, 54)
+                                .addComponent(jLabel6))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(PasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ChangePasswordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(ChangeMailButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(gmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(100, 100, 100)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66)))
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         javax.swing.GroupLayout cardHoSoLayout = new javax.swing.GroupLayout(cardHoSo);
         cardHoSo.setLayout(cardHoSoLayout);
@@ -611,29 +709,48 @@ public class Menu extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(501, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(494, 494, 494))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jLabel1)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        javax.swing.GroupLayout MyTicketPaneLayout = new javax.swing.GroupLayout(MyTicketPane);
+        MyTicketPane.setLayout(MyTicketPaneLayout);
+        MyTicketPaneLayout.setHorizontalGroup(
+            MyTicketPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1182, Short.MAX_VALUE)
+        );
+        MyTicketPaneLayout.setVerticalGroup(
+            MyTicketPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 650, Short.MAX_VALUE)
+        );
+
+        MyTicketScroll.setViewportView(MyTicketPane);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(MyTicketScroll)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(675, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MyTicketScroll)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout cardVeCuaToiLayout = new javax.swing.GroupLayout(cardVeCuaToi);
@@ -712,7 +829,7 @@ public class Menu extends javax.swing.JFrame {
         Date DerpartureTime = ngay_di.getDate();
         int PassengerNumber = Integer.parseInt(so_khach_combobox.getSelectedItem().toString());
 
-        ArrayList<Flightxtended> flightFounded = manager.flightManager.UserFindFlight(DerpartureTime, DerpatureAirport, ArrivalAirport, PassengerNumber);
+        ArrayList<Flightxtended> flightFounded = manager.flightControl.UserFindFlight(DerpartureTime, DerpatureAirport, ArrivalAirport, PassengerNumber);
         FlightFoundedPane.setLayout(new BoxLayout(FlightFoundedPane, BoxLayout.Y_AXIS));
         for (Flightxtended flight : flightFounded) {
             FlightTemplate tmp = new FlightTemplate(flight, PassengerNumber, userID);
@@ -731,14 +848,43 @@ public class Menu extends javax.swing.JFrame {
         cardVeCuaToi.setVisible(true);
         cardDatVe.setVisible(false);
         cardHoSo.setVisible(false);
+        loadMyTicketScroll();
     }//GEN-LAST:event_lblVeCuaToiMouseClicked
 
-    private void lblHoSoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHoSoMouseClicked
+    private void loadMyTicketScroll() {
+        MyTicketScroll.setViewportView(MyTicketPane);
+        MyTicketPane.setLayout(new BoxLayout(MyTicketPane, BoxLayout.Y_AXIS));
+        ArrayList<Integer> passIDs = manager.reservationControl.getPassIDs(userID);
+        for (int i : passIDs) {
+            Ticket ticket = manager.reservationControl.getTicketByPassID(i);
+            System.out.println(ticket);
+            TicketTemplate t = new TicketTemplate(ticket, userID);
+            t.setPreferredSize(new Dimension(1190, 390));
+            t.setMaximumSize(new Dimension(1190, 390));
+            t.setAlignmentX(Component.LEFT_ALIGNMENT);
+            MyTicketPane.add(t);
+            MyTicketPane.add(Box.createRigidArea(new Dimension(0, 10)));
+        }
+        MyTicketScroll.getVerticalScrollBar().setUnitIncrement(16);
+        MyTicketPane.revalidate();
+        MyTicketPane.repaint();
+    }
+
+    private void lblHoSoMouseClicked(java.awt.event.MouseEvent evt) throws SQLException {//GEN-FIRST:event_lblHoSoMouseClicked
         cardTrangChu.setVisible(false);
         cardHoSo.setVisible(true);
         cardVeCuaToi.setVisible(false);
         cardDatVe.setVisible(false);
+        loadProfileInfor();
     }//GEN-LAST:event_lblHoSoMouseClicked
+
+    private void loadProfileInfor() throws SQLException {
+        User user = Users.getUserByID(userID);
+        UserNameField.setText(user.getAccount());
+        gmailField.setText(user.getEmail());
+        PasswordField.setText("*".repeat(user.getPassword().length()));
+
+    }
 
     private void lbl_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_menuMouseClicked
         openMenu();
@@ -751,6 +897,57 @@ public class Menu extends javax.swing.JFrame {
         l.pack();
         l.setLocationRelativeTo(null);
     }//GEN-LAST:event_label_dang_xuatMouseClicked
+
+    private void ChangeMailButtonActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_ChangeMailButtonActionPerformed
+        // TODO add your handling code here:
+        ChangeEmail e = new ChangeEmail(this, gmailField.getText(), userID);
+        e.setLocationRelativeTo(null);
+        e.setVisible(true);
+        gmailField.setText(e.getNewEmail());
+    }//GEN-LAST:event_ChangeMailButtonActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        String password = showDeleteAccountDialog();
+        if (password != null) {
+            if (manager.userControl.deleteUser(userID, password)) {
+                JOptionPane.showMessageDialog(this, "Xóa tài khoản thành công!", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+                Login l = new Login();
+                l.setVisible(true);
+                l.pack();
+                l.setLocationRelativeTo(null);
+            } else {
+                JOptionPane.showMessageDialog(null, "Mật khẩu không chính xác", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void ChangePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangePasswordButtonActionPerformed
+        // TODO add your handling code here:
+        ChangePasswordDialog P = new ChangePasswordDialog(this, userID);
+        P.setLocationRelativeTo(null);
+        P.setVisible(true);
+        PasswordField.setText("*".repeat(P.getPWDlength()));
+    }//GEN-LAST:event_ChangePasswordButtonActionPerformed
+
+    private String showDeleteAccountDialog() {
+        JPasswordField pwd = new JPasswordField();
+        Object[] message = {
+                "Enter your password: ", pwd
+        };
+        int option = JOptionPane.showConfirmDialog(
+                this,
+                message,
+                "Xác nhận xóa tài khoản",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+        if (option == JOptionPane.OK_OPTION) {
+            return new String(pwd.getPassword());
+        }
+        return null;
+    }
 
     /**
      * @param args the command line arguments
@@ -788,8 +985,15 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ChangeMailButton;
+    private javax.swing.JButton ChangePasswordButton;
     private javax.swing.JPanel FlightFoundedPane;
     private javax.swing.JScrollPane FlightScroll;
+    private javax.swing.JPanel HomePage;
+    private javax.swing.JPanel MyTicketPane;
+    private javax.swing.JScrollPane MyTicketScroll;
+    private javax.swing.JTextField PasswordField;
+    private javax.swing.JLabel UserNameField;
     private javax.swing.JPanel cardDatVe;
     private javax.swing.JPanel cardHoSo;
     private javax.swing.JPanel cardTrangChu;
@@ -797,35 +1001,22 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel container_avatar_close;
     private javax.swing.JComboBox<String> diem_den;
     private javax.swing.JComboBox<String> diem_khoi_hanh;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel gmailField;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JPanel jplMain;
     private javax.swing.JPanel jplSlideMenu;
     private javax.swing.JPanel khung_tim_chuyen_bay;
@@ -845,6 +1036,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton nut_tim_chuyen_bay;
     private javax.swing.JPanel pnContainer;
     private javax.swing.JPanel pnContainer1;
+    private javax.swing.JPanel profImagePane;
     private javax.swing.JComboBox<String> so_khach_combobox;
     private javax.swing.JPanel thanh_menu;
     // End of variables declaration//GEN-END:variables

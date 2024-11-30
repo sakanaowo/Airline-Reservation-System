@@ -4,17 +4,21 @@
  */
 package UI.main.CustomPlugin;
 
-/**
- * Warning:
- * Không được đụng đến file này
- * */
+
+import Models.Ticket;
+import System.ReservationControl;
+
+import javax.swing.*;
 import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 /**
  * @author Sakana
  */
 public class TicketTemplate extends javax.swing.JPanel {
-    private ImagePanel imagePanel;
+    private Ticket ticket;
+    private int userID;
 
     /**
      * Creates new form TicketTemplate
@@ -24,8 +28,16 @@ public class TicketTemplate extends javax.swing.JPanel {
         setMaximumSize(new Dimension(602, 203));
         setMinimumSize(new Dimension(602, 203));
         initComponents();
-        loadTicket();
+    }
 
+    public TicketTemplate(Ticket ticket, int userID) {
+        this.ticket = ticket;
+        setPreferredSize(new Dimension(602, 203));
+        setMaximumSize(new Dimension(602, 203));
+        setMinimumSize(new Dimension(602, 203));
+        initComponents();
+        loadTicket();
+        this.userID = userID;
     }
 
     /**
@@ -44,6 +56,7 @@ public class TicketTemplate extends javax.swing.JPanel {
         jPanel6 = new RoundedPanel();
         SeatClass = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        lblCancelTicket = new javax.swing.JLabel();
         jPanel3 = new RoundedPanel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -77,12 +90,12 @@ public class TicketTemplate extends javax.swing.JPanel {
         rightName = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(1, 59, 35)));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0)));
         setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(1, 59, 35));
+        jPanel2.setBackground(new java.awt.Color(204, 0, 0));
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -135,7 +148,7 @@ public class TicketTemplate extends javax.swing.JPanel {
         jPanel1.setBounds(30, 30, 730, 70);
 
         SeatClass.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        SeatClass.setForeground(new java.awt.Color(1, 59, 35));
+        SeatClass.setForeground(new java.awt.Color(204, 0, 0));
         SeatClass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         SeatClass.setText("Economy Class");
 
@@ -159,11 +172,37 @@ public class TicketTemplate extends javax.swing.JPanel {
         add(jPanel6);
         jPanel6.setBounds(830, 30, 310, 70);
 
-        jPanel4.setBackground(new java.awt.Color(1, 59, 35));
+        jPanel4.setBackground(new java.awt.Color(204, 0, 0));
+
+        lblCancelTicket.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblCancelTicket.setForeground(new java.awt.Color(255, 255, 255));
+        lblCancelTicket.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCancelTicket.setText("X");
+        lblCancelTicket.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCancelTicketMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addGap(0, 1156, Short.MAX_VALUE)
+                                .addComponent(lblCancelTicket, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel4Layout.setVerticalGroup(
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(lblCancelTicket)
+                                .addGap(0, 42, Short.MAX_VALUE))
+        );
+
         add(jPanel4);
         jPanel4.setBounds(0, 0, 1190, 74);
 
-        jPanel3.setBackground(new java.awt.Color(1, 59, 35));
+        jPanel3.setBackground(new java.awt.Color(204, 0, 0));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -236,7 +275,7 @@ public class TicketTemplate extends javax.swing.JPanel {
         jLabel7.setBounds(120, 230, 60, 20);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel8.setText("Gate:");
+        jLabel8.setText("Ticket:");
         add(jLabel8);
         jLabel8.setBounds(380, 230, 90, 20);
 
@@ -280,7 +319,7 @@ public class TicketTemplate extends javax.swing.JPanel {
         add(DepLeft);
         DepLeft.setBounds(120, 350, 120, 20);
 
-        jPanel5.setBackground(new java.awt.Color(1, 59, 35));
+        jPanel5.setBackground(new java.awt.Color(204, 0, 0));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(246, 246, 246));
@@ -364,7 +403,7 @@ public class TicketTemplate extends javax.swing.JPanel {
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel16.setText("Passenger Name:");
         add(jLabel16);
-        jLabel16.setBounds(900, 110, 170, 30);
+        jLabel16.setBounds(900, 100, 170, 30);
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel19.setText("Date:");
@@ -372,7 +411,7 @@ public class TicketTemplate extends javax.swing.JPanel {
         jLabel19.setBounds(900, 170, 60, 20);
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel20.setText("Boarding Time:");
+        jLabel20.setText("Arrival Time:");
         add(jLabel20);
         jLabel20.setBounds(900, 240, 140, 27);
 
@@ -389,8 +428,45 @@ public class TicketTemplate extends javax.swing.JPanel {
         rightName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         rightName.setText("DCMINH");
         add(rightName);
-        rightName.setBounds(900, 140, 130, 25);
+        rightName.setBounds(900, 130, 130, 25);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lblCancelTicketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCancelTicketMouseClicked
+        // TODO add your handling code here:
+        //xoave
+        int key = JOptionPane.showConfirmDialog(
+                null,
+                "Bạn có chắc chắn muốn xóa chuyến bay này không?",
+                "Confirmation",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+        if (key == JOptionPane.OK_OPTION) {
+            boolean cancelled = ReservationControl.CancelTicket(ticket.getPassenger().getPassengerID());
+            if (cancelled) {
+                JOptionPane.showMessageDialog(null, "Đã Xóa Chuyến: " + ticket.getTicketCode(), "Xóa Thành Công", JOptionPane.INFORMATION_MESSAGE);
+                Container parent = this.getParent();
+                if (parent instanceof JPanel) {
+                    JPanel panel = (JPanel) parent;
+                    panel.removeAll();
+                    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+                    ArrayList<Integer> passIDs = ReservationControl.getPassIDs(userID);
+                    for (int i : passIDs) {
+                        Ticket ticket_ = ReservationControl.getTicketByPassID(i);
+                        TicketTemplate t = new TicketTemplate(ticket_, userID);
+                        t.setPreferredSize(new Dimension(1190, 390));
+                        t.setMaximumSize(new Dimension(1190, 390));
+                        t.setAlignmentX(Component.LEFT_ALIGNMENT);
+                        panel.add(t);
+                        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+                    }
+                    panel.revalidate();
+                    panel.repaint();
+                }
+            }
+        }
+
+    }//GEN-LAST:event_lblCancelTicketMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -428,6 +504,7 @@ public class TicketTemplate extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblCancelTicket;
     private javax.swing.JLabel leftName;
     private javax.swing.JPanel leftQR;
     private javax.swing.JLabel rightName;
@@ -435,6 +512,19 @@ public class TicketTemplate extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void loadTicket() {
-        // nothing here yet
+        jLabel11.setText(ticket.getTicketCode());
+        leftName.setText(ticket.getPassenger().getName());
+        DateLeftLabel.setText(ticket.getReservationDate());
+        DepLeft.setText(new SimpleDateFormat("HH:mm").format(ticket.getFlight().getDepartureTime()));
+        FlightID.setText(String.format("VN %03d", ticket.getFlight().getFlightID()));
+        Seat.setText(ticket.getSeat().getPosition());
+        FromLeft.setText(ticket.getFlight().getDepartureAirport().getCity());
+        ToLeft.setText(ticket.getFlight().getArrivalAirport().getCity());
+        SeatClass.setText(ticket.getSeat().getSeatClass());
+        rightName.setText(ticket.getPassenger().getName());
+        DateRightLabel.setText(ticket.getReservationDate());
+        DepRight.setText(new SimpleDateFormat("HH:mm").format(ticket.getFlight().getArrivalTime()));
+        FromRight.setText(ticket.getFlight().getDepartureAirport().getCity());
+        ToRight.setText(ticket.getFlight().getArrivalAirport().getCity());
     }
 }

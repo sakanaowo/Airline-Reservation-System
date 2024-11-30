@@ -26,8 +26,15 @@ public class Flight {
         this.DepartureAirport = DepartureAirport;
     }
 
+    public Flight() {
+    }
+
     public int getFlightID() {
         return flightID;
+    }
+
+    public void setFlightID(int ID) {
+        this.flightID = ID;
     }
 
     public int getPlaneID() {
@@ -76,6 +83,6 @@ public class Flight {
 
     @Override
     public String toString() {
-        return formatter.format(DepartureTime)+ " "+ formatter.format(ArrivalTime)+ " "+ plane.getModel()+" "+DepartureAirport.getAirportName()+" "+ ArrivalAirport.getAirportName();
+        return formatter.format(DepartureTime) + " " + formatter.format(ArrivalTime) + " " + plane.getModel() + " " + DepartureAirport.getAirportName() + " " + ArrivalAirport.getAirportName();
     }
 }

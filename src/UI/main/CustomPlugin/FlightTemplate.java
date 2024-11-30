@@ -6,8 +6,11 @@ package UI.main.CustomPlugin;
 
 import Models.Flightxtended;
 import UI.main.ConfirmationFrame;
+import DataHandle.Data.Seats;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -28,6 +31,9 @@ public class FlightTemplate extends javax.swing.JPanel {
     }
 
     private void loadFlightInfor() {
+        ArrayList<Object> seatPrice = Seats.viewSeatPrice(flight.getFlightID());
+        EconomySeatCost.setText(String.valueOf(seatPrice.get(0)));
+        businessSeatCost.setText(String.valueOf(seatPrice.get(1)));
         String deptime = hour.format(flight.getDepartureTime());
         DepTime.setText(deptime);
 
@@ -49,8 +55,8 @@ public class FlightTemplate extends javax.swing.JPanel {
         String FN = flight.getPlane().getModel();
         FlightModel.setText(FN + " bởi CLC04AIRLINE");
 
-        EconomySeatAvailable.setText("còn " + flight.getEconomySeat() + " chỗ");
-        BusinessSeatAvailable.setText("còn " + flight.getBusinessSeat() + " chỗ");
+        EconomySeatAvailable.setText("còn " + flight.getEconomySeatAvailable() + " chỗ");
+        BusinessSeatAvailable.setText("còn " + flight.getBusinessSeatAvailable() + " chỗ");
     }
 
     private String getDiffTime(Date departureTime, Date arrivalTime) {
@@ -355,14 +361,14 @@ public class FlightTemplate extends javax.swing.JPanel {
 
     private void BusinessClassPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BusinessClassPaneMouseClicked
         // TODO add your handling code here:
-        ConfirmationFrame confirmationFrame = new ConfirmationFrame(flight, passengerNumber, "BusinessClass", userID);
+        ConfirmationFrame confirmationFrame = new ConfirmationFrame(flight, passengerNumber, "Business", userID);
         confirmationFrame.setLocationRelativeTo(null);
         confirmationFrame.setVisible(true);
     }//GEN-LAST:event_BusinessClassPaneMouseClicked
 
     private void economyClassPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_economyClassPaneMouseClicked
         // TODO add your handling code here:
-        ConfirmationFrame confirmationFrame = new ConfirmationFrame(flight, passengerNumber, "EconomyClass", userID);
+        ConfirmationFrame confirmationFrame = new ConfirmationFrame(flight, passengerNumber, "Economy", userID);
         confirmationFrame.setLocationRelativeTo(null);
         confirmationFrame.setVisible(true);
     }//GEN-LAST:event_economyClassPaneMouseClicked

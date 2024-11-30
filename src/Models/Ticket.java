@@ -3,9 +3,7 @@ package Models;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-// chưa xong
 public class Ticket {
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     private int ticketID;
     private String TicketCode;
     private Passenger passenger;
@@ -13,7 +11,6 @@ public class Ticket {
     private Flight flight;
     private Date ReservationDate;
     private double Price;
-    private boolean Status;
 
     public Ticket(Passenger passenger, Seat Seat, Flight flight, Date ReservationDate) {
         this.passenger = passenger;
@@ -21,11 +18,18 @@ public class Ticket {
         this.flight = flight;
         this.ReservationDate = ReservationDate;
         this.Price = getSeat().getPrice();
-        this.Status = true;
+    }
+
+    public void setTicketID(int ticketID) {
+        this.ticketID = ticketID;
     }
 
     public String getTicketCode() {
         return TicketCode;
+    }
+
+    public Flight getFlight() {
+        return flight;
     }
 
     public void setTicketCode(String TicketCode) {
@@ -49,7 +53,7 @@ public class Ticket {
     }
 
     public String getReservationDate() {
-        return sdf.format(ReservationDate);
+        return new SimpleDateFormat("dd/MM/yyyy").format(ReservationDate);
     }
 
     public void setReservationDate(Date ReservationDate) {
@@ -60,30 +64,17 @@ public class Ticket {
         return Price;
     }
 
-    // Phương thức hủy vé
-    public void cancelTicket() {
-        if (Status) {
-            this.Status = false;
-            System.out.println("Vé số " + ticketID + " đã bị hủy.");
-        } else {
-            System.out.println("Vé số " + ticketID + " đã bị hủy trước đó.");
-        }
+    public String getReservationTime() {
+        return new SimpleDateFormat("HH:mm").format(ReservationDate);
     }
 
-    public String getStatus() {
-        if (Status) {
-            return "Vé đang có hiệu lực";
-        } else return "Vé đã hết hiệu lực";
-    }
-    public boolean isActive() {
-        return Status;
-    }
-
-    // Hiển thị thông tin vé
     @Override
     public String toString() {
-        return "Ticket ID: " + ticketID + ", Passenger: " + passenger.getName() +
-                ", Flight: " + flight.getFlightID() + ", Seat: " + getSeat().getPosition() +
-                ", Price: $" + Price + ", Status: " + (Status ? "Cancelled" : "Active");
+        return "TicketID: " + getTicketCode() + '\n' +
+                "TicketCode" + getTicketCode() + "\n" +
+                "Passenger: " + getPassenger().getName() + '\n' +
+                "SeatID: " + getSeat().getPosition() + '\n' +
+                "FlightID: " + getFlight().getFlightID() + '\n' +
+                "Date: " + getReservationDate() + '\n';
     }
 }

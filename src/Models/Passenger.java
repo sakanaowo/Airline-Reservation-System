@@ -14,6 +14,19 @@ public class Passenger {
         this.CitizenIdentificationNumber = CitizenIdentificationNumber;
     }
 
+    public Passenger(int passengerID, String firstName, String lastName, String phoneNumber, String cccd, int userID) {
+        this.PassengerID = passengerID;
+        this.FirstName = firstName;
+        this.LastName = lastName;
+        this.PhoneNumber = phoneNumber;
+        this.CitizenIdentificationNumber = cccd;
+        this.UserID = userID;
+    }
+
+    public Passenger() {
+
+    }
+
     public String getFirstName() {
         return FirstName;
     }
@@ -48,5 +61,13 @@ public class Passenger {
 
     public String getName() {
         return FirstName + " " + LastName;
+    }
+
+    public void setPassengerID(int PassengerID) {
+        this.PassengerID = PassengerID;
+    }
+
+    public int getPassengerID() {
+        return PassengerID;
     }
 }

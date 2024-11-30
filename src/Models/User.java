@@ -1,8 +1,4 @@
 package Models;
-// chưa xong
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class User {
     private int UserID;
@@ -26,10 +22,6 @@ public class User {
         return account;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -42,19 +34,4 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-//    public List<Passenger> getPassengers() {
-//        return passengers;
-//    }
-//
-//    public void addPassenger(Passenger passenger) {
-//        this.passengers.add(passenger);
-//    }
-//
-//    public void removePassenger(Passenger passenger) {
-//        this.passengers.remove(passenger);
-//    }
 }

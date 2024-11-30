@@ -3,25 +3,25 @@ package Models;
 import java.util.Date;
 
 public class Flightxtended extends Flight {
-    private int economySeat, businessSeat;
+    private int economySeatAvailable, businessSeatAvailable;
 
     public Flightxtended(Date DepartureTime, Date ArrivalTime, Plane plane, Airport ArrivalAirport, Airport DepartureAirport, int economySeat, int businessSeat) {
         super(DepartureTime, ArrivalTime, plane, ArrivalAirport, DepartureAirport);
-        this.economySeat = economySeat;
-        this.businessSeat = businessSeat;
+        this.economySeatAvailable = economySeat;
+        this.businessSeatAvailable = businessSeat;
     }
 
-    public int getEconomySeat() {
-        return economySeat;
+    public int getEconomySeatAvailable() {
+        return economySeatAvailable;
     }
 
-    public int getBusinessSeat() {
-        return businessSeat;
+    public int getBusinessSeatAvailable() {
+        return businessSeatAvailable;
     }
 
     @Override
     public String toString() {
-        return super.toString() + economySeat + " "
-                + businessSeat;
+        return super.toString() + economySeatAvailable + " "
+                + businessSeatAvailable;
     }
 }
