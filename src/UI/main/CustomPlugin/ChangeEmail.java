@@ -4,10 +4,9 @@
  */
 package UI.main.CustomPlugin;
 
-import DataHandle.Data.Users;
+import System.AirlineSystem;
 
 import javax.swing.*;
-import java.awt.*;
 import java.sql.SQLException;
 
 /**
@@ -16,6 +15,7 @@ import java.sql.SQLException;
 public class ChangeEmail extends javax.swing.JDialog {
     private int userID;
     private String newEmail;
+    private AirlineSystem system = new AirlineSystem();
 
     public String getNewEmail() {
         return this.newEmail;
@@ -120,7 +120,7 @@ public class ChangeEmail extends javax.swing.JDialog {
         // TODO add your handling code here:
         String newEmail = newEmailField.getText();
         try {
-            Users.updateUserEmail(userID, newEmail);
+            system.userControl.changeEmail(userID, newEmail);
             this.newEmail = newEmail;
             dispose(); // Close dialog after successful update
         } catch (SQLException e) {
