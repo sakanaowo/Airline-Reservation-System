@@ -17,7 +17,6 @@ import static DataHandle.Data.Planes.getPlaneById;
 
 
 public class FlightControl {
-
     // Method to view flights based on filters
     // 1 way
     public ArrayList<Flightxtended> UserFindFlight(Date depTime, String departureCity, String arrivalCity, int seatNumber) {

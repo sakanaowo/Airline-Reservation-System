@@ -187,7 +187,7 @@ public class Planes {
     public static void updatePlaneBaseOnFlight() {
         String updateSQL = "UPDATE airline.planes p " +
                 "JOIN airline.flights f ON p.planeID = f.planeID " +
-                "SET p.LocationID = f.ArrivalAiportID " +
+                "SET p.LocationID = f.ArrivalAirportID " +
                 "WHERE CURRENT_TIME() >= f.ArrivalTime";
         try (Connection connection = DriverManager.getConnection(
                 CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
