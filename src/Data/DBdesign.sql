@@ -136,8 +136,12 @@ CREATE TABLE `airline`.`tickets` (
     ON UPDATE CASCADE
 );
 
-INSERT INTO `airline`.`admins` (`AdminName`, `Password`, `Email`)
-VALUES ('thinh', SHA2('1', 256), 'thinhthiennguyen2004@gmail.com');
+INSERT INTO `airline`.`admins` (`AdminName`, `Password`, `Email`) VALUES
+('thinh', '1', 'thinhthiennguyen2004@gmail.com'),
+('tan', '1', 'tranminhtan2004@gmail.com'),
+('thai anh', '1', 'camuoi@gmail.com') ,
+('dung', '1', 'trantiendung2004@gmail.com'),
+('khoa', '1', 'hoangngocdangkhoa2004@gmail.com');
 
 
 INSERT INTO `airline`.`airports` (`AirportName`, `City`, `AirportCode`) VALUES
