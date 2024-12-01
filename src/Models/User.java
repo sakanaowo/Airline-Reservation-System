@@ -9,6 +9,12 @@ public class User {
         this.password = password;
         this.email = email;
     }
+    public User(String account, String password, String email, int UserID) {
+        this.account = account;
+        this.password = password;
+        this.email = email;
+        this.UserID = UserID;
+    }
 
     public int getUserID() {
         return UserID;
