@@ -17,7 +17,6 @@ The **Airline Reservation System** is a Java-based application designed to simpl
 
 - **Admin Features**:
     - Add, edit, and remove flights from the system.
-    - Manage user accounts and reservations.
 
 ## Technologies Used
 
