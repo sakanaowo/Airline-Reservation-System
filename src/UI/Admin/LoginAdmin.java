@@ -330,6 +330,7 @@ public class LoginAdmin extends javax.swing.JFrame {
             frame.setLocationRelativeTo(null);
 
             frame.setVisible(true);
+            dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Admin email or password is wrong!", "Failed", JOptionPane.ERROR_MESSAGE);
         }

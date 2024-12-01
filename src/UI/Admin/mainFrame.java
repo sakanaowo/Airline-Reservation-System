@@ -14,7 +14,7 @@ public class mainFrame {
         JPanel menuPanel = new JPanel(new GridLayout(6, 1));
 
         // Load the logo image for the button
-        ImageIcon logoIcon = new ImageIcon(backupMain.class.getResource("Icon\\airport.jpg"));
+        ImageIcon logoIcon = new ImageIcon(backupMain.class.getResource("/UI/Icon/airport.jpg"));
         // Resize the image to fit the button (optional)
         Image scaledImage = logoIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH); // Adjust size as needed
         ImageIcon scaledLogoIcon = new ImageIcon(scaledImage);
@@ -85,7 +85,7 @@ public class mainFrame {
     private static void handleLogout(JFrame frame) {
         int choice = JOptionPane.showConfirmDialog(frame, "Are you sure you want to log out?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
-            System.exit(0); // Exit the application
+            System.exit(0);
         }
     }
 
@@ -150,18 +150,6 @@ public class mainFrame {
         buttonPanel.add(searchFlightButton);
         buttonPanel.add(refreshButton);
 
-        // Text Area for flight details
-        /*JTextArea textArea = new JTextArea();
-        textArea.setEditable(false);
-        textArea.setWrapStyleWord(true);
-        textArea.setLineWrap(true);
-        textArea.setFont(new Font("Arial", Font.PLAIN, 14));
-        JScrollPane textAreaScrollPane = new JScrollPane(textArea);
-        textAreaScrollPane.setBorder(BorderFactory.createTitledBorder("Details"));
-
-        panel.add(textAreaScrollPane, BorderLayout.SOUTH);
-        textAreaScrollPane.setPreferredSize(new Dimension(600, 200));
-         */
         panel.add(buttonPanel, BorderLayout.EAST);
 
         // Action listeners for buttons
@@ -242,17 +230,6 @@ public class mainFrame {
         buttonPanel.add(searchAirportButton);
         buttonPanel.add(refreshAirportButton);
 
-        // Text Area for airport details
-        /*JTextArea textArea = new JTextArea();
-        textArea.setEditable(false);
-        textArea.setWrapStyleWord(true);
-        textArea.setLineWrap(true);
-        textArea.setFont(new Font("Arial", Font.PLAIN, 14));
-        JScrollPane textAreaScrollPane = new JScrollPane(textArea);
-        textAreaScrollPane.setBorder(BorderFactory.createTitledBorder("Details"));
-
-        panel.add(textAreaScrollPane, BorderLayout.SOUTH);
-        textAreaScrollPane.setPreferredSize(new Dimension(600, 200)); */
         panel.add(buttonPanel, BorderLayout.EAST);
 
         // Action listeners for airport buttons
@@ -332,17 +309,6 @@ public class mainFrame {
         buttonPanel.add(searchPlaneButton);
         buttonPanel.add(refreshPlaneButton);
 
-        // Text Area for plane details
-        /*JTextArea textArea = new JTextArea();
-        textArea.setEditable(false);
-        textArea.setWrapStyleWord(true);
-        textArea.setLineWrap(true);
-        textArea.setFont(new Font("Arial", Font.PLAIN, 14));
-        JScrollPane textAreaScrollPane = new JScrollPane(textArea);
-        textAreaScrollPane.setBorder(BorderFactory.createTitledBorder("Details"));
-
-        panel.add(textAreaScrollPane, BorderLayout.SOUTH);
-        textAreaScrollPane.setPreferredSize(new Dimension(600, 200));*/
         panel.add(buttonPanel, BorderLayout.EAST);
 
         // Action listeners for plane buttons
