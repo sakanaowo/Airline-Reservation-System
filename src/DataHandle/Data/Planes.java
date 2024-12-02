@@ -189,20 +189,55 @@ public class Planes {
     }
 
     public static void updatePlaneBaseOnFlight() {
-        String updateSQL = "UPDATE airline.planes p "+
-                "JOIN airline.flights f ON p.planeID = f.planeID " +
-                "SET p.LocationID = f.ArrivalAiportID " +
-                "WHERE CURRENT_TIME() >= f.ArrivalTime";
-        try (Connection connection = getConnection(
-                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD);
-             PreparedStatement updateStmt = connection.prepareStatement(updateSQL)) {
-            int rowsUpdated = updateStmt.executeUpdate();
-            System.out.println(rowsUpdated +"may bay duoc update location trong table planes");
+        String updatePlanesSQL = """
+            UPDATE airline.planes p
+            JOIN airline.flights f ON p.planeID = f.planeID
+            SET p.LocationID = f.ArrivalAirportID
+            WHERE CURRENT_TIME() >= f.ArrivalTime
+            """;
+
+        String deleteTicketsSQL = """
+            DELETE t
+            FROM airline.tickets t
+            JOIN airline.seats s ON t.SeatID = s.SeatID
+            JOIN airline.flights f ON s.FlightID = f.FlightID
+            WHERE CURRENT_TIME() >= f.ArrivalTime
+            """;
+
+        String deletePassengersSQL = """
+            DELETE p
+            FROM airline.passengers p
+            WHERE NOT EXISTS (
+                SELECT 1
+                FROM airline.tickets t
+                WHERE t.PassengerID = p.PassengerID
+            )
+            """;
+
+        String deleteFlightsSQL = """
+            DELETE FROM airline.flights
+            WHERE CURRENT_TIME() >= ArrivalTime
+        """;
+
+        try (Connection connection = DriverManager.getConnection(
+                CommonConstants.DB_URL, CommonConstants.DB_USERNAME, CommonConstants.DB_PASSWORD); PreparedStatement updatePlanesStmt = connection.prepareStatement(updatePlanesSQL); PreparedStatement deleteTicketsStmt = connection.prepareStatement(deleteTicketsSQL); PreparedStatement deletePassengersStmt = connection.prepareStatement(deletePassengersSQL); PreparedStatement deleteFlightsStmt = connection.prepareStatement(deleteFlightsSQL)) {
+
+            int planesUpdated = updatePlanesStmt.executeUpdate();
+            System.out.println(planesUpdated + " planes updated in the 'planes' table.");
+
+            int ticketsDeleted = deleteTicketsStmt.executeUpdate();
+            System.out.println(ticketsDeleted + " tickets deleted from the 'tickets' table.");
+
+            int passengersDeleted = deletePassengersStmt.executeUpdate();
+            System.out.println(passengersDeleted + " passengers deleted from the 'passengers' table.");
+
+            int flightsDeleted = deleteFlightsStmt.executeUpdate();
+            System.out.println(flightsDeleted + " flights deleted from the 'flights' table.");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
     // get plane by ID
     public static Plane getPlaneById(int planeID) {
         String sql = "SELECT p.*, a.AdminName FROM " + CommonConstants.DB_PLANES_TABLE + " p " +
