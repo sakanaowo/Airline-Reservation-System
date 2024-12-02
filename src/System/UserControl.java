@@ -1,6 +1,7 @@
 package System;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import DataHandle.Data.Users;
 
@@ -32,10 +33,16 @@ public class UserControl {
     public static boolean changeEmail(int userID, String newEmail) throws SQLException {
         return Users.updateUserEmail(userID, newEmail);
     }
-    public static boolean deleteUser(int userID,String confirm) throws SQLException {
-        String pwd=Users.getPasswordByID(userID);
-        if(confirm.equals(pwd)) return Users.deleteUser(userID);
-        else return false;
+
+    public static boolean deleteUser(int userID, String confirm) throws SQLException {
+        String pwd = Users.getPasswordByID(userID);
+        if (confirm.equals(pwd)) {
+            ArrayList<Integer> passIDs = ReservationControl.getPassIDs(userID);
+            for (int i : passIDs) {
+                ReservationControl.CancelTicket(i);
+            }
+            return Users.deleteUser(userID);
+        } else return false;
     }
 
     public boolean resetPassword(String username, String email) throws SQLException {
