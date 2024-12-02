@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class BackGroundChangedByTime extends JPanel {
     private Image[] images;
@@ -12,10 +13,12 @@ public class BackGroundChangedByTime extends JPanel {
     public BackGroundChangedByTime() {
         images = new Image[]{
                 new ImageIcon(getClass().getResource("/UI/Icon/phu-quoc.jpg")).getImage(),
-                new ImageIcon(getClass().getResource("/UI/Icon/bg.jpg")).getImage(),
-                new ImageIcon(getClass().getResource("/UI/Icon/hcml-1.jpg")).getImage()
+                new ImageIcon(getClass().getResource("/UI/Icon/jp.jpg")).getImage(),
+                new ImageIcon(getClass().getResource("/UI/Icon/hcml-1.jpg")).getImage(),
+                new ImageIcon(getClass().getResource("/UI/Icon/paris.png")).getImage()
         };
-        Timer timer = new Timer(3000, new ActionListener() {
+        currentIndex = new Random().nextInt(5);
+        Timer timer = new Timer(2000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 currentIndex = (currentIndex + 1) % images.length;
@@ -24,6 +27,7 @@ public class BackGroundChangedByTime extends JPanel {
         });
         timer.start();
     }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
