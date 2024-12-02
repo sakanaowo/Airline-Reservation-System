@@ -13,9 +13,10 @@ public class BackGroundChangedByTime extends JPanel {
     public BackGroundChangedByTime() {
         images = new Image[]{
                 new ImageIcon(getClass().getResource("/UI/Icon/phu-quoc.jpg")).getImage(),
-                new ImageIcon(getClass().getResource("/UI/Icon/jp.jpg")).getImage(),
                 new ImageIcon(getClass().getResource("/UI/Icon/hcml-1.jpg")).getImage(),
-                new ImageIcon(getClass().getResource("/UI/Icon/paris.png")).getImage()
+                new ImageIcon(getClass().getResource("/UI/Icon/jp.png")).getImage(),
+                new ImageIcon(getClass().getResource("/UI/Icon/russia.jpg")).getImage(),
+                new ImageIcon(getClass().getResource("/UI/Icon/paris.jpg")).getImage()
         };
         currentIndex = new Random().nextInt(5);
         Timer timer = new Timer(2000, new ActionListener() {
