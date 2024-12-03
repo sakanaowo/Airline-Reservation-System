@@ -78,7 +78,7 @@ public class Seats {
                 "JOIN airline.airports aa ON f.ArrivalAirportID = aa.AirportID " +
                 "JOIN airline.seats s ON f.FlightID = s.FlightID " +
                 "WHERE 1=1 ";
-
+        System.out.println(viewSeatSQL);
         ArrayList<ArrayList<Object>> seatsList = new ArrayList<>();
 
         if (!departureTime.isEmpty()) {

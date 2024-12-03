@@ -211,8 +211,9 @@ public class Flights {
             if (!arrivalCityName.isEmpty()) {
                 viewFlightsStmt.setString(index++, "%" + arrivalCityName + "%");
             }
-
+            System.out.print(viewFlightSQL + " okokokoko ");
             ResultSet resultSet = viewFlightsStmt.executeQuery();
+
             while (resultSet.next()) {
                 ArrayList<Object> flightData = new ArrayList<>();
                 flightData.add(resultSet.getInt("FlightID"));
@@ -350,4 +351,5 @@ public class Flights {
                 CommonConstants.DB_PASSWORD
         );
     }
+
 }

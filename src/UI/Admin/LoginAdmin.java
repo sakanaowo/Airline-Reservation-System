@@ -317,7 +317,7 @@ public class LoginAdmin extends javax.swing.JFrame {
 
             view.viewAirports(mainFrame.getAirportsPanel());
             view.viewFlights(mainFrame.getFlightsPanel());
-            view.viewPlanes(mainFrame.getFlightsPanel());
+            view.viewPlanes(mainFrame.getPlanesPanel());
             JFrame frame = new JFrame("Admin");
 
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

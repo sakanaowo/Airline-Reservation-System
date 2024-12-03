@@ -42,24 +42,4 @@ public class Plane {
     public void setSeats(int Seats) {
         this.Seats = Seats;
     }
-
-    public int getUpdatedBy() {
-        return UpdatedBy;
-    }
-
-    public void setUpdatedBy(int UpdatedBy) {
-        this.UpdatedBy = UpdatedBy;
-    }
-
-    public Date getUpdatedDate() {
-        return UpdatedDate;
-    }
-
-    public void setUpdatedDate(Date UpdatedDate) {
-        this.UpdatedDate = UpdatedDate;
-    }
-
-    public String getFormattedUpdatedDate() {
-        return sdf.format(UpdatedDate);
-    }
 }

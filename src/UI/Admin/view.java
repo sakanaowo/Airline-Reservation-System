@@ -47,7 +47,7 @@ public class view {
     public static void viewPlanes(JPanel panel){
         panel.removeAll();
         // Định nghĩa tên cột cho bảng
-        String[] columnNames = {"Plane ID", "Model", "Seats", "Location ID", "Location", "UpdatedBy", "UpdatedDate"};
+        String[] columnNames = {"Plane ID", "Model", "Seats", "Location", "UpdatedBy", "UpdatedDate"};
         
         ArrayList<ArrayList<Object>> planeData = Planes.viewPlane("", "", "");
 
