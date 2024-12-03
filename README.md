@@ -134,7 +134,7 @@ src
 2. **Import the Project into IntelliJ IDEA**:
     - Open IntelliJ IDEA.
     - Choose **File > Open** and select the cloned project folder.
-    - Ensure all required modules and libraries are imported from lib folder successfully.
+    - Ensure all required modules and libraries are imported from `NeededModules` folder.
 
 3. **Database Setup**:
     - Configure your database using the provided `DBdesign.sql` script.
