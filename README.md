@@ -125,27 +125,24 @@ src
 ## Installation and Setup
 
 1. **Clone the Repository**:  
-   Clone the project to your local machine:
+   Clone the project to your local machine using the following commands:
    ```bash
    git clone https://github.com/sakanaowo/Airline-Reservation-System
    cd Airline-Reservation-System
    ```
 
-2. **Compile the Source Code**:  
-   Navigate to the `src` directory and compile the source code:
-   ```bash
-   javac src/main.java
-   ```
+2. **Import the Project into IntelliJ IDEA**:
+    - Open IntelliJ IDEA.
+    - Choose **File > Open** and select the cloned project folder.
+    - Ensure all required modules and libraries are imported from lib folder successfully.
 
-3. **Run the Application**:  
-   Run the application after successful compilation:
-   ```bash
-   java src/main.java
-   ```
-
-4. **Database Setup**:  
-   - Configure your database using the provided `DBdesign.sql` script.
-   - Update connection settings in `DBManager.java` or relevant classes.
+3. **Database Setup**:
+    - Configure your database using the provided `DBdesign.sql` script.
+    - Update the database connection.
+    - 
+4. **Run the Main File**:
+    - Locate the `main.java` file in the `src` folder.
+    - Right-click on `main.java` and select **Run 'main'**.
 
 ---
 
