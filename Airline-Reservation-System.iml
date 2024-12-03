@@ -16,8 +16,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" exported="" name="jcalendar-1.4" level="project" />
-    <orderEntry type="library" exported="" name="swing-layout-1.0.4" level="project" />
-    <orderEntry type="library" exported="" name="AbsoluteLayout-RELEASE220" level="project" />
+    <orderEntry type="library" exported="" name="lib" level="project" />
   </component>
 </module>
