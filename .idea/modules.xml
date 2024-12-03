@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Airline-Reservation-System.iml" filepath="$PROJECT_DIR$/Airline-Reservation-System.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NeededModules/NeededModules.iml" filepath="$PROJECT_DIR$/NeededModules/NeededModules.iml" />
     </modules>
   </component>
 </project>
