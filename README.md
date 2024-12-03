@@ -139,7 +139,7 @@ src
 3. **Database Setup**:
     - Configure your database using the provided `DBdesign.sql` script.
     - Update the database connection.
-    - 
+   
 4. **Run the Main File**:
     - Locate the `main.java` file in the `src` folder.
     - Right-click on `main.java` and select **Run 'main'**.
