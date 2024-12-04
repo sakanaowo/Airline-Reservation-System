@@ -177,3 +177,6 @@ src
 - [Trần Minh Tân](https://github.com/MinhTan777)
 - [Trần Tiến Dũng](https://github.com/DungHieu2319)
 ---
+
+https://docs.google.com/document/d/1toBJ9K_D1dylDEWT_vrDQRo0jXO8LVg7R-Si12nbKB4/edit?usp=sharing
+---
